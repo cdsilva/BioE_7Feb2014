@@ -1,0 +1,74 @@
+\documentclass[10pt]{beamer}
+
+\input{../tex_format_files/beamer_format}
+
+\graphicspath{ {drosophila_pics/} }
+
+\title[Image Analysis and {\em Drosophila}]{Image Analysis and Symmetry in the Reconstruction of {\em Drosophila} Embryogenesis Dynamics}
+
+\author[C. Dsilva]{{\bf Carmeline~Dsilva} \inst{1},  Bomyi~Lim \inst{1}, Stanislav~Shvartsman \inst{1,2}, and Ioannis~Kevrekidis \inst{1,3}}
+\institute[Princeton]{
+  \inst{1} Department of Chemical and Biological Engineering, Princeton University, Princeton, NJ 08544 \and 
+  \inst{2} Lewis-Sigler Institute for Integrative Genomics, Princeton University, Princeton, NJ 08544 \and \inst{3} Program in Applied and Computational Mathematics, Princeton University, Princeton, NJ 08544 %\\
+  %\\[1ex]
+  %\texttt{cdsilva@princeton.edu}
+}
+\date[February 2014]{7 February 2014}
+
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+  \hfill
+  \includegraphics[width=1in]{../logos/PUsig2.pdf}
+\end{frame}
+
+\begin{frame}
+\frametitle{Talk Overview}
+\tableofcontents[]
+\end{frame}
+
+\input{drosophila_background}
+
+\input{prealigned_conc_profiles}
+
+\input{unaligned_conc_profiles}
+
+\input{unaligned_images}
+
+\input{unaligned_membranes}
+
+\section{Conclusions}
+
+\begin{frame}{Conclusions and Acknowledgments}
+    \begin{itemize}
+        \item Dimensionality reduction techniques, such as PCA, can help  us reconstruct developmental dynamics in {\em Drosophila} embryos
+        \item Factoring out symmetries is important to uncovering the underlying (symmetry-invariant) dynamics
+        \item We can work with the two-dimensional images, rather than pre-processed concentration profiles, to obtain a similar picture of developmental dynamics
+		\item We are currently working on the more general problem of factoring out symmetries in the presence of noise
+        \item Future work includes doing a similar analysis for the membrane images to develop an image ``calibration curve'' for membrane pictures versus time
+        
+    \end{itemize}
+    
+     \vfill
+    
+    \centering
+    \begin{minipage}{0.2\textwidth}
+    	\centering
+    	\includegraphics[width=\textwidth]{../logos/DOE_logo.png}\\
+		{\footnotesize DE-FG02-10ER26024, \\Award Number DE-SC000517 \\ DE-FG02-09ER25877, \\Award Number DE-SC0002097 \par}
+    \end{minipage}
+    \begin{minipage}{0.2\textwidth}
+    	\centering
+    	\includegraphics[width=0.5\textwidth]{../logos/nsf1.jpg}\\
+		{\footnotesize CMMI-1310173}
+    \end{minipage}
+    \begin{minipage}{0.2\textwidth}
+	    \centering
+    	\includegraphics[width=\textwidth]{../logos/CSGF_horiz_1200x360.png}
+    \end{minipage}
+    
+\end{frame}
+
+
+\end{document}

@@ -1,0 +1,75 @@
+\section{Pre-Aligned Images: Principal Component Analysis}
+
+\begin{frame}{Principal Component Analysis (PCA)}
+  \begin{itemize}
+  \item The goal of PCA \footcite{shlens2005tutorial} is to find the direction(s) of maximum variance in a data set
+  \item In our case, we are assuming that there is one direction with significantly more variance than the others
+  \item We assume that if we project our data along this line, we will get an embedding that is correlated with time
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{PCA: Covariance Matrix}
+  \begin{itemize}
+  \item We have $n$ {\bf data points}, each in $d$ dimensions, denoted $x_1, x_2, \dots, x_n \in \mathbb{R}^d$, where $x_{i,j}$ denotes the $j^{th}$ component of data point $i$
+  \item We first define the {\bf mean-centered} data points $\hat{x}_i$ as $$\hat{x}_{i,j} = x_{i,j} - \frac{1}{n} \sum_{i=1}^{n} x_{i,j}$$
+  \item Let $X \in \mathbb{R}^{n \times d}$ denote the data matrix, where the $i^{th}$ row of $X$ contains $\hat{x}_i$
+  \item The {\bf covariance matrix} $R \in \mathbb{R}^{d \times d}$ can be estimated as $$R = \frac{1}{n-1} X^T X$$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{PCA: Eigendecomposition}
+\begin{columns}
+\begin{column}{0.7\textwidth}
+  \begin{itemize}
+    \item We then compute the {\bf eigenvectors} $v_1, v_2, \dots, v_d$ and {\bf eigenvalues} $\lambda_1, \lambda_2, \dots, \lambda_d$ of $R$ (all eigenvectors are normalized to 1)
+    \item By construction, $R$ is symmetric and positive semi-definite and is therefore guaranteed to have real non-negative eigenvalues and orthogonal real eigenvectors
+    \item We {\bf order} the eigenvector/eigenvalue pairs such that $\lambda_1 \ge \lambda_2 \ge \dots \ge \lambda_d$
+    \item $v_1, v_2, \dots, v_d$ are called the {\bf principal components}, and $\lambda_j$ measures the {\bf variance} captured by principal component $j$
+  \end{itemize}
+  \end{column}
+
+  \begin{column}{0.3\textwidth}
+        \includegraphics[width=\textwidth]{../Stas_data/group_meeting_5Feb2013/PCA_spectrum1.jpg}\\
+        {\tiny The PCA eigenvalue spectrum; each eigenvalue measures the energy captured by the corresponding eigenvector \par}
+
+        \vspace{0.3 in}
+
+        \includegraphics[width=\textwidth]{../Stas_data/group_meeting_5Feb2013/PCA_mode1.jpg}\\
+        {\tiny The first principal component \par}
+
+  \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{PCA: Ordering and Projections}
+    \begin{itemize}
+        \item We can calculate the projection of data point $i$ onto principal component $j$ as $a_{i,j} = \langle \hat{x}_i, v_j \rangle = \sum_{k=1}^{d} \hat{x}_{i,k} v_{j,k}$
+        \item $a_{i,j}$ can be viewed as a measure of how much principal component $j$ is represented in data point $i$
+        \item We can order the data by $a_{i,1}$
+        \item Each principal component defines an important ``direction'' in our data; we can compare data sets by comparing their principal components
+    \end{itemize}
+
+    \centering
+    \includegraphics[height=0.3\textheight]{../Stas_data/group_meeting_5Feb2013/data1_scrambled.jpg}
+    \includegraphics[height=0.3\textheight]{../Stas_data/group_meeting_5Feb2013/coeff_scrambled.jpg}\\
+    {\Tiny The scrambled data (left) and the projection coefficient for each data point onto the first principal component (right).\\
+    We will sort the data by the values of the projection coefficients. \par}
+
+\end{frame}
+
+\begin{frame}{Results}
+  \centering
+    Below are three replicate data sets.\\
+    You can see the scrambled data (left), unscrambled data using PCA (middle), and first PCA mode (right)
+
+    \includegraphics[width=0.3\textheight]{../Stas_data/group_meeting_5Feb2013/data1_scrambled.jpg}
+    \includegraphics[width=0.3\textheight]{../Stas_data/group_meeting_5Feb2013/data1_unscrambled.jpg}
+    \includegraphics[width=0.3\textheight]{../Stas_data/group_meeting_5Feb2013/PCA_mode1.jpg}\\
+    \includegraphics[width=0.3\textheight]{../Stas_data/group_meeting_5Feb2013/data2_scrambled.jpg}
+    \includegraphics[width=0.3\textheight]{../Stas_data/group_meeting_5Feb2013/data2_unscrambled.jpg}
+    \includegraphics[width=0.3\textheight]{../Stas_data/group_meeting_5Feb2013/PCA_mode2.jpg}\\
+    \includegraphics[width=0.3\textheight]{../Stas_data/group_meeting_5Feb2013/data3_scrambled.jpg}
+    \includegraphics[width=0.3\textheight]{../Stas_data/group_meeting_5Feb2013/data3_unscrambled.jpg}
+    \includegraphics[width=0.3\textheight]{../Stas_data/group_meeting_5Feb2013/PCA_mode3.jpg}
+
+\end{frame}
