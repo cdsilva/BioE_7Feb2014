@@ -129,78 +129,96 @@
     %We will look at {\bf synchronization}
 \end{frame}
 
-\begin{frame}{Angular Synchronization \let\thefootnote\relax\footnote{\cite{singer2011angular}}}
-
-	To synchronize images/concentrations on a circle under rotations in the plane:
-    {\scriptsize
-    \begin{itemize}
-        \item We have {\bf data} $x_1, x_2, \dots, x_n$ (in our example, $x_i$ is the concentration profile of dpERK on a ring)
-        % which is invariant under some group $G$
-
-        %\item We will take $G = SO(2)$, but other symmetry groups can also be considered
-
-        \item Let $\theta_{ij}$ denote the {\bf angle of rotation} that best aligns $x_i$ and $x_j$ (so $\theta_{ji} = -\theta_{ij}$)
-
-        \item We seek $\hat{\theta_1}, \hat{\theta_2}, \dots, \hat{\theta_n}$ so that rotating each data point $x_i$ by $\theta_i$ will result in the most ``consistent'' aligned data
-
-        \item We {\bf construct the matrix} $H$, where $H_{ij} = e^{i \theta_{ij}}$.
-
-        \item We then want to solve the {\bf optimization problem}
-        $$ \max_{\theta_1, \dots, \theta_n \in [0, 2\pi)} \sum_{i=1}^{n}\sum_{j=1}^{n} e^{-i \theta_i}H_{ij} e^{i \theta_j}$$
-
-
-        %\item Note that if $\theta_{ij}$ is an accurate measurement, then
-        %$e^{-i \theta_i}H_{ij} e^{i \theta_j} = e^{-i \theta_i}e^{i (\theta_i-\theta_j)} e^{i \theta_j} = 1$
-
-        %\item However, if $\theta_{ij}$ is inaccurate, then $e^{-i \theta_i}H_{ij} e^{i \theta_j}$ will be a (uniform) random complex number of unit norm; these terms will (mostly) cancel
-
-        \item We {\bf relax} the problem to
-        $$\max_{z_1, \dots, z_n \in \mathbb{C}} \sum_{i=1}^{n}\sum_{j=1}^{n} \overline{z_i} H_{ij} z_j $$
+%\begin{frame}{Angular Synchronization \let\thefootnote\relax\footnote{\cite{singer2011angular}}}
+%
+%	To synchronize images/concentrations on a circle under rotations in the plane:
+%    {\scriptsize
+%    \begin{itemize}
+%        \item We have {\bf data} $x_1, x_2, \dots, x_n$ (in our example, $x_i$ is the concentration profile of dpERK on a ring)
+%        % which is invariant under some group $G$
+%
+%        %\item We will take $G = SO(2)$, but other symmetry groups can also be considered
+%
+%        \item Let $\theta_{ij}$ denote the {\bf angle of rotation} that best aligns $x_i$ and $x_j$ (so $\theta_{ji} = -\theta_{ij}$)
+%
+%        \item We seek $\hat{\theta_1}, \hat{\theta_2}, \dots, \hat{\theta_n}$ so that rotating each data point $x_i$ by $\theta_i$ will result in the most ``consistent'' aligned data
+%
+%        \item We {\bf construct the matrix} $H$, where $H_{ij} = e^{i \theta_{ij}}$.
+%
+%        \item We then want to solve the {\bf optimization problem}
+%        $$ \max_{\theta_1, \dots, \theta_n \in [0, 2\pi)} \sum_{i=1}^{n}\sum_{j=1}^{n} e^{-i \theta_i}H_{ij} e^{i \theta_j}$$
+%
+%
+%        %\item Note that if $\theta_{ij}$ is an accurate measurement, then
+%        %$e^{-i \theta_i}H_{ij} e^{i \theta_j} = e^{-i \theta_i}e^{i (\theta_i-\theta_j)} e^{i \theta_j} = 1$
+%
+%        %\item However, if $\theta_{ij}$ is inaccurate, then $e^{-i \theta_i}H_{ij} e^{i \theta_j}$ will be a (uniform) random complex number of unit norm; these terms will (mostly) cancel
+%
+%        \item We {\bf relax} the problem to
+%        $$\max_{z_1, \dots, z_n \in \mathbb{C}} \sum_{i=1}^{n}\sum_{j=1}^{n} \overline{z_i} H_{ij} z_j $$
+%%    \end{itemize}
+%%    \par}
+%%\end{frame}
+%
+%%\begin{frame}{Angular Synchronization \let\thefootnote\relax\footnote{\cite{singer2011angular}}}
+%%
+%%    {\scriptsize
+%%    \begin{itemize}
+%        \item The solution to
+%        $$\max_{z_1, \dots, z_n \in \mathbb{C}} \sum_{i=1}^{n}\sum_{j=1}^{n} \overline{z_i} H_{ij} z_j = \max \overline{z} H z$$
+%        is given by $v_1$, the {\bf top eigenvector} of $H$
+%
+%        \item Note that the entries of $v_1$ are not necessarily of unit norm\\
+%        Therefore, the optimal rotations $\hat{\theta_1}, \dots, \hat{\theta_n}$ are given by
+%        $e^{i \hat{\theta_i}} = \frac{v_1(i)}{|v_1(i)|}$
+%
+%%        \item
+%%        Under a uniform noise model, the matrix $H$ can be shown to have an eigenvalue spectrum that consists of a semicircle distribution \footcite{wigner1955characteristic, wigner1958distribution}, with one outlier corresponding to the top eigenvector, which contains the optimal alignments\\
+%%        \begin{center}
+%%        \includegraphics[width=0.3\textwidth]{../SIAM_DS_2013/evec_spectrum.jpg}
+%%        \end{center}
+%%
+%%        \item Also note that this formulation takes into account {\em consistency}\\
+%%        For example, if we want to satisfy two angle relations $\theta_i-\theta_k \approx \theta_{ij} + \theta_{jk} \forall j$, we would solve
+%%        $$\max_{z_1, \dots, z_n \in \mathbb{C}} \sum_{i=1}^{n}\sum_{k=1}^{n} \overline{z_i} \left( \sum_{j=1}^{n} e^{i (\theta_{ij} + \theta_{jk})} \right) z_k = \max \overline{z} H^2 z$$
+%%
+%%        The solution to this optimization problem is also $v_1$, the top eigenvector of $H$
 %    \end{itemize}
 %    \par}
 %\end{frame}
 
-%\begin{frame}{Angular Synchronization \let\thefootnote\relax\footnote{\cite{singer2011angular}}}
-%
-%    {\scriptsize
-%    \begin{itemize}
-        \item The solution to
-        $$\max_{z_1, \dots, z_n \in \mathbb{C}} \sum_{i=1}^{n}\sum_{j=1}^{n} \overline{z_i} H_{ij} z_j = \max \overline{z} H z$$
-        is given by $v_1$, the {\bf top eigenvector} of $H$
-
-        \item Note that the entries of $v_1$ are not necessarily of unit norm\\
-        Therefore, the optimal rotations $\hat{\theta_1}, \dots, \hat{\theta_n}$ are given by
-        $e^{i \hat{\theta_i}} = \frac{v_1(i)}{|v_1(i)|}$
-
-%        \item
-%        Under a uniform noise model, the matrix $H$ can be shown to have an eigenvalue spectrum that consists of a semicircle distribution \footcite{wigner1955characteristic, wigner1958distribution}, with one outlier corresponding to the top eigenvector, which contains the optimal alignments\\
-%        \begin{center}
-%        \includegraphics[width=0.3\textwidth]{../SIAM_DS_2013/evec_spectrum.jpg}
-%        \end{center}
-%
-%        \item Also note that this formulation takes into account {\em consistency}\\
-%        For example, if we want to satisfy two angle relations $\theta_i-\theta_k \approx \theta_{ij} + \theta_{jk} \forall j$, we would solve
-%        $$\max_{z_1, \dots, z_n \in \mathbb{C}} \sum_{i=1}^{n}\sum_{k=1}^{n} \overline{z_i} \left( \sum_{j=1}^{n} e^{i (\theta_{ij} + \theta_{jk})} \right) z_k = \max \overline{z} H^2 z$$
-%
-%        The solution to this optimization problem is also $v_1$, the top eigenvector of $H$
-    \end{itemize}
-    \par}
-\end{frame}
-
 \begin{frame}{Alignment Results}
 
-	We can use angular synchronization to align the concentration profiles {\em even~before} ordering the profiles in time
+	We can use angular synchronization to align the concentration profiles
 	
 	\begin{tikzpicture}
 		\node[] (fig1) {\includegraphics[width=0.25\textwidth]{data_unaligned_unordered}};
-		\node[right of=fig1, node distance=0.3\textwidth] (fig2) {\includegraphics[width=0.25\textwidth]{data_aligned_unordered}};
-		\node[right of=fig2, node distance=0.3\textwidth] (fig3) {\includegraphics[width=0.25\textwidth]{data_ordered_angsynch}};
+		\node[right of=fig1, node distance=0.35\textwidth] (fig2) {\includegraphics[width=0.25\textwidth]{data_aligned_unordered}};
+		\node[right of=fig2, node distance=0.35\textwidth] (fig3) {\includegraphics[width=0.25\textwidth]{data_ordered_angsynch}};
 		\draw[->] (fig1.east) -- (fig2.west);
 		\draw[->] (fig2.east) -- (fig3.west);
-		\node[below of=fig1, node distance=1in, text width=0.3\textwidth]{{\small Profiles are unaligned and unordered}};
-		\node[below of=fig2, node distance=1in, text width=0.3\textwidth]{{\small Profiles are aligned using angular synchronization but temporally unordered}};
-		\node[below of=fig3, node distance=1in, text width=0.3\textwidth]{{\small Profiles are then ordered in time}};
+		\node[below of=fig1, node distance=0.7in, text width=0.3\textwidth]{{\small Profiles are unaligned and unordered \par}};
+		\node[below of=fig2, node distance=0.7in, text width=0.3\textwidth]{{\small Profiles are aligned using angular synchronization but temporally unordered \par}};
+		\node[below of=fig3, node distance=0.7in, text width=0.3\textwidth]{{\small Profiles are then ordered in time \par}};
 	\end{tikzpicture}
+	
+	\centering
+	%\begin{minipage}{0.7\textwidth}
+	\begin{block}{Angular Synchronization Algorithm \footnotemark}
+		{\scriptsize 
+		 {\bf data} $x_1, x_2, \dots, x_n$ (e.g., $x_i$ is the concentration profile of dpERK on a ring)
+        
+        $\theta_{ij}$ denotes the {\bf angle of rotation} that best aligns $x_i$ and $x_j$
+
+        We {\bf construct the matrix} $H$, where $H_{ij} = e^{i \theta_{ij}}$.
+
+		The entries of $v_1$, the {\bf top eigenvector} of $H$, contains estimates of the optimal rotations for each data point
+
+		The optimal rotations $\hat{\theta_1}, \dots, \hat{\theta_n}$ are given by $e^{i \hat{\theta_i}} = \frac{v_1(i)}{|v_1(i)|}$
+		\par}
+	\end{block}
+	%\end{minipage}		
+	\footcitetext{singer2011angular}
 
 \end{frame}
 
@@ -209,6 +227,20 @@
 		\item Our data contains both symmetries {\em and} dynamics
 		\item We would like to combine angular synchronization and diffusion maps into one computation that allows us to both factor out symmetries and order the data
 	\end{itemize}
+	
+	\begin{block}{Diffusion maps}
+		Calculate top eigenvectors of $W$, where $W_{ij} = e^{-\frac{d^2(x_i, x_j)}{\epsilon}} / \sum_j e^{-\frac{d^2(x_i, x_j)}{\epsilon}} $
+	\end{block}
+
+	\begin{block}{Angular Synchronization}
+		Calculate top eigenvector of $H$, where $H_{ij} = e^{-i \theta_{ij}}$
+	\end{block}
+	
+	\begin{block}{Vector Diffusion Maps} 
+		Calculate the top eigenvectors of $S$, where $S_{ij} = W_{ij}H_{ij}$
+		
+		The top eigenvectors then give us the optimal rotations {\em and} the embedding coordinates for our data
+	\end{block}
 \end{frame}
 
 \begin{frame}{Align and Order using Vector Diffusion Maps}

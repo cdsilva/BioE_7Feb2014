@@ -104,6 +104,10 @@
 %\end{frame}
 
 \begin{frame}{Ordering {\em Drosophila} Data using PCA}
+
+	\centering
+	\includegraphics[width=0.3\textwidth]{PCA_time_corr}	
+  
   \centering
   \begin{tikzpicture}
   	\node (unordered) {\includegraphics[width=0.3\textwidth]{data_unordered}};
@@ -111,15 +115,28 @@
     \draw [->] (unordered.east) -- (ordered.west);    
   \end{tikzpicture}
   
-	\centering
-	\includegraphics[width=0.3\textwidth]{PCA_time_corr}	
+	
+	
 \end{frame}
 
 
 \begin{frame}{Some Problems with PCA}
     \centering
-    \includegraphics[width=0.5\textwidth]{data_ordered_PCA}
-    \includegraphics[width=0.5\textwidth]{data_ordered_DMAPS}\\
+    \begin{tikzpicture}
+    	\node[anchor=south west] (PCA_fig) {\includegraphics[width=0.5\textwidth]{data_ordered_PCA}};
+    	\begin{scope}[x={(PCA_fig.south east)},y={(PCA_fig.north west)}]
+    	%\draw[help lines,xstep=.05,ystep=.05] (0,0) grid (1,1);
+    	\draw[rounded corners=1mm, line width=0.5mm, red] (0.13,0.13) rectangle (0.22,0.3);
+    	\draw[rounded corners=1mm, line width=0.5mm, red] (0.81,0.13) rectangle (0.9,0.3);
+    	\end{scope}
+    	\node[anchor=south west, right of=PCA_fig, node distance=0.5\textwidth] (DMAPS_fig) {\includegraphics[width=0.5\textwidth]{data_ordered_DMAPS}};
+    	\begin{scope}[shift={(DMAPS_fig.south west)},x={(DMAPS_fig.south east)},y={(DMAPS_fig.north west)}]
+    	\draw[rounded corners=1mm, line width=0.5mm, red] (0.13,0.13) rectangle (0.22,0.3);
+    	\draw[rounded corners=1mm, line width=0.5mm, red] (0.81,0.13) rectangle (0.9,0.3);
+    	\end{scope}
+    \end{tikzpicture}
+    
+   
     The ordering of the large central peaks is comparable.\\
     However, the outer peaks are grouped together in the right picture \\ (we could view this as ``better'').
 
@@ -175,7 +192,12 @@ PCA would not be able to order the data on the right ``correctly'', \\since the 
 \end{frame}
 
 \begin{frame}{Using DMAPS to Order Concentration Profiles}
-\centering
+
+	
+	\centering
+	\includegraphics[width=0.3\textwidth]{DMAPS_time_corr}	
+	
+	\centering
   \begin{tikzpicture}
   	\node (unordered) {\includegraphics[width=0.3\textwidth]{data_unordered}};
   	\node[right of=unordered, node distance=0.5\textwidth] (ordered) {\includegraphics[width=0.3\textwidth]{data_ordered_DMAPS}};
@@ -183,7 +205,4 @@ PCA would not be able to order the data on the right ``correctly'', \\since the 
   \end{tikzpicture}
   
   There is a significantly better grouping of the secondary peaks when using DMAPS.
-	
-	\centering
-	\includegraphics[width=0.3\textwidth]{DMAPS_time_corr}	
 \end{frame}
