@@ -1,74 +1,33 @@
 \section[Background]{Background on {\em Drosophila} imaging}
 
-\begin{frame}{Motivation: How Do Cells Obtain Unique Functions?}
+\begin{frame}{Importance of Symmetries in Reconstructing Dynamics}
 
-    \begin{tikzpicture}
-        \node (embryo1) {\includegraphics[width=0.15\textwidth]{embryo_bw}};
-        \draw[gray,<->] (embryo1.south west) --  (embryo1.south east) node[below,midway] { \tiny $100 \mu m$};
-        
-        \node[below=0.1in of embryo1, text width=0.15\textwidth, align=center] (text1)  {{\scriptsize Cells}};
-		
-		\node[right=0.3in of embryo1] (embryo3)  {     
-        \includegraphics[width=0.2\textwidth]{dorsal}} edge[<-] (embryo1);
-        \draw[gray, <->] (embryo3.south west) --  (embryo3.south east) node[below,midway] { \tiny $100 \mu m$};
-        \node[below=0.1in of embryo3, text width=0.15\textwidth, align=center] (text2)  {{\scriptsize Morphogens diffuse \footnotemark \par}};
-		\node[above=0in of embryo3] (flag)  {     
-        \includegraphics[width=0.2\textwidth]{french_flag}};
-        
-        \node[right=0.3in of embryo3] (embryo2)  {     
-        \includegraphics[width=0.15\textwidth]{embryo_color}} edge[<-] (embryo3);
-                \draw[gray,<->] (embryo2.south west) --  (embryo2.south east) node[below,midway] { \tiny $100 \mu m$};
+{\bf Goal:} Construct a smooth trajectory from snapshots \footcite{kemelmacher2011exploring}
 
-        \node[below=0.1in of embryo2, text width=0.15\textwidth, align=center] (text2)  {{\scriptsize Different proteins are produced in different regions \par}};
+\includegraphics[width=\textwidth]{photobios}
 
-        \node[right=0.3in of embryo2] (nervous)  {\includegraphics[width=0.15\textwidth]{nervous_system}} edge[<-] (embryo2);
+However, these snapshots can be taken from different viewing angles and rotations, and so we must {\em factor out} the relevant symmetries before constructing a representative trajectory
 
-        \node[above=0.1in of nervous] (skin)  {\includegraphics[width=0.15\textwidth]{skin}} edge[<-] (embryo2);
-
-        \node[below=0.1in of nervous] (muscle)  {\includegraphics[width=0.15\textwidth]{muscle}} edge[<-] (embryo2);
-    \end{tikzpicture}
-
-	\footcitetext{jaeger2008regulative}
-	
-	{\small Different pathways are {\em activated} in different areas of the organism,  
-	leading to the production of different proteins and different cells developing~different~functions \par}
+We will look at snapshots of {\em Drosophila} throughout development and try to construct a smooth, representative trajectory of the developmental dynamics
 
 \end{frame}
 
-\begin{frame}{ERK Activation Across Species}
+\begin{frame}{Imaging Dorsoventral Patterns in {\em Drosophila} \footcite{chung2010microfluidic}}
+
+	\centering
+    \includegraphics[width=0.75\textwidth]{drosophila_imaging_setup}
+    
 	\begin{itemize}
-		\item 	Extracellular signal-regulated kinases (ERKs) are singalling proteins that regulate mitosis and meiosis in cells.
-
-		\item	ERK activation is conserved among many species.
-
-	\end{itemize}
-	
-    \centering
-    \begin{minipage}{0.2\textwidth}
-        \includegraphics[width=\textwidth]{drosophila_erk}\\
-        {\scriptsize \em Drosophila \par}
-    \end{minipage}
-    \hspace{0.5in}
-    \begin{minipage}{0.2\textwidth}
-        \includegraphics[width=\textwidth]{zebrafish_erk}\\
-        {\scriptsize \em zebrafish \par}
-    \end{minipage}
-    \vspace{0.2in}
-    
-    \centering
-    \begin{minipage}{0.4\textwidth}
-        \includegraphics[width=\textwidth]{celegans_erk}\\
-        {\scriptsize \em C. elegans \par}
-    \end{minipage}
-    
-	\vspace{0.1in}
-    ERK stained (in red) in several model organisms.
-    
+        \item We can easily obtain snapshots many embryos using a high--throughput microfluidic device
+        \item Each embryo is fixed at a slightly different developmental time (``cross-sectional data'')
+        \item We would like to order the data from multiple embryos in time that we can reconstruct the developmental dynamics in {\em Drosophila}
+    \end{itemize}
 \end{frame}
+
 
 \begin{frame}{ERK Activation in {\em Drosophila}}
 
-	We would like to measure the spatiotemporal patterns \\
+	We would like to reconstruct the spatiotemporal dynamics \\
 	of the activation of the ERK pathway in {\em Drosophila} embryos\\
 	during nuclear cycle 14 (the third hour of development)
 
@@ -98,17 +57,78 @@
 	
 \end{frame}
 
-\begin{frame}{Imaging Dorsoventral Patterns \footcite{chung2010microfluidic}}
 
-	\centering
-    \includegraphics[width=0.75\textwidth]{drosophila_imaging_setup}
-    
-	\begin{itemize}
-        \item We can easily obtain dpERK concentration profiles for many embryos using a high--throughput microfluidic device
-        \item Each embryo is fixed at a slightly different developmental time (``cross-sectional data'')
-        \item We would like to order the data from multiple embryos in time that we can reconstruct the developmental dynamics in {\em Drosophila}
-    \end{itemize}
-\end{frame}
+
+
+%\begin{frame}{Motivation: How Do Cells Obtain Unique Functions?}
+%
+%    \begin{tikzpicture}
+%        \node (embryo1) {\includegraphics[width=0.15\textwidth]{embryo_bw}};
+%        \draw[gray,<->] (embryo1.south west) --  (embryo1.south east) node[below,midway] { \tiny $100 \mu m$};
+%        
+%        \node[below=0.1in of embryo1, text width=0.15\textwidth, align=center] (text1)  {{\scriptsize Cells}};
+%		
+%		\node[right=0.3in of embryo1] (embryo3)  {     
+%        \includegraphics[width=0.2\textwidth]{dorsal}} edge[<-] (embryo1);
+%        \draw[gray, <->] (embryo3.south west) --  (embryo3.south east) node[below,midway] { \tiny $100 \mu m$};
+%        \node[below=0.1in of embryo3, text width=0.15\textwidth, align=center] (text2)  {{\scriptsize Morphogens diffuse \footnotemark \par}};
+%		\node[above=0in of embryo3] (flag)  {     
+%        \includegraphics[width=0.2\textwidth]{french_flag}};
+%        
+%        \node[right=0.3in of embryo3] (embryo2)  {     
+%        \includegraphics[width=0.15\textwidth]{embryo_color}} edge[<-] (embryo3);
+%                \draw[gray,<->] (embryo2.south west) --  (embryo2.south east) node[below,midway] { \tiny $100 \mu m$};
+%
+%        \node[below=0.1in of embryo2, text width=0.15\textwidth, align=center] (text2)  {{\scriptsize Different proteins are produced in different regions \par}};
+%
+%        \node[right=0.3in of embryo2] (nervous)  {\includegraphics[width=0.15\textwidth]{nervous_system}} edge[<-] (embryo2);
+%
+%        \node[above=0.1in of nervous] (skin)  {\includegraphics[width=0.15\textwidth]{skin}} edge[<-] (embryo2);
+%
+%        \node[below=0.1in of nervous] (muscle)  {\includegraphics[width=0.15\textwidth]{muscle}} edge[<-] (embryo2);
+%    \end{tikzpicture}
+%
+%	\footcitetext{jaeger2008regulative}
+%	
+%	{\small Different pathways are {\em activated} in different areas of the organism,  
+%	leading to the production of different proteins and different cells developing~different~functions \par}
+%
+%\end{frame}
+%
+%\begin{frame}{ERK Activation Across Species}
+%	\begin{itemize}
+%		\item 	Extracellular signal-regulated kinases (ERKs) are singalling proteins that regulate mitosis and meiosis in cells.
+%
+%		\item	ERK activation is conserved among many species.
+%
+%	\end{itemize}
+%	
+%    \centering
+%    \begin{minipage}{0.2\textwidth}
+%        \includegraphics[width=\textwidth]{drosophila_erk}\\
+%        {\scriptsize \em Drosophila \par}
+%    \end{minipage}
+%    \hspace{0.5in}
+%    \begin{minipage}{0.2\textwidth}
+%        \includegraphics[width=\textwidth]{zebrafish_erk}\\
+%        {\scriptsize \em zebrafish \par}
+%    \end{minipage}
+%    \vspace{0.2in}
+%    
+%    \centering
+%    \begin{minipage}{0.4\textwidth}
+%        \includegraphics[width=\textwidth]{celegans_erk}\\
+%        {\scriptsize \em C. elegans \par}
+%    \end{minipage}
+%    
+%	\vspace{0.1in}
+%    ERK stained (in red) in several model organisms.
+%    
+%\end{frame}
+
+
+
+
 
 \begin{frame}{Measuring Developmental Time from Membrane Markers}
 
