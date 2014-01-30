@@ -1,4 +1,4 @@
-\section[Concentration Profiles and Angular synchronization]{Factoring Out Symmetries in Concentration Profiles Using~Angular~Synchronization}
+\section[Factoring Out Symmetries in Concentration Profiles]{Factoring Out Symmetries in Concentration Profiles}
 
 \begin{frame}{Importance of Symmetries in Data Analysis}
 
@@ -12,11 +12,11 @@
 		\draw[->] (drosophila_line) -- (drosophila_circle) node[above,midway] {``Unroll'' circle};
 	\end{tikzpicture}
 	
-	This is done by staining for {\em another} protein that is expressed only along the ventral midline, and then aligning the profiles along their ventral midlines
+	This is done by staining for {\em another} protein (Dorsal) that is expressed only along the ventral midline, and then aligning the profiles along their ventral midlines.
 	
 	\vspace{0.2in}
 	We would like to {\em automatically} align these concentration profiles\\
-	without having to stain for a second protein
+	without having to stain for a second protein.
 
 \end{frame}
 
@@ -187,8 +187,23 @@
 %    \par}
 %\end{frame}
 
-\begin{frame}{Alignment Results}
+\begin{frame}{Angular Synchronization for Data Alignment}
 
+	\begin{block}{Angular Synchronization Algorithm \footnotemark}
+		{\scriptsize 
+		 We have {\bf data} $x_1, x_2, \dots, x_n$ (e.g., $x_i$ is the concentration profile of dpERK on a ring).
+        
+        $\theta_{ij}$ denotes the {\bf angle of rotation} that best aligns $x_i$ and $x_j$.
+
+        We {\bf construct the matrix} $H$, where $H_{ij} = e^{i \theta_{ij}}$.
+
+		The entries of $v_1$, the {\bf top eigenvector} of $H$, contain estimates of the optimal rotations for each data point.
+
+		The optimal rotations $\hat{\theta_1}, \dots, \hat{\theta_n}$ are given by $e^{i \hat{\theta_i}} = \frac{v_1(i)}{|v_1(i)|}$.
+		\par}
+	\end{block}	
+	\footcitetext{singer2011angular}
+	
 	We can use angular synchronization to align the concentration profiles
 	
 	\begin{tikzpicture}
@@ -199,33 +214,15 @@
 		\draw[->] (fig2.east) -- (fig3.west);
 		\node[below of=fig1, node distance=0.7in, text width=0.3\textwidth]{{\small Profiles are unaligned and unordered \par}};
 		\node[below of=fig2, node distance=0.7in, text width=0.3\textwidth]{{\small Profiles are aligned using angular synchronization but temporally unordered \par}};
-		\node[below of=fig3, node distance=0.7in, text width=0.3\textwidth]{{\small Profiles are then ordered in time \par}};
+		\node[below of=fig3, node distance=0.7in, text width=0.3\textwidth]{{\small Profiles are then ordered in time using DMAPS \par}};
 	\end{tikzpicture}
-	
-	\centering
-	%\begin{minipage}{0.7\textwidth}
-	\begin{block}{Angular Synchronization Algorithm \footnotemark}
-		{\scriptsize 
-		 {\bf data} $x_1, x_2, \dots, x_n$ (e.g., $x_i$ is the concentration profile of dpERK on a ring)
-        
-        $\theta_{ij}$ denotes the {\bf angle of rotation} that best aligns $x_i$ and $x_j$
-
-        We {\bf construct the matrix} $H$, where $H_{ij} = e^{i \theta_{ij}}$.
-
-		The entries of $v_1$, the {\bf top eigenvector} of $H$, contains estimates of the optimal rotations for each data point
-
-		The optimal rotations $\hat{\theta_1}, \dots, \hat{\theta_n}$ are given by $e^{i \hat{\theta_i}} = \frac{v_1(i)}{|v_1(i)|}$
-		\par}
-	\end{block}
-	%\end{minipage}		
-	\footcitetext{singer2011angular}
 
 \end{frame}
 
-\begin{frame}{Vector Diffusion Maps: Synchronization and Diffusion Maps}
+\begin{frame}{Vector Diffusion Maps: Synchronization and DMAPS}
 	\begin{itemize}
 		\item Our data contains both symmetries {\em and} dynamics
-		\item We would like to combine angular synchronization and diffusion maps into one computation that allows us to both factor out symmetries and order the data
+		\item We would like to combine angular synchronization and diffusion maps into one computation that allows us to both align and order our data
 	\end{itemize}
 	
 	\begin{block}{Diffusion maps}
@@ -236,11 +233,12 @@
 		Calculate top eigenvector of $H$, where $H_{ij} = e^{-i \theta_{ij}}$
 	\end{block}
 	
-	\begin{block}{Vector Diffusion Maps} 
+	\begin{block}{Vector Diffusion Maps (VDM) \footnotemark} 
 		Calculate the top eigenvectors of $S$, where $S_{ij} = W_{ij}H_{ij}$
 		
 		The top eigenvectors then give us the optimal rotations {\em and} the embedding coordinates for our data
 	\end{block}
+	\footcitetext{singer2012vector}
 \end{frame}
 
 \begin{frame}{Align and Order using Vector Diffusion Maps}
@@ -249,14 +247,18 @@
 	We can use vector diffusion maps to align {\em and} order the profiles.
 
 	\begin{tikzpicture}
-		\node[] (fig1) {\includegraphics[width=0.4\textwidth]{data_unaligned_unordered}};
-		\node[right of=fig1, node distance=0.5\textwidth] (fig2) {\includegraphics[width=0.4\textwidth]{data_ordered_vdm}};
-		\draw[->] (fig1.east) -- (fig2.west);
-		\node[below of=fig1, node distance=1in, text width=0.4\textwidth]{{\small Profiles are unaligned and unordered}};
-		\node[below of=fig2, node distance=1in, text width=0.4\textwidth]{{\small Profiles are aligned and ordered using vector diffusion maps}};
+		\node[] (fig1) {\includegraphics[width=0.35\textwidth]{data_unaligned_unordered}};
+		\node[right of=fig1, node distance=0.6\textwidth] (fig2) {\includegraphics[width=0.35\textwidth]{data_ordered_vdm}};
+		\draw[->] (fig1.east) -- (fig2.west) node[above,midway, text width=0.3\textwidth, align=center] { Aligned and ordered using VDM};
+		\node[below of=fig1, node distance=0.7in, text width=0.4\textwidth]{{\small Profiles are unaligned and unordered \par}};
+		\node[below of=fig2, node distance=0.7in, text width=0.4\textwidth]{{\small Profiles are aligned and ordered using vector diffusion maps} \par };
 	\end{tikzpicture}
 	
-	\centering
-	\includegraphics[width=0.4\textwidth]{VDM_time_corr}	
+	\begin{minipage}{0.4\textwidth}
+	\includegraphics[width=0.9\textwidth]{VDM_time_corr}	
+	\end{minipage}
+	\begin{minipage}{0.5\textwidth}
+	The VDM embedding coordinate, which we use to ``automatically'' order our data, is well-correlated with the membrane thickness, which is known to be monotonic in time.
+	\end{minipage}
 
 \end{frame}

@@ -1,16 +1,25 @@
-\section[Background]{Background on {\em Drosophila} imaging}
+\section[Background]{Background}
 
 \begin{frame}{Importance of Symmetries in Reconstructing Dynamics}
 
+\centering
 {\bf Goal:} Construct a smooth trajectory from snapshots \footcite{kemelmacher2011exploring}
 
 \includegraphics[width=\textwidth]{photobios}
 
-However, these snapshots can be taken from different viewing angles and rotations, and so we must {\em factor out} the relevant symmetries before constructing a representative trajectory
+\begin{itemize}
+\item These snapshots can be taken from different viewing angles and rotations
+\item We must {\em factor out} the relevant symmetries (e.g. translations and rotations) before constructing a representative trajectory
+\end{itemize}
 
-We will look at snapshots of {\em Drosophila} throughout development and try to construct a smooth, representative trajectory of the developmental dynamics
+\vspace{0.1in}
+We will construct a representative trajectory of the developmental~dynamics \\ in a {\em Drosophila} embryo from snapshots of the embryo
 
-\end{frame}
+\foreach \i in {1, 15, 20, 25, 30, 35, 40, 45, 52} {
+	\includegraphics[width=0.1\textwidth]{aligned_\i}
+}
+\end
+{frame}
 
 \begin{frame}{Imaging Dorsoventral Patterns in {\em Drosophila} \footcite{chung2010microfluidic}}
 
@@ -18,15 +27,16 @@ We will look at snapshots of {\em Drosophila} throughout development and try to 
     \includegraphics[width=0.75\textwidth]{drosophila_imaging_setup}
     
 	\begin{itemize}
-        \item We can easily obtain snapshots many embryos using a high--throughput microfluidic device
+        \item We can easily obtain snapshots of many {\em Drosophila} embryos using a high--throughput microfluidic device
         \item Each embryo is fixed at a slightly different developmental time (``cross-sectional data'')
-        \item We would like to order the data from multiple embryos in time that we can reconstruct the developmental dynamics in {\em Drosophila}
+        \item We would like to order the data from multiple embryos in time to reconstruct the developmental dynamics in {\em Drosophila}
     \end{itemize}
 \end{frame}
 
 
 \begin{frame}{ERK Activation in {\em Drosophila}}
-
+	
+	\centering
 	We would like to reconstruct the spatiotemporal dynamics \\
 	of the activation of the ERK pathway in {\em Drosophila} embryos\\
 	during nuclear cycle 14 (the third hour of development)
@@ -56,9 +66,6 @@ We will look at snapshots of {\em Drosophila} throughout development and try to 
 	\end{itemize}
 	
 \end{frame}
-
-
-
 
 %\begin{frame}{Motivation: How Do Cells Obtain Unique Functions?}
 %
@@ -126,15 +133,11 @@ We will look at snapshots of {\em Drosophila} throughout development and try to 
 %    
 %\end{frame}
 
-
-
-
-
 \begin{frame}{Measuring Developmental Time from Membrane Markers}
 
 	\centering
     The current standard practice is to use membrane thickness \\to measure the age of an embryo \footcite{lim2013kinetics, lecuit2002slam}\\
-    \vspace{0.2in}
+    \vspace{0.1in}
     \begin{tikzpicture}
         \node (dpERK_5min) {\includegraphics[width=0.1\textwidth]{dpERK_5min}};
         \node[right=0in of dpERK_5min] (mem_5min) {\includegraphics[width=0.1\textwidth]{membrane_5min}};
@@ -142,10 +145,13 @@ We will look at snapshots of {\em Drosophila} throughout development and try to 
         \node[right=0in of dpERK_20min] (mem_20min) {\includegraphics[width=0.1\textwidth]{membrane_20min}};
         \node[below=0.1in of dpERK_20min] (dpERK_45min) {\includegraphics[width=0.1\textwidth]{dpERK_45min}};
         \node[right=0in of dpERK_45min] (mem_45min) {\includegraphics[width=0.1\textwidth]{membrane_45min}};
+        \node[below=0.25in of $(dpERK_45min)!0.5!(mem_45min)$, text width=0.3\textwidth, align=center](text1) {{\small \em We stain each embryo for dpERK and membrane proteins \par}};
         \node[right=0.5in of mem_20min] (calibration) {\includegraphics[width=0.3\textwidth]{calibration_curve}} edge[<-] (mem_5min) edge[<-] (mem_20min) edge[<-] (mem_45min);
+        \node[below=0in of calibration, text width=0.3\textwidth, align=center](text2) {{\small \em The membrane thickness or ``furrow length'' is monotonic in time or age of the embryo \par}};
         \node[right=2.5in of mem_20min] (time_20) {20 minutes} edge[<-] (calibration);
         \node[right=2.5in of mem_5min] (time_5) {5 minutes} edge[<-] (calibration);
         \node[right=2.5in of mem_45min] (time_45) {45 minutes} edge[<-] (calibration);
+        \node[below=0in of time_45, text width=0.25\textwidth, align=center](text2) {{\small \em We can calculate the age of each embryo from the membrane thickness \par}};
     \end{tikzpicture}
 
 \end{frame}

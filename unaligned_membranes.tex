@@ -1,9 +1,16 @@
-\section[Unaligned Membrane Images]{Factoring Out Symmetries in Two--Dimensional~Membrane~Images Using~Angular~Synchronization}
+%\section[Unaligned Membrane Images]{Factoring Out Symmetries in Two--Dimensional~Membrane~Images Using~Angular~Synchronization}
 
 
 \begin{frame}[label=current]{Ordering of Two-Dimensional Membrane Images}
-    We  order the images using the scattering transform + DMAPS\\
-    
+	
+%	{\small
+%	\begin{itemize}
+%		\item 	We can also use the scattering transform coefficient with DMAPS to order the membrane images themselves.   
+%		\item Because we are interested in the membrane thickness, we first run an edge detection algorithm \footcite{canny1986computational} to extract the membrane edges from the images.
+%		\item We then use the Euclidean distance between the scattering transform coefficients of the edge detected images in a DMAPS calculation
+%	\end{itemize}
+%	\par}
+
     \centering
     \begin{tikzpicture}
     	\node[anchor=south west] (image) {\includegraphics[width=0.4\textwidth]{DMAPS_membrane_scat_time_corr2}};
@@ -32,6 +39,8 @@
     	\draw[->] (x5) -- (fig5.north);
     \end{tikzpicture}
     
+    The first DMAPS coordinate is well-correlated with the membrane thickness.	
+
 \end{frame}
 
     
