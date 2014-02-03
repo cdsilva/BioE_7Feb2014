@@ -313,9 +313,24 @@ for i=1:m
     cm_green(:,3) = 0;
     colormap(cm_green)
     axis off
-    print(sprintf('aligned_%d',i),fmt,res)
+    print(sprintf('dpERK_vdm_all_%d',i),fmt,res)
     clf
 end
+
+% figure;
+% for i=1:m
+%     set(gcf, 'paperposition',[0 0 8 8])
+%     imshow(uint8(image_set_aligned_vdm(:,:,I(i))), 'InitialMagnification', 'fit')
+%     set(gca,'position',[0 0 1 1],'units','normalized')
+%     % make red colormap
+%     cm_green = gray;
+%     cm_green(:,2) = 0;
+%     cm_green(:,3) = 0;
+%     colormap(cm_green)
+%     axis off
+%     print(sprintf('aligned_%d',i),fmt,res)
+%     clf
+% end
 
 %% raw dpERK images--scattering
 
@@ -360,6 +375,21 @@ for i=1:length(im_save_idx)
     colormap(cm_green)
     axis off
     print(sprintf('dpERK_scat_%d',i),fmt,res)
+    clf
+end
+
+figure;
+for i=1:m
+    set(gcf, 'paperposition',[0 0 8 8])
+    imshow(uint8(image_set(:,:,I(i))), 'InitialMagnification', 'fit')
+    set(gca,'position',[0 0 1 1],'units','normalized')
+    % make green colormap
+    cm_green = gray;
+    cm_green(:,2) = 0;
+    cm_green(:,3) = 0;
+    colormap(cm_green)
+    axis off
+    print(sprintf('dpERK_scat_all_%d',i),fmt,res)
     clf
 end
 
@@ -419,4 +449,26 @@ for i=1:length(im_save_idx)
     clf
 end
 
+figure;
+for i=1:m
+    set(gcf, 'paperposition',[0 0 8 8])
+    imshow(logical(image_set_membrane(:,:,I(i))), 'InitialMagnification', 'fit')
+    set(gca,'position',[0 0 1 1],'units','normalized')
+    
+    axis off
+    print(sprintf('membrane_scat_all_%d',i),fmt,res)
+    clf
+    
+    imshow(uint8(image_set_membrane_raw(:,:,I(i))), 'InitialMagnification', 'fit')
+    set(gca,'position',[0 0 1 1],'units','normalized')
+    
+    % make green colormap
+    cm_green = gray;
+    cm_green(:,1) = 0;
+    cm_green(:,3) = 0;
+    colormap(cm_green)
+    axis off
+    print(sprintf('membrane_scat_raw_all_%d',i),fmt,res)
+    clf
+end
 
