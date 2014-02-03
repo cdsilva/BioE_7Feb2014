@@ -1,0 +1,64 @@
+\useinnertheme[shadow=true]{rounded}
+\useoutertheme{infolines}
+\usecolortheme{whale}
+\usecolortheme[RGB={245,128,37}]{structure}
+
+\makeatletter
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortauthor~~\beamer@ifempty{\insertshortinstitute}{}{(\insertshortinstitute)}
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{8em}
+    \insertframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\makeatother
+  
+\usepackage{ragged2e}
+
+\usepackage{forloop}
+
+\usepackage{extarrows}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{positioning}
+
+\usepackage{movie15}
+
+\usepackage{animate}
+\usepackage{amssymb}
+\usepackage{color}
+\beamertemplatenavigationsymbolsempty
+
+\hyphenpenalty 10000
+\exhyphenpenalty 10000
+\widowpenalty 10000
+\clubpenalty 10000
+
+\usepackage[firstinits=true,style=verbose,maxnames=6]{biblatex}
+\renewbibmacro{in:}{}
+\bibliography{../references/references}
+\setbeamercolor{bibliography item}{use=normal text,fg=black}
+\setbeamercolor*{bibliography entry title}{use=normal text,fg=black}
+\setbeamercolor*{bibliography entry author}{use=normal text,fg=black}
+\setbeamercolor*{bibliography entry journal}{use=normal text,fg=black}
+\setbeamercolor*{bibliography entry note}{use=normal text,fg=black}
+
+\DeclareCiteCommand{\footcite}{}{%
+    \footnote{\printnames[author]{author}, \printfield{journaltitle}, \printfield{year}}} {\textsuperscript{,}}{}%
+
+\DeclareCiteCommand{\cite}{}{%
+    \printnames[author]{author}, \printfield{journaltitle}, \printfield{year}} {;}{}%
+
+\let\oldfootnotesize\footnotesize
+\renewcommand*{\footnotesize}{\oldfootnotesize\tiny}
