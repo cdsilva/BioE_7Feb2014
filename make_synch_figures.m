@@ -1,17 +1,13 @@
+function make_synch_figures
+
 clear all
 close all
 
 fmt = '-dpng';
-res = '-r2000';
-set(0, 'DefaultFigurePaperSize',[12 12]);
-set(0,'DefaultLineMarkerSize',1)
-set(0,'defaultlinelinewidth', 0.1)
-set(0,'DefaultAxesBox', 'off');
-set(0, 'defaultaxesvisible', 'off')
-set(0, 'defaultfigurecolor', 'w');
-set(0, 'defaultfigurepaperposition', [0 0 1 1])
+res = '-r200';
 
-A = imread('../logos/PUsig2.jpg');
+%%
+A = imread('PUsig2.jpg');
 n = size(A, 1);
 A = A(:, 1:n, :);
 A(:, floor(0.8*n):n, :) = 255;
@@ -20,6 +16,7 @@ A = rgb2gray(A);
 
 figure; imshow(A)
 
+%%
 nimages = 16;
 plot1 = 4;
 plot2 = 4;
@@ -41,44 +38,28 @@ r1 = 3;
 delta = 0.5;
 
 %% rotate images
-figure;
+%figure;
 for i=1:nimages
-    subplot(plot1, plot2, i)
-    %Arot = imcomplement(imrotate(imcomplement(A), rand*360, 'crop'));
+    %subplot(plot1, plot2, i)
     Arot = imcomplement(imrotate(imcomplement(A), randsample(deg_rot, 1), 'crop'));
-    imshow(Arot)
+    %imshow(Arot)
     rot_images(:,:,i) = Arot;
 end
 
 %% add noise
 noisy_images = zeros(size(rot_images), 'uint8');
 sigma = 0;
-figure;
+%figure;
 for i=1:nimages
-    subplot(plot1, plot2, i)
+    %subplot(plot1, plot2, i)
     Anoisy = imnoise(rot_images(:,:,i), 'gaussian', 0, sigma);
-    imshow(Anoisy)
+    Anoisy(circle_window_idx2) = 255;
+    %imshow(Anoisy)
     noisy_images(:,:,i) = Anoisy;
 end
 
 figure;
-%set(gcf, 'papersize', [8 8])
-set(gcf, 'paperposition', [0 0 1 1])
-plot(r*cos(2*pi*(1:nimages)/nimages),r*sin(2*pi*(1:nimages)/nimages), '.')
-hold on
-for i=1:nimages
-    x = r1 * cos(2*pi*i/nimages);
-    y = r1 * sin(2*pi*i/nimages);
-    Anoisy = noisy_images(:,:,i);
-    Anoisy(circle_window_idx2) = 255;
-    image([x-delta x+delta], [y-delta y+delta],Anoisy)
-    colormap(gray(256))
-    hold on
-end
-set(gca, 'YDir', 'reverse');
-set(gca,'xcolor','w','ycolor','w','xtick',[],'ytick',[])
-set(gca, 'visible', 'off')
-set(gcf, 'color', 'w');
+make_plot(noisy_images, 0, r, r1, delta, false, false, zeros(nimages, 1))
 print('drosophila_pics/PU_clean',fmt,res)
 
 
@@ -86,11 +67,11 @@ print('drosophila_pics/PU_clean',fmt,res)
 
 template = imnoise(A, 'gaussian', 0, sigma);
 template(circle_window_idx2) = 255;
-figure;
-imshow(template)
+%figure;
+%imshow(template)
 
 opt_angles = zeros(nimages, 1);
-figure;
+%figure;
 for i=1:nimages
     min_dist = inf;
     min_idx = 0;
@@ -103,87 +84,45 @@ for i=1:nimages
             min_idx = j;
         end
     end
-    subplot(plot1, plot2, i)
-    Arot = imcomplement(imrotate(imcomplement(rot_images(:,:,i)), deg_rot(min_idx), 'crop'));
-    imshow(Arot)
+    %subplot(plot1, plot2, i)
+    %Arot = imcomplement(imrotate(imcomplement(rot_images(:,:,i)), deg_rot(min_idx), 'crop'));
+    %imshow(Arot)
     opt_angles(i) = deg_rot(min_idx);
 end
 
 figure;
-set(gcf, 'papersize', [8 8])
-set(gcf, 'paperposition', [0 0 1 1])
-plot(r*cos(2*pi*(1:nimages)/nimages),r*sin(2*pi*(1:nimages)/nimages), '.')
-hold on
-image([-delta delta], [-delta delta],template)
-for i=1:nimages
-    x = r1 * cos(2*pi*i/nimages);
-    y = r1 * sin(2*pi*i/nimages);
-    image([x-delta x+delta], [y-delta y+delta],rot_images(:,:,i))
-    colormap(gray(256))
-    hold on
-    plot([r delta] * cos(2*pi*i/nimages), [r delta] * sin(2*pi*i/nimages));
-end
-set(gca, 'YDir', 'reverse');
-set(gca,'xcolor','w','ycolor','w','xtick',[],'ytick',[])
+make_plot(rot_images, template, r, r1, delta, false, true, zeros(nimages, 1))
 print('drosophila_pics/PU_template1_clean',fmt,res)
 
 figure;
-%set(gcf, 'papersize', [8 8])
-set(gcf, 'paperposition', [0 0 1 1])
-plot(r*cos(2*pi*(1:nimages)/nimages),r*sin(2*pi*(1:nimages)/nimages), '.')
-hold on
-image([-delta delta], [-delta delta],template)
-for i=1:nimages
-    x = r1 * cos(2*pi*i/nimages);
-    y = r1 * sin(2*pi*i/nimages);
-    Arot = imcomplement(imrotate(imcomplement(rot_images(:,:,i)), opt_angles(i), 'crop'));
-    image([x-delta x+delta], [y-delta y+delta],Arot)
-    colormap(gray(256))
-    hold on
-    plot([r delta] * cos(2*pi*i/nimages), [r delta] * sin(2*pi*i/nimages));
-end
-set(gca, 'YDir', 'reverse');
-set(gca,'xcolor','w','ycolor','w','xtick',[],'ytick',[])
+make_plot(rot_images, template, r, r1, delta, false, true, opt_angles)
 print('drosophila_pics/PU_template2_clean',fmt,res)
 
 
 %% add noise
 noisy_images = zeros(size(rot_images), 'uint8');
 sigma = 5;
-figure;
+%figure;
 for i=1:nimages
-    subplot(plot1, plot2, i)
+    %subplot(plot1, plot2, i)
     Anoisy = imnoise(rot_images(:,:,i), 'gaussian', 0, sigma);
-    imshow(Anoisy)
+    Anoisy(circle_window_idx2) = 255;
+    %imshow(Anoisy)
     noisy_images(:,:,i) = Anoisy;
 end
 
 figure;
-%set(gcf, 'papersize', [8 8])
-set(gcf, 'paperposition', [0 0 1 1])
-plot(r*cos(2*pi*(1:nimages)/nimages),r*sin(2*pi*(1:nimages)/nimages), '.')
-hold on
-for i=1:nimages
-    x = r1 * cos(2*pi*i/nimages);
-    y = r1 * sin(2*pi*i/nimages);
-    Anoisy = noisy_images(:,:,i);
-    Anoisy(circle_window_idx2) = 255;
-    image([x-delta x+delta], [y-delta y+delta],Anoisy)
-    colormap(gray(256))
-    hold on
-end
-set(gca, 'YDir', 'reverse');
-set(gca,'xcolor','w','ycolor','w','xtick',[],'ytick',[])
+make_plot(noisy_images, 0, r, r1, delta, false, false, zeros(nimages, 1))
 print('drosophila_pics/PU_noisy',fmt,res)
 
 
 %% template
 
+template_clean = A;
 template = imnoise(A, 'gaussian', 0, sigma);
 template(circle_window_idx2) = 255;
-%template = A;
-figure;
-imshow(template)
+%figure;
+%imshow(template)
 
 figure;
 for i=1:nimages
@@ -206,64 +145,15 @@ for i=1:nimages
 end
 
 figure;
-%set(gcf, 'papersize', [8 8])
-set(gcf, 'paperposition', [0 0 1 1])
-plot(r*cos(2*pi*(1:nimages)/nimages),r*sin(2*pi*(1:nimages)/nimages), '.')
-hold on
-image([-delta delta], [-delta delta],template)
-for i=1:nimages
-    x = r1 * cos(2*pi*i/nimages);
-    y = r1 * sin(2*pi*i/nimages);
-    Arot = noisy_images(:,:,i);
-    Arot(circle_window_idx2) = 255;
-    image([x-delta x+delta], [y-delta y+delta],Arot)
-    colormap(gray(256))
-    hold on
-    plot([r delta] * cos(2*pi*i/nimages), [r delta] * sin(2*pi*i/nimages));
-end
-set(gca, 'YDir', 'reverse');
-set(gca,'xcolor','w','ycolor','w','xtick',[],'ytick',[])
+make_plot(noisy_images, template, r, r1, delta, false, true, zeros(nimages, 1))
 print('drosophila_pics/PU_template1_noisy',fmt,res)
 
 figure;
-%set(gcf, 'papersize', [8 8])
-set(gcf, 'paperposition', [0 0 1 1])
-plot(r*cos(2*pi*(1:nimages)/nimages),r*sin(2*pi*(1:nimages)/nimages), '.')
-hold on
-image([-delta delta], [-delta delta],template)
-for i=1:nimages
-    x = r1 * cos(2*pi*i/nimages);
-    y = r1 * sin(2*pi*i/nimages);
-    Arot = imcomplement(imrotate(imcomplement(noisy_images(:,:,i)), opt_angles(i), 'crop'));
-    Arot(circle_window_idx2) = 255;
-    image([x-delta x+delta], [y-delta y+delta],Arot)
-    colormap(gray(256))
-    hold on
-    plot([r delta] * cos(2*pi*i/nimages), [r delta] * sin(2*pi*i/nimages));
-end
-set(gca, 'YDir', 'reverse');
-set(gca,'xcolor','w','ycolor','w','xtick',[],'ytick',[])
+make_plot(noisy_images, template, r, r1, delta, false, true, opt_angles)
 print('drosophila_pics/PU_template2_noisy',fmt,res)
 
 figure;
-%set(gcf, 'papersize', [8 8])
-set(gcf, 'paperposition', [0 0 1 1])
-plot(r*cos(2*pi*(1:nimages)/nimages),r*sin(2*pi*(1:nimages)/nimages), '.')
-hold on
-image([-delta delta], [-delta delta],A)
-for i=1:nimages
-    x = r1 * cos(2*pi*i/nimages);
-    y = r1 * sin(2*pi*i/nimages);
-    Arot = imcomplement(imrotate(imcomplement(rot_images(:,:,i)), opt_angles(i), 'crop'));
-        Arot(circle_window_idx2) = 255;
-
-    image([x-delta x+delta], [y-delta y+delta],Arot)
-    colormap(gray(256))
-    hold on
-    plot([r delta] * cos(2*pi*i/nimages), [r delta] * sin(2*pi*i/nimages));
-end
-set(gca, 'YDir', 'reverse');
-set(gca,'xcolor','w','ycolor','w','xtick',[],'ytick',[])
+make_plot(rot_images, template_clean, r, r1, delta, false, true, opt_angles)
 print('drosophila_pics/PU_template3_noisy',fmt,res)
 
 
@@ -295,79 +185,81 @@ for i=1:nimages
     opt_angles(i) = atan2(R_opt(2*i, 1), R_opt(2*i-1, 1)) * (180/pi);
 end
 
-figure;
-for i=1:nimages
-    subplot(plot1, plot2, i)
-    Arot = imcomplement(imrotate(imcomplement(rot_images(:,:,i)), opt_angles(i), 'crop'));
-    imshow(Arot)
-end
+% figure;
+% for i=1:nimages
+%     subplot(plot1, plot2, i)
+%     Arot = imcomplement(imrotate(imcomplement(rot_images(:,:,i)), opt_angles(i), 'crop'));
+%     imshow(Arot)
+% end
 
 figure;
-%set(gcf, 'papersize', [8 8])
-set(gcf, 'paperposition', [0 0 1 1])
-plot(r*cos(2*pi*(1:nimages)/nimages),r*sin(2*pi*(1:nimages)/nimages), '.')
-hold on
-for i=1:nimages
-    x = r1 * cos(2*pi*i/nimages);
-    y = r1 * sin(2*pi*i/nimages);
-    Arot = noisy_images(:,:,i);
-    Arot(circle_window_idx2) = 255;
-    image([x-delta x+delta], [y-delta y+delta],Arot)
-    colormap(gray(256))
-    hold on
-    plot([r delta] * cos(2*pi*i/nimages), [r delta] * sin(2*pi*i/nimages));
-end
-for i=1:nimages
-    for j=1:i-1
-        plot(r * cos(2*pi*[i j]/nimages), r * sin(2*pi*[i j]/nimages));
-    end
-end
-set(gca, 'YDir', 'reverse');
-set(gca,'xcolor','w','ycolor','w','xtick',[],'ytick',[])
+make_plot(noisy_images, 0, r, r1, delta, true, false, zeros(nimages, 1))
 print('drosophila_pics/PU_angsynch1',fmt,res)
 
 
 figure;
-%set(gcf, 'papersize', [8 8])
-set(gcf, 'paperposition', [0 0 1 1])
-plot(r*cos(2*pi*(1:nimages)/nimages),r*sin(2*pi*(1:nimages)/nimages), '.')
-hold on
-for i=1:nimages
-    x = r1 * cos(2*pi*i/nimages);
-    y = r1 * sin(2*pi*i/nimages);
-    Arot = imcomplement(imrotate(imcomplement(noisy_images(:,:,i)), opt_angles(i), 'crop'));
-    Arot(circle_window_idx2) = 255;
-    image([x-delta x+delta], [y-delta y+delta],Arot)
-    colormap(gray(256))
-    hold on
-end
-for i=1:nimages
-    for j=1:i-1
-        plot(r * cos(2*pi*[i j]/nimages), r * sin(2*pi*[i j]/nimages));
-    end
-end
-set(gca, 'YDir', 'reverse');
-set(gca,'xcolor','w','ycolor','w','xtick',[],'ytick',[])
+make_plot(noisy_images, 0, r, r1, delta, true, false, opt_angles)
 print('drosophila_pics/PU_angsynch2',fmt,res)
 
 figure;
+make_plot(rot_images, 0, r, r1, delta, true, false, opt_angles)
+print('drosophila_pics/PU_angsynch3',fmt,res)
+
+function make_plot(image_set, template_image, r, r1, delta, draw_kn, draw_template, opt_angles)
+
+% set(0, 'DefaultFigurePaperSize',[12 12]);
+% set(0,'DefaultLineMarkerSize',1)
+% set(0,'defaultlinelinewidth', 0.1)
+% set(0,'DefaultAxesBox', 'off');
+% set(0, 'defaultaxesvisible', 'off')
+% set(0, 'defaultfigurecolor', 'w');
+% set(0, 'defaultfigurepaperposition', [0 0 1 1])
+
+
+%set(gcf, 'papersize', [12 12])
+
+nimages = size(image_set, 3);
+
 %set(gcf, 'papersize', [8 8])
-set(gcf, 'paperposition', [0 0 1 1])
-plot(r*cos(2*pi*(1:nimages)/nimages),r*sin(2*pi*(1:nimages)/nimages), '.')
+%set(gcf, 'paperposition', [0 0 1 1])
+
+plot(r*cos(2*pi*(1:nimages)/nimages),r*sin(2*pi*(1:nimages)/nimages), '.w', 'markersize', 1)
 hold on
 for i=1:nimages
     x = r1 * cos(2*pi*i/nimages);
     y = r1 * sin(2*pi*i/nimages);
-    Arot = imcomplement(imrotate(imcomplement(rot_images(:,:,i)), opt_angles(i), 'crop'));
+    Arot = imcomplement(imrotate(imcomplement(image_set(:,:,i)), opt_angles(i), 'crop'));
     image([x-delta x+delta], [y-delta y+delta],Arot)
     colormap(gray(256))
     hold on
 end
-for i=1:nimages
-    for j=1:i-1
-        plot(r * cos(2*pi*[i j]/nimages), r * sin(2*pi*[i j]/nimages));
+if draw_kn
+    for i=1:nimages
+        for j=1:i-1
+            plot(r * cos(2*pi*[i j]/nimages), r * sin(2*pi*[i j]/nimages), 'linewidth', 0.1);
+        end
     end
 end
+if draw_template
+    image([-delta delta], [-delta delta],template_image)
+    for i=1:nimages
+            plot([r delta] * cos(2*pi*i/nimages), [r delta] * sin(2*pi*i/nimages), 'linewidth', 0.1);
+    end
+end
+axis([-r1-delta r1+delta -r1-delta r1+delta])
+set(gca, 'box', 'off')
 set(gca, 'YDir', 'reverse');
 set(gca,'xcolor','w','ycolor','w','xtick',[],'ytick',[])
-print('drosophila_pics/PU_angsynch3',fmt,res)
+set(gca, 'visible', 'off')
+set(gcf, 'color', 'w');
+
+ti = get(gca,'TightInset');
+set(gca,'Position',[ti(1) ti(2) 1-ti(3)-ti(1) 1-ti(4)-ti(2)]);
+set(gca,'units','inches');
+pos = get(gca,'Position');
+ti = get(gca,'TightInset');
+
+set(gcf, 'PaperUnits','inches');
+set(gcf, 'PaperSize', [pos(3)+ti(1)+ti(3) pos(4)+ti(2)+ti(4)]);
+set(gcf, 'PaperPositionMode', 'manual');
+set(gcf, 'PaperPosition',[0 0 pos(3)+ti(1)+ti(3) pos(4)+ti(2)+ti(4)]);

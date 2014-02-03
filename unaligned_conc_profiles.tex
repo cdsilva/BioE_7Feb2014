@@ -20,80 +20,92 @@
 
 \end{frame}
 
-\begin{frame}{How to Address Rotation Invariance in Data Analysis}
-    There are two ways to view rotation-invariant data
- 
- 	\begin{block}{}
-        \begin{tikzpicture}
-        	\node[text width=0.3\textwidth] (text1) {{\bf We can use rotations to {\em augment} data} \\ Given a data point $x$, we include all rotations of $x$ in our data set \par};
-            \node[right=of text1] (fig1) {\includegraphics[width=0.25\textwidth]{../SIAM_DS_2013/drosophila_rot1.jpg}};
-            \node [right of=fig1, node distance=0.35\textwidth] (fig2) {
-            \begin{minipage}{0.25\textwidth}
-                \includegraphics[width=0.45\textwidth]{../SIAM_DS_2013/drosophila_rot1.jpg}
-                \includegraphics[width=0.45\textwidth]{../SIAM_DS_2013/drosophila_rot3.jpg}\\
-                \includegraphics[width=0.45\textwidth]{../SIAM_DS_2013/drosophila_rot5.jpg}
-                \includegraphics[width=0.45\textwidth]{../SIAM_DS_2013/drosophila_rot7.jpg}
-            \end{minipage}};
-            \draw [->] (fig1.east) -- (fig2.west);
-        \end{tikzpicture}
-        {\scriptsize \em This results in sines and cosines as PCA modes \footnotemark \par}
-	\end{block}
-	
-	\footcitetext{sirovich1987turbulence}
-	
-	\vspace{-0.3in}
-	
-	\begin{block}{}
-        \begin{tikzpicture}
-        	\node [text width=0.3\textwidth] (text1) {{\bf We can use rotations to {\em reduce} data} \\ We first align the data before doing further analysis};
-            \node[right=of text1] (fig1) {
-            \begin{minipage}{0.25\textwidth}
-            \includegraphics[width=0.45\textwidth]{../SIAM_DS_2013/drosophila_rot1.jpg}
-            \includegraphics[width=0.45\textwidth]{../SIAM_DS_2013/drosophila_rot3.jpg}\\
-			\includegraphics[width=0.45\textwidth]{../SIAM_DS_2013/drosophila_rot5.jpg}
-            \includegraphics[width=0.45\textwidth]{../SIAM_DS_2013/drosophila_rot7.jpg}
-            \end{minipage}};
-            
-            \node [right of=fig1, node distance=0.35\textwidth] (fig2) {
-            \begin{minipage}{0.25\textwidth}
-            \includegraphics[width=0.45\textwidth]{../SIAM_DS_2013/drosophila_rot1.jpg}
-            \includegraphics[width=0.45\textwidth]{../SIAM_DS_2013/drosophila_rot1.jpg}\\
-            \includegraphics[width=0.45\textwidth]{../SIAM_DS_2013/drosophila_rot1.jpg}
-            \includegraphics[width=0.45\textwidth]{../SIAM_DS_2013/drosophila_rot1.jpg}
-            \end{minipage}};
-            \draw [->] (fig1.east) -- (fig2.west);
-        \end{tikzpicture}
-	\end{block}
+%\begin{frame}{How to Address Rotation Invariance in Data Analysis}
+%    There are two ways to view rotation-invariant data
+% 
+% 	\begin{block}{}
+%        \begin{tikzpicture}
+%        	\node[text width=0.3\textwidth] (text1) {{\bf We can use rotations to {\em augment} data} \\ Given a data point $x$, we include all rotations of $x$ in our data set \par};
+%            \node[right=of text1] (fig1) {\includegraphics[width=0.25\textwidth]{drosophila_rot1.jpg}};
+%            \node [right of=fig1, node distance=0.35\textwidth] (fig2) {
+%            \begin{minipage}{0.25\textwidth}
+%                \includegraphics[width=0.45\textwidth]{drosophila_rot1.jpg}
+%                \includegraphics[width=0.45\textwidth]{drosophila_rot3.jpg}\\
+%                \includegraphics[width=0.45\textwidth]{drosophila_rot5.jpg}
+%                \includegraphics[width=0.45\textwidth]{drosophila_rot7.jpg}
+%            \end{minipage}};
+%            \draw [->] (fig1.east) -- (fig2.west);
+%        \end{tikzpicture}
+%        {\scriptsize \em This results in sines and cosines as PCA modes \footnotemark \par}
+%	\end{block}
+%	
+%	\footcitetext{sirovich1987turbulence}
+%	
+%	\vspace{-0.3in}
+%	
+%	\begin{block}{}
+%        \begin{tikzpicture}
+%        	\node [text width=0.3\textwidth] (text1) {{\bf We can use rotations to {\em reduce} data} \\ We first align the data before doing further analysis};
+%            \node[right=of text1] (fig1) {
+%            \begin{minipage}{0.25\textwidth}
+%            \includegraphics[width=0.45\textwidth]{drosophila_rot1.jpg}
+%            \includegraphics[width=0.45\textwidth]{drosophila_rot3.jpg}\\
+%			\includegraphics[width=0.45\textwidth]{drosophila_rot5.jpg}
+%            \includegraphics[width=0.45\textwidth]{drosophila_rot7.jpg}
+%            \end{minipage}};
+%            
+%            \node [right of=fig1, node distance=0.35\textwidth] (fig2) {
+%            \begin{minipage}{0.25\textwidth}
+%            \includegraphics[width=0.45\textwidth]{drosophila_rot1.jpg}
+%            \includegraphics[width=0.45\textwidth]{drosophila_rot1.jpg}\\
+%            \includegraphics[width=0.45\textwidth]{drosophila_rot1.jpg}
+%            \includegraphics[width=0.45\textwidth]{drosophila_rot1.jpg}
+%            \end{minipage}};
+%            \draw [->] (fig1.east) -- (fig2.west);
+%        \end{tikzpicture}
+%	\end{block}
+%
+%    We will {\bf reduce} the data by factoring out the underlying rotations
+%\end{frame}
 
-    We will {\bf reduce} the data by factoring out the underlying rotations
+\begin{frame}{Factoring Out Rotations}
+	
+	\centering
+	\includegraphics[width=0.5\textwidth]{PU_clean}
+	
+	\begin{itemize}
+	\item We assume that we have many {\em rotated} copies of an image.
+	%
+	\item We would like to align the images so that we can perform further analysis that will be {\em invariant} to rotations. 
+	%
+	\item This is essential for our {\em Drosophila} data, because the developmental dynamics are invariant to the orientation of the embryos in the microfluidic device.
+	\end{itemize}
+
 \end{frame}
 
 \begin{frame}{Factoring Out Rotations}
 	\centering	
 	
-	\only<1>{\includegraphics[width=0.5\textwidth, trim=2in 2in 2in 2in, clip]{PU_clean}}
-	\only<2>{\includegraphics[width=0.5\textwidth, trim=2in 2in 2in 2in, clip]{PU_template1_clean}}
-	\only<3>{\includegraphics[width=0.5\textwidth, trim=2in 2in 2in 2in, clip]{PU_template2_clean}}
+	\only<1>{\includegraphics[width=0.5\textwidth]{PU_template1_clean}\\
+	{\small \em Images, unaligned.}}
+	\only<2>{\includegraphics[width=0.5\textwidth]{PU_template2_clean}\\
+	{\small \em Images, aligned to template.}}
 
-	\only<1>{{\small \em Many images, each of which is a rotated copy of the template.}}
-	\only<2>{{\small \em Each image has been rotated to minimize the distance between it and the template.}}
-	
 	If we have many images and wish to align them, \\ we can rotate each one until it is optimally aligned with a {\bf template}.
-	
+
+	In this case, we have chosen the template to be one of the images in the dataset.
+		
 \end{frame}
 
 \begin{frame}{Factoring Out Rotations}
 
 	\centering
-	\only<1>{\includegraphics[width=0.5\textwidth]{temp/PU_noisy}}
-	\only<2>{\includegraphics[width=0.5\textwidth]{temp/PU_template1_noisy}}
-	\only<3>{\includegraphics[width=0.5\textwidth]{temp/PU_template2_noisy}}
-	\only<4>{\includegraphics[width=0.5\textwidth]{temp/PU_template3_noisy}}
-	
-	
-	\only<1>{{\small \em Many images, each of which is a rotated noisy copy of the template.}}
-	\only<2>{{\small \em Each image has been rotated to minimize the distance between it and the template.}}
-	\only<3>{{\small \em There are some misalignments because the images are noisy.}}
+	\only<1>{\includegraphics[width=0.5\textwidth]{PU_template1_noisy}\\
+	{\small \em Images, unaligned, now corrupted with white Gaussian noise.}}
+	\only<2>{\includegraphics[width=0.5\textwidth]{PU_template2_noisy}\\
+	{\small \em Images, aligned to template.}}
+	\only<3>{\includegraphics[width=0.5\textwidth]{PU_template3_noisy}\\
+	{\small \em Images, denoised after being aligned to template. Note that there are several misalignments.}}
 	
 	However, if the images are noisy, \\then template-based alignment will often be inaccurate.
 	
@@ -104,9 +116,12 @@
 	Instead, we would like to use each image as a template for every other image, and then find the most {\em consistent} set of alignments.
 	
 	\centering
-	\only<1>{\includegraphics[width=0.5\textwidth]{PU_angsynch1}}
-	\only<2>{\includegraphics[width=0.5\textwidth, trim=2in 2in 2in 2in, clip]{PU_angsynch2}}
-	\only<3>{\includegraphics[width=0.5\textwidth, trim=2in 2in 2in 2in, clip]{PU_angsynch3}}
+	\only<1>{\includegraphics[width=0.5\textwidth]{PU_angsynch1} \\
+	{\small \em Images, unaligned, now corrupted with white Gaussian noise.}}
+	\only<2>{\includegraphics[width=0.5\textwidth]{PU_angsynch2}\\
+	{\small \em Images, aligned using angular synchronization.}}
+	\only<3>{\includegraphics[width=0.5\textwidth]{PU_angsynch3} \\
+	{\small \em Images, aligned using angular synchronization and then denoised. Note that there are many fewer misalignments.}}
 	
 \end{frame}
 
@@ -177,11 +192,11 @@
 		\node[below of=fig2, node distance=0.7in, text width=0.4\textwidth]{{\small Profiles are aligned and ordered using vector diffusion maps} \par };
 	\end{tikzpicture}
 	
-	\begin{minipage}{0.4\textwidth}
-	\includegraphics[width=0.9\textwidth]{VDM_time_corr}	
-	\end{minipage}
-	\begin{minipage}{0.5\textwidth}
-	The VDM embedding coordinate, which we use to ``automatically'' order our data, is well-correlated with the membrane thickness, which is known to be monotonic in time.
-	\end{minipage}
+%	\begin{minipage}{0.4\textwidth}
+%	\includegraphics[width=0.9\textwidth]{VDM_time_corr}	
+%	\end{minipage}
+%	\begin{minipage}{0.5\textwidth}
+%	The VDM embedding coordinate, which we use to ``automatically'' order our data, is well-correlated with the membrane thickness, which is known to be monotonic in time.
+%	\end{minipage}
 
 \end{frame}
