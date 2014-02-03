@@ -317,6 +317,21 @@ for i=1:m
     clf
 end
 
+figure;
+for i=1:m
+    set(gcf, 'paperposition',[0 0 8 8])
+    imshow(uint8(image_set(:,:,I(i))), 'InitialMagnification', 'fit')
+    set(gca,'position',[0 0 1 1],'units','normalized')
+    % make red colormap
+    cm_green = gray;
+    cm_green(:,2) = 0;
+    cm_green(:,3) = 0;
+    colormap(cm_green)
+    axis off
+    print(sprintf('dpERK_vdm_unaligned_%d',i),fmt,res)
+    clf
+end
+
 % figure;
 % for i=1:m
 %     set(gcf, 'paperposition',[0 0 8 8])
