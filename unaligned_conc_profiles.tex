@@ -69,123 +69,46 @@
 \end{frame}
 
 \begin{frame}{Factoring Out Rotations}
-    
-    There are two main methods for factoring out rotations in data analysis
-    \vfill
-    
-    \begin{columns}
-	\begin{column}{0.5\textwidth}
-	{\bf Template-based methods}\\
-	{\small All data points are aligned to one template \par}
-	\centering
-		\begin{tikzpicture}
-			\node (data1) {\includegraphics[width=0.2\textwidth]{../SIAM_DS_2013/drosophila_rot1_trim.jpg}};
-			\node [right=0in of data1] (data2) {\includegraphics[width=0.2\textwidth]{../SIAM_DS_2013/drosophila_rot3_trim.jpg}};
-			\node [right=0in of data2] (data3) {\includegraphics[width=0.2\textwidth]{../SIAM_DS_2013/drosophila_rot5_trim.jpg}};
-			\node [right=0in of data3] (data4) {\includegraphics[width=0.2\textwidth]{../SIAM_DS_2013/drosophila_rot6_trim.jpg}};
+	\centering	
+	
+	\only<1>{\includegraphics[width=0.5\textwidth, trim=2in 2in 2in 2in, clip]{PU_clean}}
+	\only<2>{\includegraphics[width=0.5\textwidth, trim=2in 2in 2in 2in, clip]{PU_template1_clean}}
+	\only<3>{\includegraphics[width=0.5\textwidth, trim=2in 2in 2in 2in, clip]{PU_template2_clean}}
 
-			\path (data1) -- (data4) node[pos=.5,above=1in] (template) {\includegraphics[width=0.3\textwidth]{../SIAM_DS_2013/drosophila_rot1_trim.jpg}};
-			\node [below=0in of template] (text1) {{\small Select a template \par}};
-			
-			\node[below=0in of data1]{{\scriptsize \em Data 1}};
-			\node[below=0in of data2]{{\scriptsize \em Data 2}};
-			\node[below=0in of data3]{{\scriptsize \em Data 3}};
-			\node[below=0in of data4]{{\scriptsize \em Data 4}};
-			
-			\draw[<->] (text1) -- (data1) node [midway, above, sloped] {{\scriptsize Align}};
-			\draw[<->] (text1) -- (data2) node [midway, above, sloped] {{\scriptsize Align}};
-			\draw[<->] (text1) -- (data3) node [midway, above, sloped] {{\scriptsize Align}};
-			\draw[<->] (text1) -- (data4) node [midway, above, sloped] {{\scriptsize Align}};
-        \end{tikzpicture}
-    \end{column}
-    
-    \begin{column}{0.5\textwidth}
-    {\bf Angular Synchronization}\\
-    {\small We calculate all pairwise alignments and then find the most {\em consistent} set of global alignments \par}
-    \centering
-    	\begin{tikzpicture}
-    		\node (data1) {\includegraphics[width=0.2\textwidth]{../SIAM_DS_2013/drosophila_rot1_trim.jpg}};
-			\node [right=of data1] (data2) {\includegraphics[width=0.2\textwidth]{../SIAM_DS_2013/drosophila_rot3_trim.jpg}};
-			\node [below=of data1] (data3) {\includegraphics[width=0.2\textwidth]{../SIAM_DS_2013/drosophila_rot5_trim.jpg}};
-			\node [right=of data3] (data4) {\includegraphics[width=0.2\textwidth]{../SIAM_DS_2013/drosophila_rot7_trim.jpg}};
-			
-			\node[below=0in of data1](text1){{\scriptsize \em Data 1}};
-			\node[below=0in of data2](text2){{\scriptsize \em Data 2}};
-			\node[below=0in of data3](text3){{\scriptsize \em Data 3}};
-			\node[below=0in of data4]{{\scriptsize \em Data 4}};
-			
-			\draw[<->] (data1) -- (data2) node [midway, above, sloped] {{\scriptsize Align}};
-			\draw[<->] (text1) -- (data3) node [midway, above, sloped] {{\scriptsize Align}};
-			\draw[<->] (data1) -- (data4);% node [midway, above, sloped] {{\scriptsize Align}};
-			\draw[<->] (data2) -- (data3);% node [midway, above, sloped] {{\scriptsize Align}};
-			\draw[<->] (text2) -- (data4) node [midway, above, sloped] {{\scriptsize Align}};
-			\draw[<->] (data3) -- (data4) node [midway, above, sloped] {{\scriptsize Align}};
-		\end{tikzpicture}
-		
-		{\small {\bf In the presence of noise}, synchronization is often more robust \par}
-	\end{column}
-	\end{columns}
-    
-    %We will look at {\bf synchronization}
+	\only<1>{{\small \em Many images, each of which is a rotated copy of the template.}}
+	\only<2>{{\small \em Each image has been rotated to minimize the distance between it and the template.}}
+	
+	If we have many images and wish to align them, \\ we can rotate each one until it is optimally aligned with a {\bf template}.
+	
 \end{frame}
 
-%\begin{frame}{Angular Synchronization \let\thefootnote\relax\footnote{\cite{singer2011angular}}}
-%
-%	To synchronize images/concentrations on a circle under rotations in the plane:
-%    {\scriptsize
-%    \begin{itemize}
-%        \item We have {\bf data} $x_1, x_2, \dots, x_n$ (in our example, $x_i$ is the concentration profile of dpERK on a ring)
-%        % which is invariant under some group $G$
-%
-%        %\item We will take $G = SO(2)$, but other symmetry groups can also be considered
-%
-%        \item Let $\theta_{ij}$ denote the {\bf angle of rotation} that best aligns $x_i$ and $x_j$ (so $\theta_{ji} = -\theta_{ij}$)
-%
-%        \item We seek $\hat{\theta_1}, \hat{\theta_2}, \dots, \hat{\theta_n}$ so that rotating each data point $x_i$ by $\theta_i$ will result in the most ``consistent'' aligned data
-%
-%        \item We {\bf construct the matrix} $H$, where $H_{ij} = e^{i \theta_{ij}}$.
-%
-%        \item We then want to solve the {\bf optimization problem}
-%        $$ \max_{\theta_1, \dots, \theta_n \in [0, 2\pi)} \sum_{i=1}^{n}\sum_{j=1}^{n} e^{-i \theta_i}H_{ij} e^{i \theta_j}$$
-%
-%
-%        %\item Note that if $\theta_{ij}$ is an accurate measurement, then
-%        %$e^{-i \theta_i}H_{ij} e^{i \theta_j} = e^{-i \theta_i}e^{i (\theta_i-\theta_j)} e^{i \theta_j} = 1$
-%
-%        %\item However, if $\theta_{ij}$ is inaccurate, then $e^{-i \theta_i}H_{ij} e^{i \theta_j}$ will be a (uniform) random complex number of unit norm; these terms will (mostly) cancel
-%
-%        \item We {\bf relax} the problem to
-%        $$\max_{z_1, \dots, z_n \in \mathbb{C}} \sum_{i=1}^{n}\sum_{j=1}^{n} \overline{z_i} H_{ij} z_j $$
-%%    \end{itemize}
-%%    \par}
-%%\end{frame}
-%
-%%\begin{frame}{Angular Synchronization \let\thefootnote\relax\footnote{\cite{singer2011angular}}}
-%%
-%%    {\scriptsize
-%%    \begin{itemize}
-%        \item The solution to
-%        $$\max_{z_1, \dots, z_n \in \mathbb{C}} \sum_{i=1}^{n}\sum_{j=1}^{n} \overline{z_i} H_{ij} z_j = \max \overline{z} H z$$
-%        is given by $v_1$, the {\bf top eigenvector} of $H$
-%
-%        \item Note that the entries of $v_1$ are not necessarily of unit norm\\
-%        Therefore, the optimal rotations $\hat{\theta_1}, \dots, \hat{\theta_n}$ are given by
-%        $e^{i \hat{\theta_i}} = \frac{v_1(i)}{|v_1(i)|}$
-%
-%%        \item
-%%        Under a uniform noise model, the matrix $H$ can be shown to have an eigenvalue spectrum that consists of a semicircle distribution \footcite{wigner1955characteristic, wigner1958distribution}, with one outlier corresponding to the top eigenvector, which contains the optimal alignments\\
-%%        \begin{center}
-%%        \includegraphics[width=0.3\textwidth]{../SIAM_DS_2013/evec_spectrum.jpg}
-%%        \end{center}
-%%
-%%        \item Also note that this formulation takes into account {\em consistency}\\
-%%        For example, if we want to satisfy two angle relations $\theta_i-\theta_k \approx \theta_{ij} + \theta_{jk} \forall j$, we would solve
-%%        $$\max_{z_1, \dots, z_n \in \mathbb{C}} \sum_{i=1}^{n}\sum_{k=1}^{n} \overline{z_i} \left( \sum_{j=1}^{n} e^{i (\theta_{ij} + \theta_{jk})} \right) z_k = \max \overline{z} H^2 z$$
-%%
-%%        The solution to this optimization problem is also $v_1$, the top eigenvector of $H$
-%    \end{itemize}
-%    \par}
-%\end{frame}
+\begin{frame}{Factoring Out Rotations}
+
+	\centering
+	\only<1>{\includegraphics[width=0.5\textwidth]{temp/PU_noisy}}
+	\only<2>{\includegraphics[width=0.5\textwidth]{temp/PU_template1_noisy}}
+	\only<3>{\includegraphics[width=0.5\textwidth]{temp/PU_template2_noisy}}
+	\only<4>{\includegraphics[width=0.5\textwidth]{temp/PU_template3_noisy}}
+	
+	
+	\only<1>{{\small \em Many images, each of which is a rotated noisy copy of the template.}}
+	\only<2>{{\small \em Each image has been rotated to minimize the distance between it and the template.}}
+	\only<3>{{\small \em There are some misalignments because the images are noisy.}}
+	
+	However, if the images are noisy, \\then template-based alignment will often be inaccurate.
+	
+\end{frame}
+
+\begin{frame}{Factoring Out Rotations}
+	
+	Instead, we would like to use each image as a template for every other image, and then find the most {\em consistent} set of alignments.
+	
+	\centering
+	\only<1>{\includegraphics[width=0.5\textwidth]{PU_angsynch1}}
+	\only<2>{\includegraphics[width=0.5\textwidth, trim=2in 2in 2in 2in, clip]{PU_angsynch2}}
+	\only<3>{\includegraphics[width=0.5\textwidth, trim=2in 2in 2in 2in, clip]{PU_angsynch3}}
+	
+\end{frame}
 
 \begin{frame}{Angular Synchronization for Data Alignment}
 

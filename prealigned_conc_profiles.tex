@@ -205,15 +205,15 @@ Diffusion maps \footnote{ \tiny Coifman {\em et al}, PNAS, 2005.} (DMAPS) is a {
   \begin{tikzpicture}
   	\node (unordered) {\includegraphics[width=0.3\textwidth]{data_unordered}};
   	\node[right of=unordered, node distance=0.6\textwidth] (ordered) {\includegraphics[width=0.3\textwidth]{data_ordered_DMAPS}};
-    \draw [->] (unordered.east) -- (ordered.west) node[above,midway] {Ordered using DMAPS};    
+    \draw [->] (unordered.east) -- (ordered.west) node[above,midway, text width=0.3\textwidth] {Ordered using the first DMAPS coordinate};    
   \end{tikzpicture}
   
-	\begin{minipage}{0.4\textwidth}
-	\includegraphics[width=0.9\textwidth]{DMAPS_time_corr}	
-	\end{minipage}
-	\begin{minipage}{0.5\textwidth}
-	The DMAPS embedding coordinate, which we use to ``automatically'' order our data, is well-correlated with the membrane thickness, which is known to be monotonic in time.
-	\end{minipage}
+%	\begin{minipage}{0.4\textwidth}
+%	\includegraphics[width=0.9\textwidth]{DMAPS_time_corr}	
+%	\end{minipage}
+%	\begin{minipage}{0.5\textwidth}
+%	The DMAPS embedding coordinate, which we use to ``automatically'' order our data, is well-correlated with the membrane thickness, which is known to be monotonic in time.
+%	\end{minipage}
 	
   
 \end{frame}

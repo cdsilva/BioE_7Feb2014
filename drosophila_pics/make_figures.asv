@@ -257,6 +257,7 @@ fprintf('VDM (1-D) Spearman coeff: %2.4f \n', corr(L(:,1),embed_coord(:, coord_i
 %% raw dpERK images-- synchronization
 
 load(sprintf('%s/2d_alignment_figures.mat', data_dir));
+im_save_idx = [1 20 30 40 52];
 
 figure;
 plot(L(:,1),embed_coord(:,coord_idx),'.')
@@ -264,6 +265,14 @@ xlabel('membrane thickness')
 ylabel(sprintf('$\\langle \\phi_%d, \\phi_%d \\rangle$', embed_idx(1, coord_idx), embed_idx(2, coord_idx)),'interpreter','latex')
 print('vdm_2d_time_corr',fmt, res)
 clf
+
+figure;
+plot(L(:,1),embed_coord(:,coord_idx),'.')
+hold on
+plot(L(I(im_save_idx),1), embed_coord(I(im_save_idx),coord_idx), 'or')
+xlabel('membrane thickness')
+ylabel(sprintf('$\\langle \\phi_%d, \\phi_%d \\rangle$', embed_idx(1, coord_idx), embed_idx(2, coord_idx)),'interpreter','latex')
+print('vdm_2d_time_corr2',fmt, res)
 
 figure;
 for i=1:length(im_save_idx)
@@ -282,6 +291,7 @@ figure;
 for i=1:length(im_save_idx)
     set(gcf, 'paperposition',[0 0 8 8])
     imshow(uint8(image_set_aligned_vdm(:,:,I(im_save_idx(i)))), 'InitialMagnification', 'fit')
+    set(gca,'position',[0 0 1 1],'units','normalized')
     % make red colormap
     cm_green = gray;
     cm_green(:,2) = 0;
@@ -292,15 +302,39 @@ for i=1:length(im_save_idx)
     clf
 end
 
+figure;
+for i=1:m
+    set(gcf, 'paperposition',[0 0 8 8])
+    imshow(uint8(image_set_aligned_vdm(:,:,I(i))), 'InitialMagnification', 'fit')
+    set(gca,'position',[0 0 1 1],'units','normalized')
+    % make red colormap
+    cm_green = gray;
+    cm_green(:,2) = 0;
+    cm_green(:,3) = 0;
+    colormap(cm_green)
+    axis off
+    print(sprintf('aligned_%d',i),fmt,res)
+    clf
+end
+
 %% raw dpERK images--scattering
 
 load(sprintf('%s/2d_scattering_figures.mat',data_dir));
+im_save_idx = [1 20 29 40 51];
 
 figure;
 plot(L(:,1), V(:,2),'.')
 xlabel('membrane thickness')
 ylabel('$\phi_2$','interpreter','latex')
 print('DMAPS_scat_time_corr',fmt,res)
+
+figure;
+plot(L(:,1), V(:,2),'.')
+hold on
+plot(L(I(im_save_idx),1), V(I(im_save_idx), 2), 'or')
+xlabel('membrane thickness')
+ylabel('$\phi_2$','interpreter','latex')
+print('DMAPS_scat_time_corr2',fmt,res)
 
 figure;
 for i=1:length(im_save_idx)
@@ -332,12 +366,22 @@ end
 %% membrane images--scattering
 
 load(sprintf('%s/2d_membrane_scattering_figures.mat', data_dir));
+im_save_idx = [10 26 40 46 52];
 
 figure;
 plot(L(:,1), V(:,idx),'.')
 xlabel('membrane thickness')
 ylabel(sprintf('$\\phi_%d$',idx),'interpreter','latex')
 print('DMAPS_membrane_scat_time_corr',fmt,res)
+
+figure;
+plot(L(:,1), V(:,idx),'.')
+hold on
+plot(L(I(im_save_idx),1), V(I(im_save_idx), idx), 'or')
+xlabel('membrane thickness')
+ylabel(sprintf('$\\phi_%d$',idx),'interpreter','latex')
+print('DMAPS_membrane_scat_time_corr2',fmt,res)
+
 
 figure;
 for i=1:length(im_save_idx)

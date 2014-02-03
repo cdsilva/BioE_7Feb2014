@@ -133,28 +133,28 @@ We will construct a representative trajectory of the developmental~dynamics \\ i
 %    
 %\end{frame}
 
-\begin{frame}{Measuring Developmental Time from Membrane Markers}
-
-	\centering
-    The current standard practice is to use membrane thickness \\to measure the age of an embryo \footcite{lim2013kinetics, lecuit2002slam}\\
-    \vspace{0.1in}
-    \begin{tikzpicture}
-        \node (dpERK_5min) {\includegraphics[width=0.1\textwidth]{dpERK_5min}};
-        \node[right=0in of dpERK_5min] (mem_5min) {\includegraphics[width=0.1\textwidth]{membrane_5min}};
-        \node[below=0.1in of dpERK_5min] (dpERK_20min) {\includegraphics[width=0.1\textwidth]{dpERK_20min}};
-        \node[right=0in of dpERK_20min] (mem_20min) {\includegraphics[width=0.1\textwidth]{membrane_20min}};
-        \node[below=0.1in of dpERK_20min] (dpERK_45min) {\includegraphics[width=0.1\textwidth]{dpERK_45min}};
-        \node[right=0in of dpERK_45min] (mem_45min) {\includegraphics[width=0.1\textwidth]{membrane_45min}};
-        \node[below=0.25in of $(dpERK_45min)!0.5!(mem_45min)$, text width=0.3\textwidth, align=center](text1) {{\small \em We stain each embryo for dpERK and membrane proteins \par}};
-        \node[right=0.5in of mem_20min] (calibration) {\includegraphics[width=0.3\textwidth]{calibration_curve}} edge[<-] (mem_5min) edge[<-] (mem_20min) edge[<-] (mem_45min);
-        \node[below=0in of calibration, text width=0.3\textwidth, align=center](text2) {{\small \em The membrane thickness or ``furrow length'' is monotonic in time or age of the embryo \par}};
-        \node[right=2.5in of mem_20min] (time_20) {20 minutes} edge[<-] (calibration);
-        \node[right=2.5in of mem_5min] (time_5) {5 minutes} edge[<-] (calibration);
-        \node[right=2.5in of mem_45min] (time_45) {45 minutes} edge[<-] (calibration);
-        \node[below=0in of time_45, text width=0.25\textwidth, align=center](text2) {{\small \em We can calculate the age of each embryo from the membrane thickness \par}};
-    \end{tikzpicture}
-
-\end{frame}
+%\begin{frame}{Measuring Developmental Time from Membrane Markers}
+%
+%	\centering
+%    The current standard practice is to use membrane thickness \\to measure the age of an embryo \footcite{lim2013kinetics, lecuit2002slam}\\
+%    \vspace{0.1in}
+%    \begin{tikzpicture}
+%        \node (dpERK_5min) {\includegraphics[width=0.1\textwidth]{dpERK_5min}};
+%        \node[right=0in of dpERK_5min] (mem_5min) {\includegraphics[width=0.1\textwidth]{membrane_5min}};
+%        \node[below=0.1in of dpERK_5min] (dpERK_20min) {\includegraphics[width=0.1\textwidth]{dpERK_20min}};
+%        \node[right=0in of dpERK_20min] (mem_20min) {\includegraphics[width=0.1\textwidth]{membrane_20min}};
+%        \node[below=0.1in of dpERK_20min] (dpERK_45min) {\includegraphics[width=0.1\textwidth]{dpERK_45min}};
+%        \node[right=0in of dpERK_45min] (mem_45min) {\includegraphics[width=0.1\textwidth]{membrane_45min}};
+%        \node[below=0.25in of $(dpERK_45min)!0.5!(mem_45min)$, text width=0.3\textwidth, align=center](text1) {{\small \em We stain each embryo for dpERK and membrane proteins \par}};
+%        \node[right=0.5in of mem_20min] (calibration) {\includegraphics[width=0.3\textwidth]{calibration_curve}} edge[<-] (mem_5min) edge[<-] (mem_20min) edge[<-] (mem_45min);
+%        \node[below=0in of calibration, text width=0.3\textwidth, align=center](text2) {{\small \em The membrane thickness or ``furrow length'' is monotonic in time or age of the embryo \par}};
+%        \node[right=2.5in of mem_20min] (time_20) {20 minutes} edge[<-] (calibration);
+%        \node[right=2.5in of mem_5min] (time_5) {5 minutes} edge[<-] (calibration);
+%        \node[right=2.5in of mem_45min] (time_45) {45 minutes} edge[<-] (calibration);
+%        \node[below=0in of time_45, text width=0.25\textwidth, align=center](text2) {{\small \em We can calculate the age of each embryo from the membrane thickness \par}};
+%    \end{tikzpicture}
+%
+%\end{frame}
 
 \begin{frame}{Reconstructing Dynamics from Snapshots}
 
@@ -178,9 +178,9 @@ We will construct a representative trajectory of the developmental~dynamics \\ i
     \begin{tikzpicture}
         \node (fig1) {\includegraphics[width=0.35\textwidth]{data_unordered}};
         \node[right of=fig1, node distance=0.55\textwidth] (fig2) {\includegraphics[width=0.35\textwidth]{data_ordered_membrane}};
-        \draw [->] (fig1.east) -- (fig2.west) node[above,midway] {\tiny Order using membrane thickness};
+        \draw [->] (fig1.east) -- (fig2.west) node[above,midway] {\tiny Order temporally};
     \end{tikzpicture}
 	
-	We would like to order the snapshots {\em without} measuring the membrane thickness.
+	%We would like to order the snapshots {\em without} measuring the membrane thickness.
 	
 \end{frame}
