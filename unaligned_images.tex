@@ -7,45 +7,65 @@
     
     \centering
     \begin{tikzpicture}
-        \node (dpERKimage) {\includegraphics[width=0.3\textwidth]{drosophila_dpERK}};
+        \node (dpERKimage) {\includegraphics[width=0.25\textwidth]{drosophila_dpERK}};
         		\draw[gray,<->] (dpERKimage.south west) --  (dpERKimage.south east) node[below,midway] { \tiny $100 \mu m$};
 
-        \node[right=of dpERKimage] (dpERKprofile) {\includegraphics[width=0.3\textwidth]{circle_profile}};
+        \node[right=of dpERKimage] (dpERKprofile) {\includegraphics[width=0.25\textwidth]{circle_profile}};
         \draw[->] (dpERKimage)--(dpERKprofile);
     \end{tikzpicture}
     
-    However, we could do the same analysis with {\bf raw images} instead of the concentration profiles to extract the dynamics.
-    
-    We must now synchronize/align the images under all {\bf translations and rotations}.
+    \begin{itemize}
+    	\item DMAPS only requires a distance metric.
+    	\item Angular synchronization only requires us to compute pairwise alignments
+    	\item Therefore, we can do the same analysis {\em directly} on the raw two--dimensional fluorescent images.
+    	\item We will factor out {\bf translations and rotations} 
+    	\item We will use the Euclidean distance between the intensities of the image pixels as our distance metric
+    \end{itemize}
     
 	\end{frame}
 
-\begin{frame}{Alignment of Two-Dimensional Images}
-    We align and order the images using vector diffusion maps.\\
-    The VDM embedding coordinate is well-correlated with the membrane thickness.
+\begin{frame}{Ordering Fluorescent Images Using Vector Diffusion Maps}
+
+	\centering
+    We align and order the images using vector diffusion maps.
+%    \\
+%    The VDM embedding coordinate is well-correlated with the membrane thickness.
+%    
+%    \centering
+%    \begin{tikzpicture}
+%    	\node[anchor=south west] (image) {\includegraphics[width=0.5\textwidth]{vdm_2d_time_corr2}};
+%    	\begin{scope}[x={(image.south east)},y={(image.north west)}]
+%    	%\draw[help lines,xstep=.05,ystep=.05] (0,0) grid (1,1);
+%    	\node(x1) at (0.23,0.18) {};
+%    	\node(x2) at (0.34,0.27) {};
+%    	\node(x3) at (0.52,0.37) {};
+%    	\node(x4) at (0.58,0.58) {};
+%    	\node(x5) at (0.67,0.81) {};
+%    	\end{scope}
+%    	\node[below=0.2in of image](fig3) {\includegraphics[width=0.1\textwidth]{dpERK_vdm_3}};		
+%    	\node[left=0.1in of fig3](fig2) {\includegraphics[width=0.1\textwidth]{dpERK_vdm_2}};
+%    	\node[left=0.1in of fig2](fig1) {\includegraphics[width=0.1\textwidth]{dpERK_vdm_1}};	
+%    	\node[right=0.1in of fig3](fig4) {\includegraphics[width=0.1\textwidth]{dpERK_vdm_4}};					
+%    	\node[right=0.1in of fig4](fig5) {\includegraphics[width=0.1\textwidth]{dpERK_vdm_5}};	    
+%    	\draw[->] (x1) -- (fig1.north);
+%    	\draw[->] (x2) -- (fig2.north);
+%    	\draw[->] (x3) -- (fig3.north);
+%    	\draw[->] (x4) -- (fig4.north);
+%    	\draw[->] (x5) -- (fig5.north);
+%    \end{tikzpicture}
+
+	\foreach \i in {15, 19, 30, 42, 45, 10, 36, 46, 47, 51, 27, 24, 28, 48, 38, 52, 34, 20, 50, 17, 6, 22, 16, 39, 33, 21, 2, 41, 9, 29, 14, 4, 8, 35, 31, 3, 40, 44, 13, 7, 18, 32, 11, 43, 25, 49, 5, 26, 23, 37, 12} {	
+	\includegraphics[width=0.05\textwidth]{dpERK_vdm_unaligned_\i}} 
     
-    \centering
-    \begin{tikzpicture}
-    	\node[anchor=south west] (image) {\includegraphics[width=0.5\textwidth]{vdm_2d_time_corr2}};
-    	\begin{scope}[x={(image.south east)},y={(image.north west)}]
-    	%\draw[help lines,xstep=.05,ystep=.05] (0,0) grid (1,1);
-    	\node(x1) at (0.23,0.18) {};
-    	\node(x2) at (0.34,0.27) {};
-    	\node(x3) at (0.52,0.37) {};
-    	\node(x4) at (0.58,0.58) {};
-    	\node(x5) at (0.67,0.81) {};
-    	\end{scope}
-    	\node[below=0.2in of image](fig3) {\includegraphics[width=0.1\textwidth]{dpERK_vdm_3}};		
-    	\node[left=0.1in of fig3](fig2) {\includegraphics[width=0.1\textwidth]{dpERK_vdm_2}};
-    	\node[left=0.1in of fig2](fig1) {\includegraphics[width=0.1\textwidth]{dpERK_vdm_1}};	
-    	\node[right=0.1in of fig3](fig4) {\includegraphics[width=0.1\textwidth]{dpERK_vdm_4}};					
-    	\node[right=0.1in of fig4](fig5) {\includegraphics[width=0.1\textwidth]{dpERK_vdm_5}};	    
-    	\draw[->] (x1) -- (fig1.north);
-    	\draw[->] (x2) -- (fig2.north);
-    	\draw[->] (x3) -- (fig3.north);
-    	\draw[->] (x4) -- (fig4.north);
-    	\draw[->] (x5) -- (fig5.north);
-    \end{tikzpicture}
+    	\centering
+    {\LARGE $\downarrow$}
+    \begin{minipage}{0.35\textwidth}
+	{\scriptsize VDM: pairwise alignments accounting for translations and rotations of images, Euclidean distance between image pixels as metric. \par}
+    \end{minipage}
+    
+	\foreach \i in {2,...,52} {
+	\includegraphics[width=0.05\textwidth]{dpERK_vdm_all_\i}
+	}    
     
 \end{frame}
 
@@ -53,9 +73,9 @@
 
 {\small 
 \begin{itemize}
-	\item Thus far, we have only used the Euclidean distance as our metric.
+	\item Thus far, we have focused on {\em aligning} the images so that we can factor out the relevant symmetries before doing further analysis. 
 	%
-	\item Another option is to use {\em features} of the images, and then take distances between these features to use in our DMAPS calculations.
+	\item Another option is to use {\em features} of the images that are invariant to translations and rotations, and use distances between these features in our DMAPS calculations.
 	%
 	\item 
 	We will use the scattering transform \footcite{bruna2012invariant} as features of our images.
@@ -72,7 +92,8 @@
 \vspace{-0.1in}
 \begin{block}{{\small Scattering transform is robust to deformations \par}}
 \centering
-\animategraphics[width=0.8\textwidth,autoplay,loop]{5}{scat_images/animate_}{0}{3}\\
+\animategraphics[width=0.8\textwidth,autoplay,loop]{5}{scat_images/animate_}{0}{3} 
+
 {\tiny (Left) $f$ = Gabor atom of varying frequency and direction, (Center) Modulus of the Fourier transform of $f$, (Right) Scattering transform of $f$ \par}
 \end{block}
 
@@ -98,35 +119,45 @@
 
 	{\small 
 	\begin{itemize}
-		\item We compute the scattering transform coefficients for the images.
+		\item We compute the scattering transform coefficients for each image in our data set.
 		\item We use the Euclidean distance {\em between the scattering transform coefficents} in our DMAPS calculation.
 	\end{itemize}
     \par}
     
-    \centering
-    \begin{tikzpicture}
-    	\node[anchor=south west] (image) {\includegraphics[width=0.45\textwidth]{DMAPS_scat_time_corr2}};
-    	\begin{scope}[x={(image.south east)},y={(image.north west)}]
-    	%\draw[help lines,xstep=.05,ystep=.05] (0,0) grid (1,1);
-    	\node(x1) at (0.23,0.24) {};
-    	\node(x2) at (0.32,0.32) {};
-    	\node(x3) at (0.45,0.49) {};
-    	\node(x4) at (0.59,0.72) {};
-    	\node(x5) at (0.66,0.85) {};
-    	\end{scope}
-    	\node[below=0.2in of image](fig3) {\includegraphics[width=0.07\textwidth]{dpERK_scat_3}};		
-    	\node[left=0.1in of fig3](fig2) {\includegraphics[width=0.07\textwidth]{dpERK_scat_2}};
-    	\node[left=0.1in of fig2](fig1) {\includegraphics[width=0.07\textwidth]{dpERK_scat_1}};	
-    	\node[right=0.1in of fig3](fig4) {\includegraphics[width=0.07\textwidth]{dpERK_scat_4}};					
-    	\node[right=0.1in of fig4](fig5) {\includegraphics[width=0.07\textwidth]{dpERK_scat_5}};	    
-    	\draw[->] (x1) -- (fig1.north);
-    	\draw[->] (x2) -- (fig2.north);
-    	\draw[->] (x3) -- (fig3.north);
-    	\draw[->] (x4) -- (fig4.north);
-    	\draw[->] (x5) -- (fig5.north);
-    \end{tikzpicture}
-	
-	The first DMAPS coordinate is well-correlated with the membrane thickness.
+%    \centering
+%    \begin{tikzpicture}
+%    	\node[anchor=south west] (image) {\includegraphics[width=0.45\textwidth]{DMAPS_scat_time_corr2}};
+%    	\begin{scope}[x={(image.south east)},y={(image.north west)}]
+%    	%\draw[help lines,xstep=.05,ystep=.05] (0,0) grid (1,1);
+%    	\node(x1) at (0.23,0.24) {};
+%    	\node(x2) at (0.32,0.32) {};
+%    	\node(x3) at (0.45,0.49) {};
+%    	\node(x4) at (0.59,0.72) {};
+%    	\node(x5) at (0.66,0.85) {};
+%    	\end{scope}
+%    	\node[below=0.2in of image](fig3) {\includegraphics[width=0.07\textwidth]{dpERK_scat_3}};		
+%    	\node[left=0.1in of fig3](fig2) {\includegraphics[width=0.07\textwidth]{dpERK_scat_2}};
+%    	\node[left=0.1in of fig2](fig1) {\includegraphics[width=0.07\textwidth]{dpERK_scat_1}};	
+%    	\node[right=0.1in of fig3](fig4) {\includegraphics[width=0.07\textwidth]{dpERK_scat_4}};					
+%    	\node[right=0.1in of fig4](fig5) {\includegraphics[width=0.07\textwidth]{dpERK_scat_5}};	    
+%    	\draw[->] (x1) -- (fig1.north);
+%    	\draw[->] (x2) -- (fig2.north);
+%    	\draw[->] (x3) -- (fig3.north);
+%    	\draw[->] (x4) -- (fig4.north);
+%    	\draw[->] (x5) -- (fig5.north);
+%    \end{tikzpicture}
+%	
+%	The first DMAPS coordinate is well-correlated with the membrane thickness.
+
+	\foreach \i in {15, 19, 30, 42, 45, 10, 36, 46, 47, 51, 27, 24, 28, 48, 38, 52, 34, 20, 50, 17, 6, 22, 16, 39, 33, 21, 2, 41, 9, 29, 14, 4, 8, 35, 31, 3, 40, 44, 13, 7, 18, 32, 11, 43, 25, 49, 5, 26, 23, 37, 12} {	
+	\includegraphics[width=0.05\textwidth]{dpERK_vdm_unaligned_\i}} 
+    
+    	\centering
+    {\LARGE $\downarrow$}
+    
+	\foreach \i in {2,...,52} {
+	\includegraphics[width=0.05\textwidth]{dpERK_scat_all_\i}
+	}   
     
 \end{frame}
 

@@ -3,7 +3,7 @@
 \begin{frame}{Importance of Symmetries in Data Analysis}
 
 	\centering
-	In the previous analysis, we first needed to determine \\where to open and ``unroll'' the circle
+	In the previous analysis, we first needed to determine \\where to open and ``unroll'' the circle to obtain a linear profile.
 	
 	\centering
 	\begin{tikzpicture}
@@ -12,11 +12,11 @@
 		\draw[->] (drosophila_line) -- (drosophila_circle) node[above,midway] {``Unroll'' circle};
 	\end{tikzpicture}
 	
-	This is done by staining for {\em another} protein (Dorsal) that is expressed only along the ventral midline, and then aligning the profiles along their ventral midlines.
+	This is done by staining for {\em another} protein (Dorsal) that is expressed only along the ventral midline, and opening each profile at its dorsal midline. 
 	
 	\vspace{0.2in}
-	We would like to {\em automatically} align these concentration profiles\\
-	without having to stain for a second protein.
+	
+	Instead, we would like to work {\em directly} with the circular concentration profiles, and align the concentration profiles {\em automatically}, without staining for a second protein. 
 
 \end{frame}
 
@@ -68,10 +68,7 @@
 %    We will {\bf reduce} the data by factoring out the underlying rotations
 %\end{frame}
 
-\begin{frame}{Factoring Out Rotations}
-	
-	\centering
-	\includegraphics[width=0.5\textwidth]{PU_clean}
+\begin{frame}{Aligning Images Under Rotations}
 	
 	\begin{itemize}
 	\item We assume that we have many {\em rotated} copies of an image.
@@ -81,47 +78,62 @@
 	\item This is essential for our {\em Drosophila} data, because the developmental dynamics are invariant to the orientation of the embryos in the microfluidic device.
 	\end{itemize}
 
+	\centering
+	\includegraphics[width=0.5\textwidth]{PU_clean}\\
+	{\scriptsize Many rotated copies of the Princeton University shield. We will use this to illustrate how different alignment algorithms perform. }	
+
 \end{frame}
 
-\begin{frame}{Factoring Out Rotations}
+\begin{frame}{Template-Based Alignment}
 	\centering	
 	
-	\only<1>{\includegraphics[width=0.5\textwidth]{PU_template1_clean}\\
-	{\small \em Images, unaligned.}}
-	\only<2>{\includegraphics[width=0.5\textwidth]{PU_template2_clean}\\
-	{\small \em Images, aligned to template.}}
-
 	If we have many images and wish to align them, \\ we can rotate each one until it is optimally aligned with a {\bf template}.
 
 	In this case, we have chosen the template to be one of the images in the dataset.
+
+	\only<1>{\includegraphics[width=0.6\textwidth]{PU_template1_clean}\\
+	{\small \em Images, unaligned. The template is shown in the center. }}
+	\only<2>{\includegraphics[width=0.6\textwidth]{PU_template2_clean}\\
+	{\small \em Images, aligned to template. The template is shown in the center.}}
 		
 \end{frame}
 
-\begin{frame}{Factoring Out Rotations}
+\begin{frame}{Template-Based Alignment Under Noisy Conditions}
 
 	\centering
-	\only<1>{\includegraphics[width=0.5\textwidth]{PU_template1_noisy}\\
-	{\small \em Images, unaligned, now corrupted with white Gaussian noise.}}
-	\only<2>{\includegraphics[width=0.5\textwidth]{PU_template2_noisy}\\
-	{\small \em Images, aligned to template.}}
-	\only<3>{\includegraphics[width=0.5\textwidth]{PU_template3_noisy}\\
-	{\small \em Images, denoised after being aligned to template. Note that there are several misalignments.}}
-	
-	However, if the images are noisy, \\then template-based alignment will often be inaccurate.
+	However, if the images are noisy, 
+	\\then template-based alignment will often be inaccurate.
+
+	\only<1>{\includegraphics[width=0.6\textwidth]{PU_template1_noisy}\\
+	{\small \em Images, unaligned, now corrupted with white Gaussian noise. The template is shown in the center.}}
+	\only<2>{\includegraphics[width=0.6\textwidth]{PU_template2_noisy}\\
+	{\small \em Images, aligned to template. The template is shown in the center.}}
+	\only<3>{\includegraphics[width=0.6\textwidth]{PU_template3_noisy}\\
+	{\small \em Images, denoised after being aligned to template. The template is shown in the center. Note that there are several misalignments. }}
 	
 \end{frame}
 
-\begin{frame}{Factoring Out Rotations}
+\begin{frame}{Angular Synchronization for Alignment}
 	
-	Instead, we would like to use each image as a template for every other image, and then find the most {\em consistent} set of alignments.
+	Instead, we would like to use each image as a template for every other image, and then find the most {\em consistent} set of alignments. This is called {\bf angular synchronization}.
 	
+	\begin{minipage}{0.55\textwidth}	
 	\centering
-	\only<1>{\includegraphics[width=0.5\textwidth]{PU_angsynch1} \\
+	\only<1>{\includegraphics[width=\textwidth]{PU_angsynch1} \\
 	{\small \em Images, unaligned, now corrupted with white Gaussian noise.}}
-	\only<2>{\includegraphics[width=0.5\textwidth]{PU_angsynch2}\\
+	\only<2>{\includegraphics[width=\textwidth]{PU_angsynch2}\\
 	{\small \em Images, aligned using angular synchronization.}}
-	\only<3>{\includegraphics[width=0.5\textwidth]{PU_angsynch3} \\
+	\only<3>{\includegraphics[width=\textwidth]{PU_angsynch3} \\
 	{\small \em Images, aligned using angular synchronization and then denoised. Note that there are many fewer misalignments.}}
+	\end{minipage}
+	%
+	\begin{minipage}{0.4\textwidth}
+	\begin{itemize}
+	\item Calculate angle $\theta_{ij}$ that optimally aligns image $i$ to image $j$ for every pair $i, j$
+	\item Want to find angles $\theta_1, \dots, \theta_n$ such that $\theta_i -  \theta_j \approx \theta_{ij}$
+	\item Also want to satisfy {\em higher-order} consistency, e.g. we not only want $\theta_i - \theta_j \approx \theta_{ij}$, but also $\theta_i - \theta_j \approx \theta_{ik} + \theta_{kj}$. 
+	\end{itemize}
+	\end{minipage}
 	
 \end{frame}
 
@@ -150,9 +162,9 @@
 		\node[right of=fig2, node distance=0.35\textwidth] (fig3) {\includegraphics[width=0.25\textwidth]{data_ordered_angsynch}};
 		\draw[->] (fig1.east) -- (fig2.west);
 		\draw[->] (fig2.east) -- (fig3.west);
-		\node[below of=fig1, node distance=0.7in, text width=0.3\textwidth]{{\small Profiles are unaligned and unordered \par}};
-		\node[below of=fig2, node distance=0.7in, text width=0.3\textwidth]{{\small Profiles are aligned using angular synchronization but temporally unordered \par}};
-		\node[below of=fig3, node distance=0.7in, text width=0.3\textwidth]{{\small Profiles are then ordered in time using DMAPS \par}};
+		\node[below of=fig1, node distance=0.7in, text width=0.3\textwidth]{{\scriptsize Profiles are unaligned and unordered. We are allowed to shift the profiles left and right (this corresponds to rotations of the circular profiles). \par}};
+		\node[below of=fig2, node distance=0.7in, text width=0.3\textwidth]{{\scriptsize Profiles are aligned using angular synchronization but temporally unordered. \par}};
+		\node[below of=fig3, node distance=0.7in, text width=0.3\textwidth]{{\scriptsize Profiles are then ordered in time using DMAPS. \par}};
 	\end{tikzpicture}
 
 \end{frame}
@@ -163,13 +175,17 @@
 		\item We would like to combine angular synchronization and diffusion maps into one computation that allows us to both align and order our data
 	\end{itemize}
 	
+	\begin{minipage}{0.45\textwidth}
 	\begin{block}{Diffusion maps}
 		Calculate top eigenvectors of $W$, where $W_{ij} = e^{-\frac{d^2(x_i, x_j)}{\epsilon}} / \sum_j e^{-\frac{d^2(x_i, x_j)}{\epsilon}} $
 	\end{block}
-
+	\end{minipage}	
+	\hfill
+	\begin{minipage}{0.45\textwidth}	
 	\begin{block}{Angular Synchronization}
 		Calculate top eigenvector of $H$, where $H_{ij} = e^{-i \theta_{ij}}$
 	\end{block}
+	\end{minipage}
 	
 	\begin{block}{Vector Diffusion Maps (VDM) \footnotemark} 
 		Calculate the top eigenvectors of $S$, where $S_{ij} = W_{ij}H_{ij}$
@@ -177,19 +193,16 @@
 		The top eigenvectors then give us the optimal rotations {\em and} the embedding coordinates for our data
 	\end{block}
 	\footcitetext{singer2012vector}
-\end{frame}
-
-\begin{frame}{Align and Order using Vector Diffusion Maps}
 
 	\centering
-	We can use vector diffusion maps to align {\em and} order the profiles.
+	%We can use vector diffusion maps to align {\em and} order the profiles.
 
 	\begin{tikzpicture}
-		\node[] (fig1) {\includegraphics[width=0.35\textwidth]{data_unaligned_unordered}};
+		\node[] (fig1) {\includegraphics[width=0.4\textwidth]{data_unaligned_unordered}};
 		\node[right of=fig1, node distance=0.6\textwidth] (fig2) {\includegraphics[width=0.35\textwidth]{data_ordered_vdm}};
-		\draw[->] (fig1.east) -- (fig2.west) node[above,midway, text width=0.3\textwidth, align=center] { Aligned and ordered using VDM};
-		\node[below of=fig1, node distance=0.7in, text width=0.4\textwidth]{{\small Profiles are unaligned and unordered \par}};
-		\node[below of=fig2, node distance=0.7in, text width=0.4\textwidth]{{\small Profiles are aligned and ordered using vector diffusion maps} \par };
+		\draw[->] (fig1.east) -- (fig2.west) node[above,midway, text width=0.3\textwidth, align=center] { Aligned {\em and} ordered using VDM};
+		%\node[below of=fig1, node distance=0.7in, text width=0.4\textwidth]{{\small Profiles are unaligned and unordered \par}};
+		%\node[below of=fig2, node distance=0.7in, text width=0.4\textwidth]{{\small Profiles are aligned and ordered using vector diffusion maps} \par };
 	\end{tikzpicture}
 	
 %	\begin{minipage}{0.4\textwidth}

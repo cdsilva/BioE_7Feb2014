@@ -160,18 +160,21 @@
 %    
 %\end{frame}
 
-\begin{frame}{Diffusion Maps for Dimensionality Reduction}
-\centering
-Diffusion maps \footnote{ \tiny Coifman {\em et al}, PNAS, 2005.} (DMAPS) is a {\em nonlinear} dimensionality reduction technique
+\begin{frame}{Ordering Data Temporally Using Diffusion Maps}
 
-	\begin{columns}
-	\begin{column}{0.4\textwidth}
+\begin{itemize}
+\item Diffusion maps \footnote{ \tiny Coifman {\em et al}, PNAS, 2005.} (DMAPS) is a {\em nonlinear} dimensionality reduction technique.
+\item DMAPS will find a parameterization of data sampled from a low--dimensional curve or manifold {\em embedded} in high--dimensional space.
+\end{itemize}
+
+	\begin{minipage}{0.4\textwidth}
 		\includegraphics[width=\textwidth]{dmaps_spiral.jpg}\\
 		\centering
-		The spiral has been colored by the first (non-trivial) DMAPS component
-	\end{column}
-	\begin{column}{0.5\textwidth}
-	\begin{block}{DMAPS Algorithm}
+		{\scriptsize A spiral data set. The data is three--dimensional, but lies on a one--dimensional nonlinear curve. \\
+		The spiral has been colored by the first (non-trivial) DMAPS component; the DMAPS component nicely parameterizes the arclength along the spiral. \par}
+	\end{minipage}
+	\begin{minipage}{0.5\textwidth}
+		\begin{block}{DMAPS Algorithm}
 		{\scriptsize 
 		Calculate weight matrix $W$, where
 		$$W_{ij} = exp\left( -\frac{d^2(x_i, x_j)}{\epsilon} \right).$$
@@ -180,8 +183,7 @@ Diffusion maps \footnote{ \tiny Coifman {\em et al}, PNAS, 2005.} (DMAPS) is a {
 		The embedding coordinates are given by the {\bf top~eigenvectors} of $A=D^{-1}W$.
 		\par}
 	\end{block}
-	\end{column}
-	\end{columns}
+	\end{minipage}
 %On the left you see data that has been ordered and colored using PCA.
 %On the right you see data that has been ordered and colored using DMAPS.
 
@@ -203,10 +205,12 @@ Diffusion maps \footnote{ \tiny Coifman {\em et al}, PNAS, 2005.} (DMAPS) is a {
 	
 	\centering
   \begin{tikzpicture}
-  	\node (unordered) {\includegraphics[width=0.3\textwidth]{data_unordered}};
-  	\node[right of=unordered, node distance=0.6\textwidth] (ordered) {\includegraphics[width=0.3\textwidth]{data_ordered_DMAPS}};
-    \draw [->] (unordered.east) -- (ordered.west) node[above,midway, text width=0.3\textwidth] {Ordered using the first DMAPS coordinate};    
+  	\node (unordered) {\includegraphics[width=0.4\textwidth]{data_unordered}};
+  	\node[right of=unordered, node distance=0.5\textwidth] (ordered) {\includegraphics[width=0.4\textwidth]{data_ordered_DMAPS}};
+    \draw [->] (unordered.east) -- (ordered.west) node[above,midway, text width=0.4\textwidth] {Ordered using the first DMAPS coordinate};    
   \end{tikzpicture}
+  
+  The developmental dynamics are smooth.
   
 %	\begin{minipage}{0.4\textwidth}
 %	\includegraphics[width=0.9\textwidth]{DMAPS_time_corr}	

@@ -8,7 +8,7 @@
 \includegraphics[width=\textwidth]{photobios}
 
 \begin{itemize}
-\item These snapshots can be taken from different viewing angles and rotations
+\item These snapshots can be taken from different viewing angles
 \item We must {\em factor out} the relevant symmetries (e.g. translations and rotations) before constructing a representative trajectory
 \end{itemize}
 
@@ -16,10 +16,9 @@
 We will construct a representative trajectory of the developmental~dynamics \\ in a {\em Drosophila} embryo from snapshots of the embryo
 
 \foreach \i in {1, 15, 20, 25, 30, 35, 40, 45, 52} {
-	\includegraphics[width=0.1\textwidth]{aligned_\i}
+	\includegraphics[width=0.1\textwidth]{dpERK_vdm_all_\i}
 }
-\end
-{frame}
+\end{frame}
 
 \begin{frame}{Imaging Dorsoventral Patterns in {\em Drosophila} \footcite{chung2010microfluidic}}
 
@@ -29,7 +28,7 @@ We will construct a representative trajectory of the developmental~dynamics \\ i
 	\begin{itemize}
         \item We can easily obtain snapshots of many {\em Drosophila} embryos using a high--throughput microfluidic device
         \item Each embryo is fixed at a slightly different developmental time (``cross-sectional data'')
-        \item We would like to order the data from multiple embryos in time to reconstruct the developmental dynamics in {\em Drosophila}
+        \item We would like to temporally order the data from multiple embryos to reconstruct the developmental dynamics in {\em Drosophila}
     \end{itemize}
 \end{frame}
 
@@ -54,6 +53,8 @@ We will construct a representative trajectory of the developmental~dynamics \\ i
 	    \includegraphics[width=\textwidth]{erk_45min}\\
 	    {\scriptsize \em 45 minutes \par}
 	\end{minipage}
+	
+	{\scriptsize {\em Drosophila} embryos stained in red for dpERK}
 	
 	\begin{itemize}
 		\item We measure the activation of ERK by staining embryos for double-phosphorylated ERK (dpERK); ERK is double-phosphorylated  directly downstream of the ERK pathway, and so the presence of dpERK indicates activation of the ERK pathway
@@ -181,6 +182,7 @@ We will construct a representative trajectory of the developmental~dynamics \\ i
         \draw [->] (fig1.east) -- (fig2.west) node[above,midway] {\tiny Order temporally};
     \end{tikzpicture}
 	
+	We will discuss how we can do each of these steps in the data analysis pipeline {\em automatically} using data mining techniques. 
 	%We would like to order the snapshots {\em without} measuring the membrane thickness.
 	
 \end{frame}
