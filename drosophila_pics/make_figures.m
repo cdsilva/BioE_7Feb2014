@@ -179,9 +179,20 @@ xlabel('membrane thickness')
 ylabel('$\phi_2$','interpreter','latex')
 print('DMAPS_time_corr',fmt,res)
 
+figure;
+rankcorr = zeros(m, 2);
+rankcorr(L(:,2),1) = 1:m;
+rankcorr(I,2) = 1:m;
+plot(rankcorr(:,1),rankcorr(:,2),'.')
+% hold on
+% p = polyfit(rankcorr(:,1),rankcorr(:,2),1);
+% plot(rankcorr(:,1),p(1) .* rankcorr(:,1) + p(2))
+xlabel('ranking from membrane thickness')
+ylabel('ranking from DMAPS')
+text(0.65*m, 0.3*m, sprintf('correlation = %2.2f', corr(rankcorr(:,1),rankcorr(:,2))), 'fontsize', 14)
+print('DMAPS_rank_corr',fmt,res)
+
 fprintf('DMAPS Spearman coeff: %2.4f \n', corr(L(:,1), V_dmaps(:,2), 'type','spearman'));
-
-
 
 %% alignment
 
@@ -304,7 +315,7 @@ end
 
 figure;
 for i=1:m
-    set(gcf, 'paperposition',[0 0 8 8])
+    set(gcf, 'paperposition',[0 0 1 1])
     imshow(uint8(image_set_aligned_vdm(:,:,I(i))), 'InitialMagnification', 'fit')
     set(gca,'position',[0 0 1 1],'units','normalized')
     % make red colormap
@@ -319,7 +330,7 @@ end
 
 figure;
 for i=1:m
-    set(gcf, 'paperposition',[0 0 8 8])
+    set(gcf, 'paperposition',[0 0 1 1])
     imshow(uint8(image_set(:,:,I(i))), 'InitialMagnification', 'fit')
     set(gca,'position',[0 0 1 1],'units','normalized')
     % make red colormap
@@ -395,7 +406,7 @@ end
 
 figure;
 for i=1:m
-    set(gcf, 'paperposition',[0 0 8 8])
+    set(gcf, 'paperposition',[0 0 1 1])
     imshow(uint8(image_set(:,:,I(i))), 'InitialMagnification', 'fit')
     set(gca,'position',[0 0 1 1],'units','normalized')
     % make green colormap
@@ -466,7 +477,7 @@ end
 
 figure;
 for i=1:m
-    set(gcf, 'paperposition',[0 0 8 8])
+    set(gcf, 'paperposition',[0 0 1 1])
     imshow(logical(image_set_membrane(:,:,I(i))), 'InitialMagnification', 'fit')
     set(gca,'position',[0 0 1 1],'units','normalized')
     

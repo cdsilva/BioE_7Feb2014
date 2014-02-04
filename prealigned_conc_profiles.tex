@@ -212,13 +212,49 @@
     \draw [->] (unordered.east) -- (ordered.west) node[above,midway, text width=0.2\textwidth, align=center] {{\small Ordered using the first DMAPS coordinate \par}};    
   \end{tikzpicture}
   
+  \pause
   
-%	\begin{minipage}{0.4\textwidth}
-%	\includegraphics[width=0.9\textwidth]{DMAPS_time_corr}	
-%	\end{minipage}
-%	\begin{minipage}{0.5\textwidth}
-%	The DMAPS embedding coordinate, which we use to ``automatically'' order our data, is well-correlated with the membrane thickness, which is known to be monotonic in time.
-%	\end{minipage}
+  \vspace{-0.5in}
+  \centering
+  \animategraphics[width=0.25\textwidth]{4}{dpERK_vdm_all_}{2}{52}	
+  
+\end{frame}
+
+\begin{frame}{Validating Our Orderings Using Membrane Thickness}
+
+\begin{itemize}
+\item We need to validate that our assumption about our data being effectively one--dimensional and monotonic in time.
+%
+\item During nuclear cycle 14, the membrane thickness is monotonic in time \footcite{lim2013kinetics, lecuit2002slam}. 
+\end{itemize}
+
+    %\vspace{0.1in}
+    \begin{tikzpicture}
+        \node (dpERK_5min) {\includegraphics[width=0.1\textwidth]{dpERK_5min}};
+        \node[right=0in of dpERK_5min] (mem_5min) {\includegraphics[width=0.1\textwidth]{membrane_5min}};
+        \node[below=0.1in of dpERK_5min] (dpERK_20min) {\includegraphics[width=0.1\textwidth]{dpERK_20min}};
+        \node[right=0in of dpERK_20min] (mem_20min) {\includegraphics[width=0.1\textwidth]{membrane_20min}};
+        \node[below=0.1in of dpERK_20min] (dpERK_45min) {\includegraphics[width=0.1\textwidth]{dpERK_45min}};
+        \node[right=0in of dpERK_45min] (mem_45min) {\includegraphics[width=0.1\textwidth]{membrane_45min}};
+        \node[below=0.25in of $(dpERK_45min)!0.5!(mem_45min)$, text width=0.3\textwidth, align=center](text1) {{\scriptsize \em We stain each embryo for dpERK and membrane proteins \par}};
+        \node[right=0.5in of mem_20min] (calibration) {\includegraphics[width=0.3\textwidth]{calibration_curve}} edge[<-] (mem_5min) edge[<-] (mem_20min) edge[<-] (mem_45min);
+        \node[below=0in of calibration, text width=0.3\textwidth, align=center](text2) {{\scriptsize \em The membrane thickness or ``furrow length'' is monotonic in time or age of the embryo \par}};
+        \node[right=2.5in of mem_20min] (time_20) {20 minutes} edge[<-] (calibration);
+        \node[right=2.5in of mem_5min] (time_5) {5 minutes} edge[<-] (calibration);
+        \node[right=2.5in of mem_45min] (time_45) {45 minutes} edge[<-] (calibration);
+        \node[below=0in of time_45, text width=0.25\textwidth, align=center](text2) {{\scriptsize \em We can calculate the age of each embryo from the membrane thickness \par}};
+    \end{tikzpicture}
+
+We can therefore assess the quality of our orderings by plotting the rank of each data point from our DMAPS orderings against the rank obtained from ordering by membrane length. 
+
+\end{frame}
+
+
+\begin{frame}{Comparing DMAPS Ordering to Membrane Thickness}
+
+	\centering
+	\includegraphics[width=0.5\textwidth]{DMAPS_rank_corr}	
 	
-  
+	The DMAPS embedding coordinate using the scattering transform, which we use to order the data, is well--correlated with the membrane thickness, which is known to be monotonic in time.
+	
 \end{frame}

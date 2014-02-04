@@ -156,6 +156,42 @@ figure;
 make_plot(rot_images, template_clean, r, r1, delta, false, true, opt_angles)
 print('drosophila_pics/PU_template3_noisy',fmt,res)
 
+%% show issues with template (consistency)
+
+figure;
+make_plot(noisy_images, template, r, r1, delta, false, true, opt_angles)
+hold on
+i1 = 1;
+quiver(delta*cos(2*pi*i1/nimages), delta*sin(2*pi*i1/nimages),(r-delta)*cos(2*pi*i1/nimages),(r-delta)*sin(2*pi*i1/nimages),'linewidth',5)
+i2 = 2;
+quiver(r*cos(2*pi*i1/nimages), r*sin(2*pi*i1/nimages),r*(cos(2*pi*i2/nimages)-cos(2*pi*i1/nimages)),r*(sin(2*pi*i2/nimages)-sin(2*pi*i1/nimages)),'linewidth',5)
+quiver(r*cos(2*pi*i2/nimages), r*sin(2*pi*i2/nimages),-(r-delta)*cos(2*pi*i2/nimages),-(r-delta)*sin(2*pi*i2/nimages),'linewidth',5)
+text((r/2)*cos(2*pi*i1/nimages), (r/2)*sin(2*pi*i1/nimages)+0.6*delta, sprintf('%2d%c', opt_angles(i1), char(176)))
+text((r/2)*cos(2*pi*i2/nimages), (r/2)*sin(2*pi*i2/nimages)+0.8*delta, sprintf('%2d%c', 360-opt_angles(i2), char(176)))
+min_dist = inf;
+min_idx = 0;
+for j=1:L
+    image_diff = double(imcomplement(imrotate(imcomplement(noisy_images(:,:,i1)), deg_rot(j), 'crop'))) - double(noisy_images(:,:,i2));
+    temp_err = sum(image_diff(circle_window_idx).^2);
+
+    if temp_err < min_dist
+        min_dist = temp_err;
+        min_idx = j;
+    end
+end
+text(r*cos(2*pi*((i1+i2)/2)/nimages), r*sin(2*pi*((i1+i2)/2)/nimages)+0.2*delta, sprintf('%2d%c', deg_rot(min_idx), char(176)))
+print('drosophila_pics/PU_consistency_noisy',fmt,res)
+
+figure;
+make_plot(rot_images, template_clean, r, r1, delta, false, true, opt_angles)
+hold on
+quiver(delta*cos(2*pi*i1/nimages), delta*sin(2*pi*i1/nimages),(r-delta)*cos(2*pi*i1/nimages),(r-delta)*sin(2*pi*i1/nimages),'linewidth',5)
+quiver(r*cos(2*pi*i1/nimages), r*sin(2*pi*i1/nimages),r*(cos(2*pi*i2/nimages)-cos(2*pi*i1/nimages)),r*(sin(2*pi*i2/nimages)-sin(2*pi*i1/nimages)),'linewidth',5)
+quiver(r*cos(2*pi*i2/nimages), r*sin(2*pi*i2/nimages),-(r-delta)*cos(2*pi*i2/nimages),-(r-delta)*sin(2*pi*i2/nimages),'linewidth',5)
+text((r/2)*cos(2*pi*i1/nimages), (r/2)*sin(2*pi*i1/nimages)+0.6*delta, sprintf('%2d%c', opt_angles(i1), char(176)))
+text((r/2)*cos(2*pi*i2/nimages), (r/2)*sin(2*pi*i2/nimages)+0.8*delta, sprintf('%2d%c', 360-opt_angles(i2), char(176)))
+text(r*cos(2*pi*((i1+i2)/2)/nimages), r*sin(2*pi*((i1+i2)/2)/nimages)+0.2*delta, sprintf('%2d%c', deg_rot(min_idx), char(176)))
+print('drosophila_pics/PU_consistency_clean',fmt,res)
 
 %% angular synchronization
 
@@ -207,21 +243,7 @@ print('drosophila_pics/PU_angsynch3',fmt,res)
 
 function make_plot(image_set, template_image, r, r1, delta, draw_kn, draw_template, opt_angles)
 
-% set(0, 'DefaultFigurePaperSize',[12 12]);
-% set(0,'DefaultLineMarkerSize',1)
-% set(0,'defaultlinelinewidth', 0.1)
-% set(0,'DefaultAxesBox', 'off');
-% set(0, 'defaultaxesvisible', 'off')
-% set(0, 'defaultfigurecolor', 'w');
-% set(0, 'defaultfigurepaperposition', [0 0 1 1])
-
-
-%set(gcf, 'papersize', [12 12])
-
 nimages = size(image_set, 3);
-
-%set(gcf, 'papersize', [8 8])
-%set(gcf, 'paperposition', [0 0 1 1])
 
 plot(r*cos(2*pi*(1:nimages)/nimages),r*sin(2*pi*(1:nimages)/nimages), '.w', 'markersize', 1)
 hold on
