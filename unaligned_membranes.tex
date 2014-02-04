@@ -3,14 +3,12 @@
 \begin{frame}{Validating Our Orderings Using Membrane Thickness}
 
 \begin{itemize}
-\item We still need to validate that our assumption about our data being effectively one--dimensional and monotonic in time.
+\item We need to validate that our assumption about our data being effectively one--dimensional and monotonic in time.
 %
-\item During nuclear cycle 14, the membrane grows inward.
-%
-\item This membrane thickness is also monotonic in time \footcite{lim2013kinetics, lecuit2002slam}. 
+\item During nuclear cycle 14, the membrane thickness is monotonic in time \footcite{lim2013kinetics, lecuit2002slam}. 
 \end{itemize}
 
-    \vspace{0.1in}
+    %\vspace{0.1in}
     \begin{tikzpicture}
         \node (dpERK_5min) {\includegraphics[width=0.1\textwidth]{dpERK_5min}};
         \node[right=0in of dpERK_5min] (mem_5min) {\includegraphics[width=0.1\textwidth]{membrane_5min}};
@@ -18,13 +16,13 @@
         \node[right=0in of dpERK_20min] (mem_20min) {\includegraphics[width=0.1\textwidth]{membrane_20min}};
         \node[below=0.1in of dpERK_20min] (dpERK_45min) {\includegraphics[width=0.1\textwidth]{dpERK_45min}};
         \node[right=0in of dpERK_45min] (mem_45min) {\includegraphics[width=0.1\textwidth]{membrane_45min}};
-        \node[below=0.25in of $(dpERK_45min)!0.5!(mem_45min)$, text width=0.3\textwidth, align=center](text1) {{\small \em We stain each embryo for dpERK and membrane proteins \par}};
+        \node[below=0.25in of $(dpERK_45min)!0.5!(mem_45min)$, text width=0.3\textwidth, align=center](text1) {{\scriptsize \em We stain each embryo for dpERK and membrane proteins \par}};
         \node[right=0.5in of mem_20min] (calibration) {\includegraphics[width=0.3\textwidth]{calibration_curve}} edge[<-] (mem_5min) edge[<-] (mem_20min) edge[<-] (mem_45min);
-        \node[below=0in of calibration, text width=0.3\textwidth, align=center](text2) {{\small \em The membrane thickness or ``furrow length'' is monotonic in time or age of the embryo \par}};
+        \node[below=0in of calibration, text width=0.3\textwidth, align=center](text2) {{\scriptsize \em The membrane thickness or ``furrow length'' is monotonic in time or age of the embryo \par}};
         \node[right=2.5in of mem_20min] (time_20) {20 minutes} edge[<-] (calibration);
         \node[right=2.5in of mem_5min] (time_5) {5 minutes} edge[<-] (calibration);
         \node[right=2.5in of mem_45min] (time_45) {45 minutes} edge[<-] (calibration);
-        \node[below=0in of time_45, text width=0.25\textwidth, align=center](text2) {{\small \em We can calculate the age of each embryo from the membrane thickness \par}};
+        \node[below=0in of time_45, text width=0.25\textwidth, align=center](text2) {{\scriptsize \em We can calculate the age of each embryo from the membrane thickness \par}};
     \end{tikzpicture}
 
 We can therefore assess the quality of our orderings by plotting the embedding coordinate as a function of membrane thickness; this should be one--to--one.
@@ -36,32 +34,35 @@ We can therefore assess the quality of our orderings by plotting the embedding c
 	\centering
 	\includegraphics[width=0.5\textwidth]{DMAPS_scat_time_corr}
 
-	The DMAPS embedding coordinate using the scattering transform (which we use to order the data) is well--correlated with the membrane thickness (which is known to be monotonic in time).
+	The DMAPS embedding coordinate using the scattering transform, which we use to order the data, is well--correlated with the membrane thickness, which is known to be monotonic in time.
 	
 \end{frame}
 
 \begin{frame}{Ordering Two--Dimensional Membrane Images}
 
-We could also use our techniques (e.g. scattering transform + DMAPS) to temporally order the fluorescent {\em membrane} images.
+\begin{itemize}
+\item We could also use our techniques (e.g. scattering transform + DMAPS) to~temporally~order the fluorescent {\em membrane} images.
+\item 	Because we are interested only in the membrane thickness, we first apply an edge--detection filter to the images.
+\end{itemize}
 
 \foreach \i in {15, 19, 30, 42, 45, 10, 36, 46, 47, 51, 27, 24, 28, 48, 38, 52, 34, 20, 50, 17, 6, 22, 16, 39, 33, 21, 2, 41, 9, 29, 14, 4, 8, 35, 31, 3, 40, 44, 13, 7, 18, 32, 11, 43, 25, 49, 5, 26, 23, 37, 12} {	
 	\includegraphics[width=0.05\textwidth]{membrane_scat_raw_all_\i}} 
     
     	\centering
     {\LARGE $\downarrow$}\\
-    \begin{minipage}{0.35\textwidth}
-	{\scriptsize Edge--detection algorithm \par}
+    \begin{minipage}{0.5\textwidth}
+    \centering
+	{\scriptsize Edge--detection algorithm (Laplacian of Gaussians) \par}
     \end{minipage}\\
     {\LARGE $\downarrow$}
     
 	\foreach \i in {15, 19, 30, 42, 45, 10, 36, 46, 47, 51, 27, 24, 28, 48, 38, 52, 34, 20, 50, 17, 6, 22, 16, 39, 33, 21, 2, 41, 9, 29, 14, 4, 8, 35, 31, 3, 40, 44, 13, 7, 18, 32, 11, 43, 25, 49, 5, 26, 23, 37, 12} {	
 	\includegraphics[width=0.05\textwidth]{membrane_scat_all_\i}}  
 	
-	Because we are interested only in the membrane thickness, we first apply an edge--detection filter to the images.
 	
 	\end{frame}
 
-\begin{frame}{Ordering of Two-Dimensional Membrane Images}
+\begin{frame}{Ordering Two-Dimensional Membrane Images}
 	
 %	{\small
 %	\begin{itemize}
@@ -100,23 +101,26 @@ We could also use our techniques (e.g. scattering transform + DMAPS) to temporal
 %    \end{tikzpicture}
 %    
 %    The first DMAPS coordinate is well-correlated with the membrane thickness.	
-    
-We then compute the scattering transform of the (edge--detected) images, and use this in a DMAPS calculation.
+
+\centering
+We then compute the scattering transform of the (edge--detected) images, and~use this in a DMAPS calculation.
+
+\vspace{0.1in}
 
     \foreach \i in {15, 19, 30, 42, 45, 10, 36, 46, 47, 51, 27, 24, 28, 48, 38, 52, 34, 20, 50, 17, 6, 22, 16, 39, 33, 21, 2, 41, 9, 29, 14, 4, 8, 35, 31, 3, 40, 44, 13, 7, 18, 32, 11, 43, 25, 49, 5, 26, 23, 37, 12} {	
 	\includegraphics[width=0.05\textwidth]{membrane_scat_all_\i}} 
     
     	\centering
     {\LARGE $\downarrow$}\\
-    \begin{minipage}{0.35\textwidth}
-	{\scriptsize Compute scattering transform coefficients + DMAPS \par}
+    \begin{minipage}{0.5\textwidth}
+    \centering
+	{\scriptsize Scattering transform + DMAPS \par}
     \end{minipage}\\
     {\LARGE $\downarrow$}
     
 	\foreach \i in {2,...,52} {
 	\includegraphics[width=0.05\textwidth]{membrane_scat_all_\i}
 	}   
-
 
 \end{frame}
 
