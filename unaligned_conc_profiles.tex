@@ -170,10 +170,7 @@
 \end{frame}
 
 \begin{frame}{Vector Diffusion Maps: Synchronization and DMAPS}
-	\begin{itemize}
-		\item Our data contains both symmetries {\em and} dynamics
-		\item We would like to combine angular synchronization and diffusion maps into one computation that allows us to both align and order our data
-	\end{itemize}
+	Our data contains both symmetries {\em and} dynamics
 	
 	\begin{minipage}{0.45\textwidth}
 	\begin{block}{Diffusion maps}
@@ -194,12 +191,10 @@
 	\end{block}
 	\footcitetext{singer2012vector}
 
-	\centering
-	%We can use vector diffusion maps to align {\em and} order the profiles.
-
+	\vspace{-0.2in}
 	\begin{tikzpicture}
-		\node[] (fig1) {\includegraphics[width=0.4\textwidth]{data_unaligned_unordered}};
-		\node[right of=fig1, node distance=0.6\textwidth] (fig2) {\includegraphics[width=0.35\textwidth]{data_ordered_vdm}};
+		\node[] (fig1) {\includegraphics[width=0.3\textwidth]{data_unaligned_unordered}};
+		\node[right of=fig1, node distance=0.6\textwidth] (fig2) {\includegraphics[width=0.3\textwidth]{data_ordered_vdm}};
 		\draw[->] (fig1.east) -- (fig2.west) node[above,midway, text width=0.3\textwidth, align=center] { Aligned {\em and} ordered using VDM};
 		%\node[below of=fig1, node distance=0.7in, text width=0.4\textwidth]{{\small Profiles are unaligned and unordered \par}};
 		%\node[below of=fig2, node distance=0.7in, text width=0.4\textwidth]{{\small Profiles are aligned and ordered using vector diffusion maps} \par };

@@ -1,6 +1,6 @@
 %\section[Unaligned Membrane Images]{Factoring Out Symmetries in Two--Dimensional~Membrane~Images Using~Angular~Synchronization}
 
-\begin{frame}{Validating Our Results: Comparing to Membrane Thickness}
+\begin{frame}{Validating Our Orderings Using Membrane Thickness}
 
 \begin{itemize}
 \item We still need to validate that our assumption about our data being effectively one--dimensional and monotonic in time.
@@ -31,8 +31,9 @@ We can therefore assess the quality of our orderings by plotting the embedding c
 \end{frame}
 
 
-\begin{frame}{Comparing Scattering Transform Ordering to Membrane Thickness}
+\begin{frame}{Comparing DMAPS Ordering to Membrane Thickness}
 
+	\centering
 	\includegraphics[width=0.5\textwidth]{DMAPS_scat_time_corr}
 
 	The DMAPS embedding coordinate using the scattering transform (which we use to order the data) is well--correlated with the membrane thickness (which is known to be monotonic in time).
@@ -47,7 +48,11 @@ We could also use our techniques (e.g. scattering transform + DMAPS) to temporal
 	\includegraphics[width=0.05\textwidth]{membrane_scat_raw_all_\i}} 
     
     	\centering
-    {\Large $\downarrow$}
+    {\LARGE $\downarrow$}\\
+    \begin{minipage}{0.35\textwidth}
+	{\scriptsize Edge--detection algorithm \par}
+    \end{minipage}\\
+    {\LARGE $\downarrow$}
     
 	\foreach \i in {15, 19, 30, 42, 45, 10, 36, 46, 47, 51, 27, 24, 28, 48, 38, 52, 34, 20, 50, 17, 6, 22, 16, 39, 33, 21, 2, 41, 9, 29, 14, 4, 8, 35, 31, 3, 40, 44, 13, 7, 18, 32, 11, 43, 25, 49, 5, 26, 23, 37, 12} {	
 	\includegraphics[width=0.05\textwidth]{membrane_scat_all_\i}}  
@@ -102,7 +107,11 @@ We then compute the scattering transform of the (edge--detected) images, and use
 	\includegraphics[width=0.05\textwidth]{membrane_scat_all_\i}} 
     
     	\centering
-    {\Large $\downarrow$}
+    {\LARGE $\downarrow$}\\
+    \begin{minipage}{0.35\textwidth}
+	{\scriptsize Compute scattering transform coefficients + DMAPS \par}
+    \end{minipage}\\
+    {\LARGE $\downarrow$}
     
 	\foreach \i in {2,...,52} {
 	\includegraphics[width=0.05\textwidth]{membrane_scat_all_\i}

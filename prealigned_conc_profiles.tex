@@ -167,12 +167,13 @@
 \item DMAPS will find a parameterization of data sampled from a low--dimensional curve or manifold {\em embedded} in high--dimensional space.
 \end{itemize}
 
-	\begin{minipage}{0.4\textwidth}
-		\includegraphics[width=\textwidth]{dmaps_spiral.jpg}\\
+	\begin{minipage}{0.45\textwidth}
+		\includegraphics[width=0.9\textwidth]{dmaps_spiral.jpg}\\
 		\centering
 		{\scriptsize A spiral data set. The data is three--dimensional, but lies on a one--dimensional nonlinear curve. \\
-		The spiral has been colored by the first (non-trivial) DMAPS component; the DMAPS component nicely parameterizes the arclength along the spiral. \par}
+		The spiral has been colored by the first (non-trivial) DMAPS component. \par}
 	\end{minipage}
+	\hfill
 	\begin{minipage}{0.5\textwidth}
 		\begin{block}{DMAPS Algorithm}
 		{\scriptsize 
@@ -187,15 +188,15 @@
 %On the left you see data that has been ordered and colored using PCA.
 %On the right you see data that has been ordered and colored using DMAPS.
 
-\vspace{0.1in}
-
 %Principal component analysis \footcite{shlens2005tutorial} would not be able to order the data on the right ``correctly'', \\since the curve is one-dimensional, but non-linear.
 
+{\small
 \begin{itemize}
 \item We will assume that our {\em Drosophila} data are effectively one-dimensional, and that this dimension is correlated with time. 
 %
 \item Therefore, ordering our data along the first direction uncovered by DMAPS will allow us to order our data in time. 
 \end{itemize}
+\par}
 
 \end{frame}
 
@@ -206,11 +207,10 @@
 	\centering
   \begin{tikzpicture}
   	\node (unordered) {\includegraphics[width=0.4\textwidth]{data_unordered}};
-  	\node[right of=unordered, node distance=0.5\textwidth] (ordered) {\includegraphics[width=0.4\textwidth]{data_ordered_DMAPS}};
-    \draw [->] (unordered.east) -- (ordered.west) node[above,midway, text width=0.4\textwidth] {Ordered using the first DMAPS coordinate};    
+  	\node[right of=unordered, node distance=0.6\textwidth] (ordered) {\includegraphics[width=0.4\textwidth]{data_ordered_DMAPS}};
+    \draw [->] (unordered.east) -- (ordered.west) node[above,midway, text width=0.2\textwidth] {{\small Ordered using the first DMAPS coordinate \par}};    
   \end{tikzpicture}
   
-  The developmental dynamics are smooth.
   
 %	\begin{minipage}{0.4\textwidth}
 %	\includegraphics[width=0.9\textwidth]{DMAPS_time_corr}	
