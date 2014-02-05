@@ -193,6 +193,8 @@ text(0.65*m, 0.3*m, sprintf('correlation = %2.2f', corr(rankcorr(:,1),rankcorr(:
 print('DMAPS_rank_corr',fmt,res)
 
 fprintf('DMAPS Spearman coeff: %2.4f \n', corr(L(:,1), V_dmaps(:,2), 'type','spearman'));
+sprintf('%d, ', I)
+
 
 %% alignment
 
@@ -233,7 +235,7 @@ xlabel('membrane thickness')
 ylabel('$\phi_2$','interpreter','latex')
 print('angsynch_time_corr',fmt, res)
 fprintf('Angular synchronization Spearman coeff: %2.4f \n', corr(L(:,1),V_dmaps(:,2), 'type','spearman'));
-
+sprintf('%d, ', I)
 
 % VDM
 
@@ -264,6 +266,8 @@ ylabel(sprintf('$\\langle \\phi_%d, \\phi_%d \\rangle$', embed_idx(1, coord_idx)
 print('VDM_time_corr',fmt, res)
 
 fprintf('VDM (1-D) Spearman coeff: %2.4f \n', corr(L(:,1),embed_coord(:, coord_idx), 'type','spearman'));
+sprintf('%d, ', idx)
+
 
 %% raw dpERK images-- synchronization
 
@@ -297,6 +301,8 @@ for i=1:length(im_save_idx)
 end
 
 fprintf('VDM (2-D) Spearman coeff: %2.4f \n', corr(L(:,1),embed_coord(:,coord_idx), 'type','spearman'));
+sprintf('%d, ', I)
+
 
 figure;
 for i=1:length(im_save_idx)
@@ -316,7 +322,7 @@ end
 figure;
 for i=1:m
     set(gcf, 'paperposition',[0 0 1 1])
-    imshow(uint8(image_set_aligned_vdm(:,:,I(i))), 'InitialMagnification', 'fit')
+    imshow(uint8(image_set_aligned_vdm(:,:,i)), 'InitialMagnification', 'fit')
     set(gca,'position',[0 0 1 1],'units','normalized')
     % make red colormap
     cm_green = gray;
@@ -324,14 +330,14 @@ for i=1:m
     cm_green(:,3) = 0;
     colormap(cm_green)
     axis off
-    print(sprintf('dpERK_vdm_all_%d',i),fmt,res)
+    print(sprintf('dpERK_aligned_%d',i),fmt,res)
     clf
 end
 
 figure;
 for i=1:m
     set(gcf, 'paperposition',[0 0 1 1])
-    imshow(uint8(image_set(:,:,I(i))), 'InitialMagnification', 'fit')
+    imshow(uint8(image_set(:,:,i)), 'InitialMagnification', 'fit')
     set(gca,'position',[0 0 1 1],'units','normalized')
     % make red colormap
     cm_green = gray;
@@ -339,9 +345,40 @@ for i=1:m
     cm_green(:,3) = 0;
     colormap(cm_green)
     axis off
-    print(sprintf('dpERK_vdm_unaligned_%d',i),fmt,res)
+    print(sprintf('dpERK_unaligned_%d',i),fmt,res)
     clf
 end
+
+% figure;
+% for i=1:m
+%     set(gcf, 'paperposition',[0 0 1 1])
+%     imshow(uint8(image_set_aligned_vdm(:,:,I(i))), 'InitialMagnification', 'fit')
+%     set(gca,'position',[0 0 1 1],'units','normalized')
+%     % make red colormap
+%     cm_green = gray;
+%     cm_green(:,2) = 0;
+%     cm_green(:,3) = 0;
+%     colormap(cm_green)
+%     axis off
+%     print(sprintf('dpERK_vdm_all_%d',i),fmt,res)
+%     clf
+% end
+% 
+% 
+% figure;
+% for i=1:m
+%     set(gcf, 'paperposition',[0 0 1 1])
+%     imshow(uint8(image_set(:,:,I(i))), 'InitialMagnification', 'fit')
+%     set(gca,'position',[0 0 1 1],'units','normalized')
+%     % make red colormap
+%     cm_green = gray;
+%     cm_green(:,2) = 0;
+%     cm_green(:,3) = 0;
+%     colormap(cm_green)
+%     axis off
+%     print(sprintf('dpERK_vdm_unaligned_%d',i),fmt,res)
+%     clf
+% end
 
 % figure;
 % for i=1:m
@@ -388,6 +425,8 @@ for i=1:length(im_save_idx)
     clf
 end
 fprintf('Scattering transform Spearman coeff: %2.4f \n', corr(L(:,1),V(:,2), 'type','spearman'));
+sprintf('%d, ', I)
+
 
 figure;
 for i=1:length(im_save_idx)
@@ -404,21 +443,22 @@ for i=1:length(im_save_idx)
     clf
 end
 
-figure;
-for i=1:m
-    set(gcf, 'paperposition',[0 0 1 1])
-    imshow(uint8(image_set(:,:,I(i))), 'InitialMagnification', 'fit')
-    set(gca,'position',[0 0 1 1],'units','normalized')
-    % make green colormap
-    cm_green = gray;
-    cm_green(:,2) = 0;
-    cm_green(:,3) = 0;
-    colormap(cm_green)
-    axis off
-    print(sprintf('dpERK_scat_all_%d',i),fmt,res)
-    clf
-end
+% figure;
+% for i=1:m
+%     set(gcf, 'paperposition',[0 0 1 1])
+%     imshow(uint8(image_set(:,:,I(i))), 'InitialMagnification', 'fit')
+%     set(gca,'position',[0 0 1 1],'units','normalized')
+%     % make green colormap
+%     cm_green = gray;
+%     cm_green(:,2) = 0;
+%     cm_green(:,3) = 0;
+%     colormap(cm_green)
+%     axis off
+%     print(sprintf('dpERK_scat_all_%d',i),fmt,res)
+%     clf
+% end
 
+return
 %% membrane images--scattering
 
 load(sprintf('%s/2d_membrane_scattering_figures.mat', data_dir));

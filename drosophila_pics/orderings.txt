@@ -1,0 +1,39 @@
+PCA Spearman coeff: 0.9244 
+DMAPS Spearman coeff: 0.9209 
+
+ans =
+
+46, 15, 2, 24, 29, 4, 16, 27, 28, 25, 32, 3, 8, 40, 37, 18, 26, 12, 19, 38, 7, 5, 17, 21, 9, 52, 14, 22, 45, 47, 49, 20, 13, 36, 11, 43, 6, 23, 33, 35, 34, 30, 48, 1, 51, 41, 44, 42, 50, 10, 39, 31, 
+
+Angular synchronization Spearman coeff: 0.9164 
+
+ans =
+
+15, 46, 24, 29, 2, 4, 28, 16, 25, 27, 32, 3, 8, 40, 37, 18, 26, 12, 19, 38, 7, 5, 21, 9, 17, 52, 14, 22, 47, 45, 49, 20, 6, 13, 11, 36, 43, 23, 33, 34, 48, 30, 1, 51, 44, 41, 35, 42, 50, 10, 39, 31, 
+
+VDM (1-D) Spearman coeff: 0.9123 
+
+ans =
+
+2, 16, 4, 46, 25, 32, 18, 15, 24, 12, 29, 27, 40, 37, 28, 8, 38, 26, 3, 5, 19, 7, 52, 17, 47, 9, 21, 14, 22, 45, 49, 20, 13, 36, 6, 43, 23, 11, 33, 35, 1, 48, 34, 30, 44, 41, 10, 51, 42, 50, 39, 31, 
+
+VDM (2-D) Spearman coeff: 0.9051 
+
+ans =
+
+15, 2, 46, 24, 29, 28, 4, 25, 16, 32, 37, 8, 40, 27, 3, 18, 26, 12, 7, 38, 21, 19, 5, 9, 17, 47, 22, 52, 14, 45, 33, 49, 20, 13, 1, 36, 6, 23, 11, 34, 51, 43, 30, 42, 48, 35, 44, 50, 10, 41, 31, 39, 
+
+Warning: Could not find appropriate function on path loading function handle
+C:\Users\cdsilva\Documents\MATLAB\scatnet-0.2\core\wavelet_factory_3d.m>@(x)(wavelet_layer_2d(x,filters,wav_opt)) 
+> In make_figures at 400 
+Warning: Could not find appropriate function on path loading function handle
+C:\Users\cdsilva\Documents\MATLAB\scatnet-0.2\core\wavelet_factory_3d.m>@(x)(wavelet_layer_3d(x,filters,filters_rot,wav_opt)) 
+> In make_figures at 400 
+Warning: Could not find appropriate function on path loading function handle
+C:\Users\cdsilva\Documents\MATLAB\scatnet-0.2\core\wavelet_factory_3d.m>@(x)(wavelet_layer_3d(x,filters,filters_rot,wav_opt)) 
+> In make_figures at 400 
+Scattering transform Spearman coeff: 0.9011 
+
+ans =
+
+15, 2, 29, 24, 46, 28, 37, 32, 4, 25, 16, 26, 18, 40, 27, 8, 12, 3, 7, 19, 21, 38, 17, 5, 52, 9, 45, 47, 22, 49, 33, 14, 13, 20, 23, 11, 34, 43, 36, 6, 30, 51, 1, 48, 44, 41, 42, 50, 35, 10, 39, 31, 
