@@ -1,24 +1,43 @@
 \section[Factoring Out Symmetries in Concentration Profiles]{Factoring Out Symmetries in Concentration Profiles}
 
 \begin{frame}{Importance of Symmetries in Data Analysis}
-
-	\centering
-	In the previous analysis, we first needed to determine \\where to open and ``unroll'' the circle to obtain a linear profile.
+	\foreach \i in {15, 19, 30, 42, 45, 10, 36, 46, 47, 51, 27, 24, 28, 48, 38, 52, 34, 20, 50, 17, 6, 22, 16, 39, 33, 21, 2, 41, 9, 29, 14, 4, 8, 35, 31, 3, 40, 44, 13, 7, 18, 32, 11, 43, 25, 49, 5, 26, 23, 37, 12} {	
+	\includegraphics[width=0.05\textwidth]{dpERK_vdm_unaligned_\i}} 
 	
-	\centering
-	\begin{tikzpicture}
-		\node (drosophila_line) {\includegraphics[width=0.2\textwidth]{circle_profile}};
-		\node[right=0.3\textwidth of drosophila_line] (drosophila_circle) {\includegraphics[width=0.25\textwidth, height=0.1in]{line_profile}};
-		\draw[->] (drosophila_line) -- (drosophila_circle) node[above,midway] {``Unroll'' circle};
-	\end{tikzpicture}
+	\drawdownarrow
 	
-	This is done by staining for {\em another} protein (Dorsal) that is expressed only along the ventral midline, and opening each profile at its dorsal midline. 
+	\only<1>{\animategraphics[width=0.25\textwidth]{4}{dpERK_vdm_all_}{2}{52}}
+		
+	\only<2>{
+	\foreach \i in {2,...,52} {
+	\includegraphics[width=0.05\textwidth]{dpERK_vdm_all_\i}
+	}    
+	Note that the images are not only ordered, but also {\bf aligned}.
 	
-	\vspace{0.2in}
-	
-	Instead, we would like to work {\em directly} with the circular concentration profiles, \\ and align the concentration profiles {\em automatically}, \\without staining for a second protein. 
+	We must {\em factoring out} rotational symmetries before (or in conjunction with) ordering the images. 
+	}
 
 \end{frame}
+
+%\begin{frame}{Importance of Symmetries in Data Analysis}
+%
+%	\centering
+%	In the previous analysis, we first needed to determine \\where to open and ``unroll'' the circle to obtain a linear profile.
+%	
+%	\centering
+%	\begin{tikzpicture}
+%		\node (drosophila_line) {\includegraphics[width=0.2\textwidth]{circle_profile}};
+%		\node[right=0.3\textwidth of drosophila_line] (drosophila_circle) {\includegraphics[width=0.25\textwidth, height=0.1in]{line_profile}};
+%		\draw[->] (drosophila_line) -- (drosophila_circle) node[above,midway] {``Unroll'' circle};
+%	\end{tikzpicture}
+%	
+%	This is done by staining for {\em another} protein (Dorsal) that is expressed only along the ventral midline, and opening each profile at its dorsal midline. 
+%	
+%	\vspace{0.2in}
+%	
+%	Instead, we would like to work {\em directly} with the circular concentration profiles, \\ and align the concentration profiles {\em automatically}, \\without staining for a second protein. 
+%
+%\end{frame}
 
 \begin{frame}{Aligning Images Under Rotations}
 	
@@ -75,7 +94,7 @@
 
 If they are inconsistent, this is an indication that there are errors in our alignments.
 	
-	We would like to use {\em all} pairwise alignments, and trust those that are {\em most consistent}.
+	We would like to use {\em all} pairwise alignments in calculating the {\em optimal} rotation for each image, and trust those pairwise alignments that are {\em most consistent}.
 	
 \end{frame}
 
@@ -119,6 +138,10 @@ If they are inconsistent, this is an indication that there are errors in our ali
 
 		The optimal rotations $\hat{\theta_1}, \dots, \hat{\theta_n}$ are given by $e^{i \hat{\theta_i}} = \frac{v_1(i)}{|v_1(i)|}$.
 		\par}
+	\vspace{-0.9in}
+	\hspace{0.85\textwidth}
+	\includegraphics[width=0.1\textwidth]{circle_profile}
+	\vspace{0.4in}	
 	\end{block}	
 	\footcitetext{singer2011angular}
 	

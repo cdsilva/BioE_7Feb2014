@@ -1,26 +1,83 @@
 \section[Background]{Background}
 
-\begin{frame}{Reconstructing Dynamics From Snapshots}
+\begin{frame}{Reconstructing Dynamics from Snapshots}
 
 \centering
-{\bf Goal:} Construct a smooth trajectory from snapshots \footcite{kemelmacher2011exploring}
+We are interested in studying {\bf developmental dynamics}
 
-\includegraphics[width=\textwidth]{photobios}
+\def\figwidth{0.1\textwidth}
 
+\only<1>{
+\begin{tikzpicture}
+\node[draw=red] (fig1) {\includegraphics[width=\figwidth]{frog1}};
+\node[draw=red,right=of fig1] (fig2) {\includegraphics[width=\figwidth]{frog2}};
+\node[draw=red,right=of fig2] (fig3) {\includegraphics[width=\figwidth]{frog3}};
+\node[draw=red,right=of fig3] (fig4) {\includegraphics[width=\figwidth]{frog4}};
+\draw[->] (fig1) -- (fig2);
+\draw[->] (fig2) -- (fig3);
+\draw[->] (fig3) -- (fig4);
+\node[left=of fig1]{Sample};
+\end{tikzpicture}}
+
+\only<2>{
+\begin{tikzpicture}
+\node[] (fig1) {\includegraphics[width=\figwidth]{frog1}};
+\node[draw=red,right=of fig1] (fig2) {\includegraphics[width=\figwidth]{frog2}};
+\node[right=of fig2] (fig3) {\includegraphics[width=\figwidth]{frog3}};
+\node[right=of fig3] (fig4) {\includegraphics[width=\figwidth]{frog4}};
+\draw[->] (fig1) -- (fig2);
+\draw[->] (fig2) -- (fig3);
+\draw[->] (fig3) -- (fig4);
+\node[left=of fig1]{Sample 1};
+\end{tikzpicture}}
+
+\pause
+
+\begin{tikzpicture}
+\node (fig1) {\includegraphics[width=\figwidth]{frog1}};
+\node[right=of fig1] (fig2) {\includegraphics[width=\figwidth]{frog2}};
+\node[draw=red,right=of fig2] (fig3) {\includegraphics[width=\figwidth]{frog3}};
+\node[right=of fig3] (fig4) {\includegraphics[width=\figwidth]{frog4}};
+\draw[->] (fig1) -- (fig2);
+\draw[->] (fig2) -- (fig3);
+\draw[->] (fig3) -- (fig4);
+\node[left=of fig1]{Sample 2};
+\end{tikzpicture}
+
+\begin{tikzpicture}
+\node[draw=red] (fig1) {\includegraphics[width=\figwidth]{frog1}};
+\node[right=of fig1] (fig2) {\includegraphics[width=\figwidth]{frog2}};
+\node[right=of fig2] (fig3) {\includegraphics[width=\figwidth]{frog3}};
+\node[right=of fig3] (fig4) {\includegraphics[width=\figwidth]{frog4}};
+\draw[->] (fig1) -- (fig2);
+\draw[->] (fig2) -- (fig3);
+\draw[->] (fig3) -- (fig4);
+\node[left=of fig1]{Sample 3};
+\end{tikzpicture}
+
+\begin{tikzpicture}
+\node (fig1) {\includegraphics[width=\figwidth]{frog1}};
+\node[right=of fig1] (fig2) {\includegraphics[width=\figwidth]{frog2}};
+\node[right=of fig2] (fig3) {\includegraphics[width=\figwidth]{frog3}};
+\node[draw=red,right=of fig3] (fig4) {\includegraphics[width=\figwidth]{frog4}};
+\draw[->] (fig1) -- (fig2);
+\draw[->] (fig2) -- (fig3);
+\draw[->] (fig3) -- (fig4);
+\node[left=of fig1]{Sample 4};
+\end{tikzpicture}
+
+{\small
 \begin{itemize}
-\item These snapshots can be taken from different viewing angles
-\item We must {\em factor out} the relevant symmetries (e.g. translations and rotations) before constructing a representative trajectory
+\item We cannot obtain one continuous trajectory from one organism ({\bf longitudinal~data}).
+%
+\item Instead, we have one snapshot from the developmental trajectory of each organism ({\bf cross--sectional data})
+%
+\item We need a way to {\em order} the snapshots  to reconstruct the developmental dynamics.
 \end{itemize}
-
-\vspace{0.1in}
-We will construct a representative trajectory of the developmental~dynamics \\ in a {\em Drosophila} embryo from snapshots of the embryo
-
-\foreach \i in {1, 15, 20, 25, 30, 35, 40, 45, 52} {
-	\includegraphics[width=0.1\textwidth]{dpERK_vdm_all_\i}
 }
 \end{frame}
 
-\begin{frame}{ERK Activation in {\em Drosophila}}
+\begin{frame}{Dynamics of ERK Activation in {\em Drosophila}}
 	
 	\centering
 	We would like to reconstruct the spatiotemporal dynamics \\
@@ -68,20 +125,20 @@ We will construct a representative trajectory of the developmental~dynamics \\ i
 \end{frame}
 
 
-\begin{frame}{Images Obtained From {\em Drosophila}}
+\begin{frame}{Fluorescent {\em Drosophila} Images}
 	\foreach \i in {15, 19, 30, 42, 45, 10, 36, 46, 47, 51, 27, 24, 28, 48, 38, 52, 34, 20, 50, 17, 6, 22, 16, 39, 33, 21, 2, 41, 9, 29, 14, 4, 8, 35, 31, 3, 40, 44, 13, 7, 18, 32, 11, 43, 25, 49, 5, 26, 23, 37, 12} {	
 	\includegraphics[width=0.05\textwidth]{dpERK_vdm_unaligned_\i}} 
 	
-	\centering
-	{\LARGE $\downarrow$}
+	\drawdownarrow
 	
 	\only<1>{\animategraphics[width=0.25\textwidth]{4}{dpERK_vdm_all_}{2}{52}}
 		
 	\only<2>{
 	\foreach \i in {2,...,52} {
 	\includegraphics[width=0.05\textwidth]{dpERK_vdm_all_\i}
-	}    
 	}
+	
+	We will discuss how to use data mining techniques to order the raw images so~that we can easily see the developmental dynamics. }
 
 \end{frame}
 

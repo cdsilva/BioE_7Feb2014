@@ -3,6 +3,8 @@
 \usecolortheme{whale}
 \usecolortheme[RGB={245,128,37}]{structure}
 
+\newcommand{\drawdownarrow}{\centering \vspace{0.05in}  {\LARGE $\downarrow$}  \vspace{0.05in}}
+
 \makeatletter
 \setbeamertemplate{footline}
 {
@@ -57,8 +59,8 @@
 \DeclareCiteCommand{\footcite}{}{%
     \footnote{\printnames[author]{author}, \printfield{journaltitle}, \printfield{year}}} {\textsuperscript{,}}{}%
 
-%\DeclareCiteCommand{\footcitetext}{}{%
-%    \footnote{\printnames[author]{author}, \printfield{journaltitle}, \printfield{year}}} {\textsuperscript{,}}{}%    
+\DeclareCiteCommand{\footcitetext}{}{%
+    \footnotetext{\printnames[author]{author}, \printfield{journaltitle}, \printfield{year}}} {\textsuperscript{,}}{}%    
     
 
 \DeclareCiteCommand{\cite}{}{%
