@@ -20,54 +20,6 @@
 
 \end{frame}
 
-%\begin{frame}{How to Address Rotation Invariance in Data Analysis}
-%    There are two ways to view rotation-invariant data
-% 
-% 	\begin{block}{}
-%        \begin{tikzpicture}
-%        	\node[text width=0.3\textwidth] (text1) {{\bf We can use rotations to {\em augment} data} \\ Given a data point $x$, we include all rotations of $x$ in our data set \par};
-%            \node[right=of text1] (fig1) {\includegraphics[width=0.25\textwidth]{drosophila_rot1.jpg}};
-%            \node [right of=fig1, node distance=0.35\textwidth] (fig2) {
-%            \begin{minipage}{0.25\textwidth}
-%                \includegraphics[width=0.45\textwidth]{drosophila_rot1.jpg}
-%                \includegraphics[width=0.45\textwidth]{drosophila_rot3.jpg}\\
-%                \includegraphics[width=0.45\textwidth]{drosophila_rot5.jpg}
-%                \includegraphics[width=0.45\textwidth]{drosophila_rot7.jpg}
-%            \end{minipage}};
-%            \draw [->] (fig1.east) -- (fig2.west);
-%        \end{tikzpicture}
-%        {\scriptsize \em This results in sines and cosines as PCA modes \footnotemark \par}
-%	\end{block}
-%	
-%	\footcitetext{sirovich1987turbulence}
-%	
-%	\vspace{-0.3in}
-%	
-%	\begin{block}{}
-%        \begin{tikzpicture}
-%        	\node [text width=0.3\textwidth] (text1) {{\bf We can use rotations to {\em reduce} data} \\ We first align the data before doing further analysis};
-%            \node[right=of text1] (fig1) {
-%            \begin{minipage}{0.25\textwidth}
-%            \includegraphics[width=0.45\textwidth]{drosophila_rot1.jpg}
-%            \includegraphics[width=0.45\textwidth]{drosophila_rot3.jpg}\\
-%			\includegraphics[width=0.45\textwidth]{drosophila_rot5.jpg}
-%            \includegraphics[width=0.45\textwidth]{drosophila_rot7.jpg}
-%            \end{minipage}};
-%            
-%            \node [right of=fig1, node distance=0.35\textwidth] (fig2) {
-%            \begin{minipage}{0.25\textwidth}
-%            \includegraphics[width=0.45\textwidth]{drosophila_rot1.jpg}
-%            \includegraphics[width=0.45\textwidth]{drosophila_rot1.jpg}\\
-%            \includegraphics[width=0.45\textwidth]{drosophila_rot1.jpg}
-%            \includegraphics[width=0.45\textwidth]{drosophila_rot1.jpg}
-%            \end{minipage}};
-%            \draw [->] (fig1.east) -- (fig2.west);
-%        \end{tikzpicture}
-%	\end{block}
-%
-%    We will {\bf reduce} the data by factoring out the underlying rotations
-%\end{frame}
-
 \begin{frame}{Aligning Images Under Rotations}
 	
 	\begin{itemize}
@@ -115,9 +67,16 @@
 
 \begin{frame}{Issues with Template Alignment: Consistency}
 
+	The rotations that we compute should be {\em consistent} with each other. 
+	
 	\centering
-	\includegraphics[width=0.6\textwidth]{PU_consistency_noisy}
+	\includegraphics[width=0.6\textwidth]{PU_consistency_noisy}\\
+	{\scriptsize $72^{\circ} + 72 ^{\circ} \neq 198^{\circ}$}
 
+If they are inconsistent, this is an indication that there are errors in our alignments.
+	
+	We would like to use {\em all} pairwise alignments, and trust those that are {\em most consistent}.
+	
 \end{frame}
 
 \begin{frame}{Angular Synchronization for Alignment}
