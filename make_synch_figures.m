@@ -162,10 +162,10 @@ figure;
 make_plot(noisy_images, template, r, r1, delta, false, true, opt_angles)
 hold on
 i1 = 1;
-quiver(delta*cos(2*pi*i1/nimages), delta*sin(2*pi*i1/nimages),(r-delta)*cos(2*pi*i1/nimages),(r-delta)*sin(2*pi*i1/nimages),'linewidth',5)
+quiver(delta*cos(2*pi*i1/nimages), delta*sin(2*pi*i1/nimages),(r-delta)*cos(2*pi*i1/nimages),(r-delta)*sin(2*pi*i1/nimages),'linewidth',5, 'maxheadsize', 1)
 i2 = 2;
-quiver(r*cos(2*pi*i1/nimages), r*sin(2*pi*i1/nimages),r*(cos(2*pi*i2/nimages)-cos(2*pi*i1/nimages)),r*(sin(2*pi*i2/nimages)-sin(2*pi*i1/nimages)),'linewidth',5)
-quiver(r*cos(2*pi*i2/nimages), r*sin(2*pi*i2/nimages),-(r-delta)*cos(2*pi*i2/nimages),-(r-delta)*sin(2*pi*i2/nimages),'linewidth',5)
+quiver(r*cos(2*pi*i1/nimages), r*sin(2*pi*i1/nimages),r*(cos(2*pi*i2/nimages)-cos(2*pi*i1/nimages)),r*(sin(2*pi*i2/nimages)-sin(2*pi*i1/nimages)),'linewidth',5, 'maxheadsize', 1)
+quiver(r*cos(2*pi*i2/nimages), r*sin(2*pi*i2/nimages),-(r-delta)*cos(2*pi*i2/nimages),-(r-delta)*sin(2*pi*i2/nimages),'linewidth',5, 'maxheadsize', 1)
 text((r/2)*cos(2*pi*i1/nimages), (r/2)*sin(2*pi*i1/nimages)+0.6*delta, sprintf('%2d%c', opt_angles(i1), char(176)))
 text((r/2)*cos(2*pi*i2/nimages), (r/2)*sin(2*pi*i2/nimages)+0.8*delta, sprintf('%2d%c', 360-opt_angles(i2), char(176)))
 min_dist = inf;
@@ -185,9 +185,9 @@ print('drosophila_pics/PU_consistency_noisy',fmt,res)
 figure;
 make_plot(rot_images, template_clean, r, r1, delta, false, true, opt_angles)
 hold on
-quiver(delta*cos(2*pi*i1/nimages), delta*sin(2*pi*i1/nimages),(r-delta)*cos(2*pi*i1/nimages),(r-delta)*sin(2*pi*i1/nimages),'linewidth',5)
-quiver(r*cos(2*pi*i1/nimages), r*sin(2*pi*i1/nimages),r*(cos(2*pi*i2/nimages)-cos(2*pi*i1/nimages)),r*(sin(2*pi*i2/nimages)-sin(2*pi*i1/nimages)),'linewidth',5)
-quiver(r*cos(2*pi*i2/nimages), r*sin(2*pi*i2/nimages),-(r-delta)*cos(2*pi*i2/nimages),-(r-delta)*sin(2*pi*i2/nimages),'linewidth',5)
+quiver(delta*cos(2*pi*i1/nimages), delta*sin(2*pi*i1/nimages),(r-delta)*cos(2*pi*i1/nimages),(r-delta)*sin(2*pi*i1/nimages),'linewidth',5, 'maxheadsize', 1)
+quiver(r*cos(2*pi*i1/nimages), r*sin(2*pi*i1/nimages),r*(cos(2*pi*i2/nimages)-cos(2*pi*i1/nimages)),r*(sin(2*pi*i2/nimages)-sin(2*pi*i1/nimages)),'linewidth',5, 'maxheadsize', 1)
+quiver(r*cos(2*pi*i2/nimages), r*sin(2*pi*i2/nimages),-(r-delta)*cos(2*pi*i2/nimages),-(r-delta)*sin(2*pi*i2/nimages),'linewidth',5, 'maxheadsize', 1)
 text((r/2)*cos(2*pi*i1/nimages), (r/2)*sin(2*pi*i1/nimages)+0.6*delta, sprintf('%2d%c', opt_angles(i1), char(176)))
 text((r/2)*cos(2*pi*i2/nimages), (r/2)*sin(2*pi*i2/nimages)+0.8*delta, sprintf('%2d%c', 360-opt_angles(i2), char(176)))
 text(r*cos(2*pi*((i1+i2)/2)/nimages), r*sin(2*pi*((i1+i2)/2)/nimages)+0.2*delta, sprintf('%2d%c', deg_rot(min_idx), char(176)))

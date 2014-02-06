@@ -111,6 +111,19 @@ set(gca, 'xtick', [])
 set(gca, 'ytick', [])
 print('data_unordered',fmt,res)
 
+% plot data
+figure;
+imagesc(dpERK)
+hold on
+for i=1:m
+    plot([0 n+1], [i i], 'w', 'linewidth', 2.5)
+end
+ylabel('data point (unordered)')
+xlabel('position')
+set(gca, 'xtick', [])
+set(gca, 'ytick', [])
+print('data_unordered_spaced',fmt,res)
+
 %% plot data ordered by membrane length
 
 % plot data
@@ -209,6 +222,17 @@ set(gca, 'xtick', [])
 set(gca, 'ytick', [])
 print('data_unaligned_unordered',fmt, res)
 
+figure;
+imagesc(dpERK_unaligned)
+hold on
+for i=1:m
+    plot([0 n+1], [i i], 'w', 'linewidth', 2.5)
+end
+xlabel('position (unaligned)')
+ylabel('data point (unordered)')
+set(gca, 'xtick', [])
+set(gca, 'ytick', [])
+print('data_unaligned_unordered_spaced',fmt, res)
 
 % plot alignment with angular synchronization
 figure;
@@ -218,6 +242,17 @@ ylabel('data point (unordered)')
 set(gca, 'xtick', [])
 set(gca, 'ytick', [])
 print('data_aligned_unordered',fmt, res)
+
+figure;
+imagesc(dpERK_aligned)
+for i=1:m
+    plot([0 n+1], [i i], 'w', 'linewidth', 2.5)
+end
+xlabel('position (aligned using angular synchronization)')
+ylabel('data point (unordered)')
+set(gca, 'xtick', [])
+set(gca, 'ytick', [])
+print('data_aligned_unordered_spaced',fmt, res)
 
 % plot dmaps ordering
 figure;

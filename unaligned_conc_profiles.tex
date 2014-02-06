@@ -10,7 +10,7 @@
 	    
 	Note that the images are not only ordered, but also {\bf aligned}.
 	
-	We must {\em factoring out} rotational symmetries before (or in conjunction with) ordering the images. 
+	We must {\em factor out} rotational symmetries before (or in conjunction with) ordering the images. 
 	
 
 \end{frame}
@@ -35,10 +35,10 @@
 %
 %\end{frame}
 
-\begin{frame}{Aligning Images Under Rotations}
+\begin{frame}[t]{Aligning Images Under Rotations}
 	
 	\begin{itemize}
-	\item We assume that we have many {\em rotated} copies of an image.
+	\item We assume that we have many {\em rotated} copies of {\em the same} image.
 	%
 	\item We would like to align the images so that we can perform further analysis that will be {\em invariant} to rotations. 
 	%
@@ -51,21 +51,27 @@
 
 \end{frame}
 
-\begin{frame}{Template-Based Alignment}
+\begin{frame}[t]{Template-Based Alignment}
 	\centering	
 	
 	If we have many images and wish to align them, \\ we can rotate each one until it is optimally aligned with a {\bf template}.
 
 	In this case, we have chosen the template to be one of the images in the dataset.
 
-	\only<1>{\includegraphics[width=0.6\textwidth]{PU_template1_clean}\\
+	\only<1>{
+		\begin{tikzpicture}
+		\node (fig1) {\includegraphics[width=0.6\textwidth]{PU_template1_clean}};
+		\draw [red] (-0.31,-0.31) rectangle (0.31,0.31);
+		\draw [red] (0.89, 1.89) rectangle (1.49,2.49);		
+		\end{tikzpicture}
+		\\
 	{\small \em Images, unaligned. The template is shown in the center. \par}}
 	\only<2>{\includegraphics[width=0.6\textwidth]{PU_template2_clean}\\
 	{\small \em Images, aligned to template. The template is shown in the center. \par}}
 		
 \end{frame}
 
-\begin{frame}{Template-Based Alignment Under Noisy Conditions}
+\begin{frame}[t]{Template-Based Alignment Under Noisy Conditions}
 
 	\centering
 	However, if the images are noisy, 
@@ -80,21 +86,32 @@
 	
 \end{frame}
 
-\begin{frame}{Issues with Template Alignment: Consistency}
+\begin{frame}[t]{Issues with Template Alignment: Consistency}
 
-	The rotations that we compute should be {\em consistent} with each other. 
-	
 	\centering
-	\includegraphics[width=0.6\textwidth]{PU_consistency_noisy}\\
-	{\scriptsize $72^{\circ} + 72 ^{\circ} \neq 198^{\circ}$}
-
+	The rotations that we compute should be {\em consistent} with each other. 
+		
+	\vspace{0.1in}
+	
+	%\begin{overpic}[width=0.6\textwidth,grid,tics=10]{PU_consistency_noisy}
+	\only<1>{	
+	\begin{overpic}[width=0.6\textwidth]{PU_consistency_noisy}
+ 	\put (90,15) {\scriptsize $270^{\circ} + 252 ^{\circ} \neq 342^{\circ}$}
+	\end{overpic}}
+	
+	\only<2>{
+	\begin{overpic}[width=0.6\textwidth]{PU_consistency_clean}
+ 	\put (90,15) {\scriptsize $270^{\circ} + 252 ^{\circ} \neq 342^{\circ}$}
+	\end{overpic}
+	
 Inconsistencies indicate that there are errors in our alignments.
 	
 	We would like to use {\em all} pairwise alignments in calculating the {\em optimal} rotation for each image, and trust those pairwise alignments that are {\em most consistent}.
+	}
 	
 \end{frame}
 
-\begin{frame}{Angular Synchronization for Alignment}
+\begin{frame}[t]{Angular Synchronization for Alignment}
 	
 	Instead, we would like to use each image as a template for every other image, and~then find the most {\em consistent} set of alignments. \\ This is called {\bf angular synchronization} \footcite{singer2011angular}.
 	
@@ -145,7 +162,7 @@ Inconsistencies indicate that there are errors in our alignments.
 	We can use angular synchronization to align the concentration profiles
 	
 	\begin{tikzpicture}
-		\node[] (fig1) {\includegraphics[width=0.25\textwidth]{data_unaligned_unordered}};
+		\node[] (fig1) {\includegraphics[width=0.25\textwidth]{data_unaligned_unordered_spaced}};
 		\node[right of=fig1, node distance=0.35\textwidth] (fig2) {\includegraphics[width=0.25\textwidth]{data_aligned_unordered}};
 		\node[right of=fig2, node distance=0.35\textwidth] (fig3) {\includegraphics[width=0.25\textwidth]{data_ordered_angsynch}};
 		\draw[->] (fig1.east) -- (fig2.west);
@@ -181,7 +198,7 @@ Inconsistencies indicate that there are errors in our alignments.
 
 	\vspace{-0.2in}
 	\begin{tikzpicture}
-		\node[] (fig1) {\includegraphics[width=0.3\textwidth]{data_unaligned_unordered}};
+		\node[] (fig1) {\includegraphics[width=0.3\textwidth]{data_unaligned_unordered_spaced}};
 		\node[right of=fig1, node distance=0.6\textwidth] (fig2) {\includegraphics[width=0.3\textwidth]{data_ordered_vdm}};
 		\draw[->] (fig1.east) -- (fig2.west) node[above,midway, text width=0.3\textwidth, align=center] { Aligned {\em and} ordered using VDM};
 		%\node[below of=fig1, node distance=0.7in, text width=0.4\textwidth]{{\small Profiles are unaligned and unordered \par}};

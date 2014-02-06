@@ -131,11 +131,9 @@ We are interested in studying {\bf developmental dynamics}
 	
 	\drawdownarrow
 	
-	\only<1>{\moviedmaps{0.3\textwidth}}
-	\only<2>{
 	\drawordereddmaps
 	
-	We will discuss how to use data mining techniques to order the raw images so~that we can easily see the developmental dynamics. }
+	We will discuss how to use data mining techniques to order the raw images so~that we can easily see the developmental dynamics.
 
 \end{frame}
 
@@ -159,7 +157,7 @@ We are interested in studying {\bf developmental dynamics}
 	
 	\centering
     \begin{tikzpicture}
-        \node (fig1) {\includegraphics[width=0.3\textwidth]{data_unordered}};
+        \node (fig1) {\includegraphics[width=0.3\textwidth]{data_unordered_spaced}};
         \node[right of=fig1, node distance=0.55\textwidth] (fig2) {\includegraphics[width=0.3\textwidth]{data_ordered_membrane}};
         \draw [->] (fig1.east) -- (fig2.west) node[above,midway] {\tiny Order temporally};
     \end{tikzpicture}

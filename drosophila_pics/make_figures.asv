@@ -111,6 +111,19 @@ set(gca, 'xtick', [])
 set(gca, 'ytick', [])
 print('data_unordered',fmt,res)
 
+% plot data
+figure;
+imagesc(dpERK)
+hold on
+for i=1:m
+    plot([0 n+1], [i i], 'w', 'linewidth', 2.5)
+end
+ylabel('data point (unordered)')
+xlabel('position')
+set(gca, 'xtick', [])
+set(gca, 'ytick', [])
+print('data_unordered_spaced',fmt,res)
+
 %% plot data ordered by membrane length
 
 % plot data
@@ -189,10 +202,12 @@ plot(rankcorr(:,1),rankcorr(:,2),'.')
 % plot(rankcorr(:,1),p(1) .* rankcorr(:,1) + p(2))
 xlabel('ranking from membrane thickness')
 ylabel('ranking from DMAPS')
-text(0.75*m, 0.25*m, sprintf('correlation = %2.2f', corr(rankcorr(:,1),rankcorr(:,2))))
+text(0.65*m, 0.3*m, sprintf('correlation = %2.2f', corr(rankcorr(:,1),rankcorr(:,2))), 'fontsize', 14)
 print('DMAPS_rank_corr',fmt,res)
 
 fprintf('DMAPS Spearman coeff: %2.4f \n', corr(L(:,1), V_dmaps(:,2), 'type','spearman'));
+sprintf('%d, ', I)
+
 
 %% alignment
 
@@ -207,6 +222,17 @@ set(gca, 'xtick', [])
 set(gca, 'ytick', [])
 print('data_unaligned_unordered',fmt, res)
 
+figure;
+imagesc(dpERK_unaligned)
+hold on
+for i=1:m
+    plot([0 n+1], [i i], 'w', 'linewidth', 2.5)
+end
+xlabel('position (unaligned)')
+ylabel('data point (unordered)')
+set(gca, 'xtick', [])
+set(gca, 'ytick', [])
+print('data_unaligned_unordered_spaced',fmt, res)
 
 % plot alignment with angular synchronization
 figure;
@@ -216,6 +242,17 @@ ylabel('data point (unordered)')
 set(gca, 'xtick', [])
 set(gca, 'ytick', [])
 print('data_aligned_unordered',fmt, res)
+
+figure;
+imagesc(dpERK_aligned)
+for i=1:m
+    plot([0 n+1], [i i], 'w', 'linewidth', 2.5)
+end
+xlabel('position (aligned using angular synchronization)')
+ylabel('data point (unordered)')
+set(gca, 'xtick', [])
+set(gca, 'ytick', [])
+print('data_aligned_unordered_spaced',fmt, res)
 
 % plot dmaps ordering
 figure;
@@ -233,7 +270,7 @@ xlabel('membrane thickness')
 ylabel('$\phi_2$','interpreter','latex')
 print('angsynch_time_corr',fmt, res)
 fprintf('Angular synchronization Spearman coeff: %2.4f \n', corr(L(:,1),V_dmaps(:,2), 'type','spearman'));
-
+sprintf('%d, ', I)
 
 % VDM
 
@@ -264,6 +301,8 @@ ylabel(sprintf('$\\langle \\phi_%d, \\phi_%d \\rangle$', embed_idx(1, coord_idx)
 print('VDM_time_corr',fmt, res)
 
 fprintf('VDM (1-D) Spearman coeff: %2.4f \n', corr(L(:,1),embed_coord(:, coord_idx), 'type','spearman'));
+sprintf('%d, ', idx)
+
 
 %% raw dpERK images-- synchronization
 
@@ -297,6 +336,8 @@ for i=1:length(im_save_idx)
 end
 
 fprintf('VDM (2-D) Spearman coeff: %2.4f \n', corr(L(:,1),embed_coord(:,coord_idx), 'type','spearman'));
+sprintf('%d, ', I)
+
 
 figure;
 for i=1:length(im_save_idx)
@@ -316,7 +357,7 @@ end
 figure;
 for i=1:m
     set(gcf, 'paperposition',[0 0 1 1])
-    imshow(uint8(image_set_aligned_vdm(:,:,I(i))), 'InitialMagnification', 'fit')
+    imshow(uint8(image_set_aligned_vdm(:,:,i)), 'InitialMagnification', 'fit')
     set(gca,'position',[0 0 1 1],'units','normalized')
     % make red colormap
     cm_green = gray;
@@ -324,14 +365,14 @@ for i=1:m
     cm_green(:,3) = 0;
     colormap(cm_green)
     axis off
-    print(sprintf('dpERK_vdm_all_%d',i),fmt,res)
+    print(sprintf('dpERK_aligned_%d',i),fmt,res)
     clf
 end
 
 figure;
 for i=1:m
     set(gcf, 'paperposition',[0 0 1 1])
-    imshow(uint8(image_set(:,:,I(i))), 'InitialMagnification', 'fit')
+    imshow(uint8(image_set(:,:,i)), 'InitialMagnification', 'fit')
     set(gca,'position',[0 0 1 1],'units','normalized')
     % make red colormap
     cm_green = gray;
@@ -339,9 +380,40 @@ for i=1:m
     cm_green(:,3) = 0;
     colormap(cm_green)
     axis off
-    print(sprintf('dpERK_vdm_unaligned_%d',i),fmt,res)
+    print(sprintf('dpERK_unaligned_%d',i),fmt,res)
     clf
 end
+
+% figure;
+% for i=1:m
+%     set(gcf, 'paperposition',[0 0 1 1])
+%     imshow(uint8(image_set_aligned_vdm(:,:,I(i))), 'InitialMagnification', 'fit')
+%     set(gca,'position',[0 0 1 1],'units','normalized')
+%     % make red colormap
+%     cm_green = gray;
+%     cm_green(:,2) = 0;
+%     cm_green(:,3) = 0;
+%     colormap(cm_green)
+%     axis off
+%     print(sprintf('dpERK_vdm_all_%d',i),fmt,res)
+%     clf
+% end
+% 
+% 
+% figure;
+% for i=1:m
+%     set(gcf, 'paperposition',[0 0 1 1])
+%     imshow(uint8(image_set(:,:,I(i))), 'InitialMagnification', 'fit')
+%     set(gca,'position',[0 0 1 1],'units','normalized')
+%     % make red colormap
+%     cm_green = gray;
+%     cm_green(:,2) = 0;
+%     cm_green(:,3) = 0;
+%     colormap(cm_green)
+%     axis off
+%     print(sprintf('dpERK_vdm_unaligned_%d',i),fmt,res)
+%     clf
+% end
 
 % figure;
 % for i=1:m
@@ -388,6 +460,8 @@ for i=1:length(im_save_idx)
     clf
 end
 fprintf('Scattering transform Spearman coeff: %2.4f \n', corr(L(:,1),V(:,2), 'type','spearman'));
+sprintf('%d, ', I)
+
 
 figure;
 for i=1:length(im_save_idx)
@@ -404,21 +478,22 @@ for i=1:length(im_save_idx)
     clf
 end
 
-figure;
-for i=1:m
-    set(gcf, 'paperposition',[0 0 1 1])
-    imshow(uint8(image_set(:,:,I(i))), 'InitialMagnification', 'fit')
-    set(gca,'position',[0 0 1 1],'units','normalized')
-    % make green colormap
-    cm_green = gray;
-    cm_green(:,2) = 0;
-    cm_green(:,3) = 0;
-    colormap(cm_green)
-    axis off
-    print(sprintf('dpERK_scat_all_%d',i),fmt,res)
-    clf
-end
+% figure;
+% for i=1:m
+%     set(gcf, 'paperposition',[0 0 1 1])
+%     imshow(uint8(image_set(:,:,I(i))), 'InitialMagnification', 'fit')
+%     set(gca,'position',[0 0 1 1],'units','normalized')
+%     % make green colormap
+%     cm_green = gray;
+%     cm_green(:,2) = 0;
+%     cm_green(:,3) = 0;
+%     colormap(cm_green)
+%     axis off
+%     print(sprintf('dpERK_scat_all_%d',i),fmt,res)
+%     clf
+% end
 
+return
 %% membrane images--scattering
 
 load(sprintf('%s/2d_membrane_scattering_figures.mat', data_dir));
