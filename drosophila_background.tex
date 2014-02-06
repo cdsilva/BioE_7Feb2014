@@ -126,20 +126,14 @@ We are interested in studying {\bf developmental dynamics}
 
 
 \begin{frame}{Fluorescent {\em Drosophila} Images}
-	\foreach \i in {1,...,51} {	
-	\includegraphics[width=0.05\textwidth]{dpERK_unaligned_\i}} 
-	
-	%\foreach \i \in {1,...,51} {
-	%\includegraphics[width=0.05\textwidth]{dpERK_vdm_unaligned_\i}} 
+	 
+	\drawunordered
 	
 	\drawdownarrow
 	
-	\only<1>{\animategraphics[width=0.25\textwidth]{4}{dpERK_vdm_all_}{2}{52}}
-		
+	\only<1>{\moviedmaps{0.3\textwidth}}
 	\only<2>{
-	\foreach \i in {15, 2, 46, 24, 29, 28, 4, 25, 16, 32, 37, 8, 40, 27, 3, 18, 26, 12, 7, 38, 21, 19, 5, 9, 17, 47, 22, 52, 14, 45, 33, 49, 20, 13, 1, 36, 6, 23, 11, 34, 51, 43, 30, 42, 48, 35, 44, 50, 10, 41, 31, 39} {
-	\includegraphics[width=0.05\textwidth]{dpERK_aligned_\i}
-	}
+	\drawordereddmaps
 	
 	We will discuss how to use data mining techniques to order the raw images so~that we can easily see the developmental dynamics. }
 
@@ -171,6 +165,5 @@ We are interested in studying {\bf developmental dynamics}
     \end{tikzpicture}
 	
 	We will discuss how we can do each of these steps in the data analysis pipeline {\em automatically} using data mining techniques. 
-	%We would like to order the snapshots {\em without} measuring the membrane thickness.
 	
 \end{frame}

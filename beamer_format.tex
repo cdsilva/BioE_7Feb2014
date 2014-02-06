@@ -68,3 +68,37 @@
 
 \let\oldfootnotesize\footnotesize
 \renewcommand*{\footnotesize}{\oldfootnotesize\tiny}
+
+\def\imagelength{0.05\textwidth}
+
+\newcommand{\drawunordered}{
+	\foreach \i in {2,...,52} {	
+	\includegraphics[width=\imagelength]{dpERK_unaligned_\i}}
+}
+
+\newcommand{\drawordereddmaps}{
+	\foreach \i in {2,...,52} {	
+	\includegraphics[width=\imagelength]{dmaps/dpERK_\i}}
+} 
+
+\newcommand{\draworderedvdm}{
+	\foreach \i in {2,...,52} {	
+	\includegraphics[width=\imagelength]{vdm_2d/dpERK_\i}}
+} 
+
+\newcommand{\draworderedscat}{
+	\foreach \i in {2,...,52} {	
+	\includegraphics[width=\imagelength]{scat/dpERK_\i}}
+} 
+
+\def\moviewidth{0.3\textwidth}
+\newcommand{\moviedmaps}[1] {
+	\animategraphics[width=#1]{6}{dmaps/dpERK_}{2}{52}
+}
+
+\newcommand{\movievdm}[1] {
+	\animategraphics[width=#1]{6}{vdm_2d/dpERK_}{2}{52}
+}
+
+
+	
