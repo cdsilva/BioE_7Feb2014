@@ -66,7 +66,13 @@
 		\end{tikzpicture}
 		\\
 	{\small \em Images, unaligned. The template is shown in the center. \par}}
-	\only<2>{\includegraphics[width=0.6\textwidth]{PU_template2_clean}\\
+	\only<2>{
+		\begin{tikzpicture}
+		\node (fig1) {\includegraphics[width=0.6\textwidth]{PU_template2_clean}};
+		%\draw [red] (-0.31,-0.31) rectangle (0.31,0.31);
+		%\draw [red] (0.89, 1.89) rectangle (1.49,2.49);		
+		\end{tikzpicture}
+		\\
 	{\small \em Images, aligned to template. The template is shown in the center. \par}}
 		
 \end{frame}
@@ -93,21 +99,14 @@
 		
 	\vspace{0.1in}
 	
-	%\begin{overpic}[width=0.6\textwidth,grid,tics=10]{PU_consistency_noisy}
-	\only<1>{	
+	%\begin{overpic}[width=0.6\textwidth,grid,tics=10]{PU_consistency_noisy}	
 	\begin{overpic}[width=0.6\textwidth]{PU_consistency_noisy}
- 	\put (90,15) {\scriptsize $270^{\circ} + 252 ^{\circ} \neq 342^{\circ}$}
-	\end{overpic}}
-	
-	\only<2>{
-	\begin{overpic}[width=0.6\textwidth]{PU_consistency_clean}
  	\put (90,15) {\scriptsize $270^{\circ} + 252 ^{\circ} \neq 342^{\circ}$}
 	\end{overpic}
 	
 Inconsistencies indicate that there are errors in our alignments.
 	
 	We would like to use {\em all} pairwise alignments in calculating the {\em optimal} rotation for each image, and trust those pairwise alignments that are {\em most consistent}.
-	}
 	
 \end{frame}
 
@@ -115,17 +114,18 @@ Inconsistencies indicate that there are errors in our alignments.
 	
 	Instead, we would like to use each image as a template for every other image, and~then find the most {\em consistent} set of alignments. \\ This is called {\bf angular synchronization} \footcite{singer2011angular}.
 	
-	\begin{minipage}{0.55\textwidth}	
+	\begin{minipage}[t]{0.55\textwidth}	
+	\vspace{0in}
 	\centering
-	\only<1>{\includegraphics[width=\textwidth]{PU_angsynch1} \\
+	\only<1>{\includegraphics[width=0.9\textwidth]{PU_angsynch1} \\
 	{\small \em Images, unaligned, \\now corrupted with white Gaussian noise. \par}}
-	\only<2>{\includegraphics[width=\textwidth]{PU_angsynch2}\\
+	\only<2>{\includegraphics[width=0.9\textwidth]{PU_angsynch2}\\
 	{\small \em Images, aligned using angular synchronization. \par}}
-	\only<3>{\includegraphics[width=\textwidth]{PU_angsynch3} \\
+	\only<3>{\includegraphics[width=0.9\textwidth]{PU_angsynch3} \\
 	{\small \em Images, aligned using angular synchronization and then denoised. \par}}
 	\end{minipage}
 	%
-	\begin{minipage}{0.4\textwidth}
+	\begin{minipage}[t]{0.4\textwidth}
 	{\small
 	\begin{itemize}
 	\item We compute the angle $\theta_{ij}$ that optimally aligns image $i$ to image $j$ for every pair $i, j$.

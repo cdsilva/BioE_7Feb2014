@@ -19,7 +19,7 @@
 		\begin{block}{DMAPS Algorithm}
 		{\scriptsize 
 		Calculate weight matrix $W$, where
-		$$W_{ij} = exp\left( -\frac{d^2(x_i, x_j)}{\epsilon} \right).$$
+		$$W_{ij} = exp\left( -\frac{d^2(\vec{x_i}, \vec{x_j})}{\epsilon} \right).$$
 		Calculate diagonal matrix $D$ with $D_{ii} = \sum_j W_{ij}.$
 		
 		The embedding coordinates are given by the {\bf top~eigenvectors} of $A=D^{-1}W$.
